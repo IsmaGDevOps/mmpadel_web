@@ -63,6 +63,7 @@ npm run demo       # opcional: tarifas, entrenadores, eventos, FAQ y píldoras d
 | Preguntas frecuentes | *Preguntas frecuentes* (con categorías) |
 | Teléfono, WhatsApp, dirección, horario, redes sociales, enlaces, email de avisos, datos legales | *Ajustes → MMPadel* |
 | Fotos (entrenadores, clases, eventos, píldoras) | *Medios* (Biblioteca de medios) |
+| Foto de portada de una página | *Imagen destacada* de la página (sustituye a la foto del tema, ver `themes/mmpadel/assets/images/README.md`) |
 | Menús | *Apariencia → Menús* |
 | Solicitudes recibidas | *Solicitudes* (solo administradores) |
 
@@ -131,7 +132,7 @@ docs/                   Documentación del cliente (no se versiona)
 ## Pendiente
 
 **Contenido y diseño**
-- Diseño final: tipografía de marca (alojada en el propio servidor, en `theme.json`), fotos reales y revisión visual completa. El logo y los colores (azul `#2A2763` del logo y amarillo pelota `#D7F25C` como acento) ya están aplicados.
+- Diseño final: tipografía de marca (alojada en el propio servidor, en `theme.json`), fotos reales (las portadas actuales son genéricas y provisionales, ver `themes/mmpadel/assets/images/portadas/CREDITOS.md`) y revisión visual completa. El logo y los colores (azul `#2A2763` del logo y amarillo pelota `#D7F25C` como acento) ya están aplicados.
 - Textos definitivos, tarifas reales, equipo y FAQ. Borrar el contenido de ejemplo con `wp mmpadel demo --borrar`.
 - Widget oficial de reseñas de Google en *Opiniones*.
 

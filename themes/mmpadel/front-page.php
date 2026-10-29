@@ -1,6 +1,8 @@
 <?php
 /**
  * Portada. Sin título de página: el H1 va en el bloque de cabecera del contenido.
+ * La foto de portada (ver mmpadel_theme_cover()) se pasa como variable CSS y
+ * la usa de fondo el grupo con la clase mmpadel-hero.
  *
  * Si la portada muestra las últimas entradas en vez de una página, se usa el listado.
  *
@@ -21,7 +23,7 @@ get_header();
 	while ( have_posts() ) :
 		the_post();
 		?>
-		<div class="entry-content is-layout-constrained has-global-padding">
+		<div class="entry-content is-layout-constrained has-global-padding"<?php echo mmpadel_theme_cover_style( mmpadel_theme_cover() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en la función. ?>>
 			<?php the_content(); ?>
 		</div>
 		<?php

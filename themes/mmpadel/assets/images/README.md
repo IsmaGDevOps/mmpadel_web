@@ -18,6 +18,23 @@ Si se sube un logo en *Personalizar → Identidad del sitio*, ese tiene priorida
 
 En las plantillas PHP las imágenes de esta carpeta se usan con `mmpadel_theme_image_url( 'logo-blanco.webp' )`.
 
+## Fotos de portada (`portadas/`)
+
+Fotos de fondo de la portada de inicio y de la franja de título de algunas páginas, bajo un velo azul de marca. Cada página usa `portadas/{slug}.webp` (escritorio, 1920×1080) y `portadas/{slug}-movil.webp` (móvil, 1000×1000). Ahora hay fotos genéricas provisionales para `inicio`, `metodologia`, `clases-y-tarifas`, `pools-y-eventos` y `equipo` (origen y licencia en [portadas/CREDITOS.md](portadas/CREDITOS.md)).
+
+Para cambiar una portada hay dos formas:
+
+1. **Desde el panel (la más sencilla):** poner una *Imagen destacada* en la página. Tiene prioridad sobre los archivos de esta carpeta y vale para cualquier página.
+2. **Con archivos:** generar las dos versiones desde una foto propia y sustituir las actuales:
+
+   ```bash
+   python dev/portada.py ruta/a/la/foto.jpg metodologia
+   ```
+
+   Si se sustituye `{slug}.webp` a mano, hay que sustituir o borrar también `{slug}-movil.webp`; si no, en el móvil se seguiría viendo la foto anterior.
+
+Para quitar la foto de una página, se borran sus dos archivos: la página vuelve a la cabecera sin foto.
+
 ## Qué NO va aquí
 
 Las fotos de **contenido** se suben a la *Biblioteca de medios* del panel, no a esta carpeta:

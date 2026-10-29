@@ -115,6 +115,21 @@ function mmpadel_theme_js_class() {
 add_action( 'wp_head', 'mmpadel_theme_js_class', 1 );
 
 /**
+ * Clase en body para las páginas interiores con foto de portada: la franja
+ * de la foto empieza justo bajo la cabecera.
+ *
+ * @param string[] $classes Clases del body.
+ * @return string[]
+ */
+function mmpadel_theme_body_class( $classes ) {
+	if ( is_page() && ! is_front_page() && mmpadel_theme_cover( get_queried_object_id() ) ) {
+		$classes[] = 'tiene-portada';
+	}
+	return $classes;
+}
+add_filter( 'body_class', 'mmpadel_theme_body_class' );
+
+/**
  * Extracto más corto para las tarjetas.
  *
  * @return int

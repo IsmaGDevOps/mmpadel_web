@@ -270,7 +270,8 @@ a {
 /* En zonas oscuras el contorno de foco pasa a amarillo para que se vea. */
 .site-header,
 .site-footer,
-.mmpadel-hero {
+.mmpadel-hero,
+.page-hero {
 	--mmpadel-focus: 3px solid var(--mmpadel-color-acento);
 }
 
@@ -544,10 +545,54 @@ a {
 }
 
 /* Secciones (clases CSS adicionales en bloques Grupo) */
+/*
+ * Portadas con foto (portada de inicio y franja de título de las páginas).
+ * La foto llega como --mmpadel-portada / --mmpadel-portada-movil (ver
+ * mmpadel_theme_cover()) y va bajo un velo del azul de marca para que el
+ * texto blanco se lea siempre. Sin foto, queda el azul liso.
+ */
+.mmpadel-hero,
+.page-hero {
+	/* 72 % de opacidad: incluso sobre una zona blanca de la foto, el texto blanco
+	   queda a 5,6:1 de contraste (AA pide 4,5:1). No bajar de ahí. */
+	--mmpadel-velo: linear-gradient(
+		color-mix(in srgb, var(--mmpadel-color-primario) 72%, transparent),
+		color-mix(in srgb, var(--mmpadel-color-primario-oscuro) 88%, transparent)
+	);
+	background-color: var(--mmpadel-color-primario);
+	background-image: var(--mmpadel-velo), var(--mmpadel-portada-movil, none);
+	background-position: center;
+	background-size: cover;
+	color: var(--mmpadel-color-fondo);
+}
+
+@media (min-width: 48em) {
+	.mmpadel-hero,
+	.page-hero {
+		background-image: var(--mmpadel-velo), var(--mmpadel-portada, none);
+	}
+}
+
 .mmpadel-hero {
 	padding-block: var(--mmpadel-space-xl);
-	background: var(--mmpadel-color-primario);
-	color: var(--mmpadel-color-fondo);
+}
+
+.page-hero {
+	margin-bottom: var(--mmpadel-space-lg);
+	padding-block: var(--mmpadel-space-xl) var(--mmpadel-space-lg);
+}
+
+.page-hero .entry-header {
+	margin-bottom: 0;
+}
+
+.page-hero .entry-title {
+	color: inherit;
+	text-wrap: balance;
+}
+
+.tiene-portada .site-main {
+	padding-top: 0;
 }
 
 .mmpadel-hero h1 {

@@ -75,6 +75,59 @@ function mmpadel_theme_image_url( $file ) {
 }
 
 /**
+ * Foto de portada de una página, por orden de preferencia:
+ * 1. Su imagen destacada (se cambia desde el editor).
+ * 2. assets/images/portadas/{slug}.webp del tema (y {slug}-movil.webp para móvil).
+ *
+ * @param int|WP_Post|null $post Página; por defecto la actual.
+ * @return array{grande: string, movil: string}|null URLs, o null si no tiene.
+ */
+function mmpadel_theme_cover( $post = null ) {
+	$post = get_post( $post );
+	if ( ! $post || 'page' !== $post->post_type ) {
+		return null;
+	}
+
+	if ( has_post_thumbnail( $post ) ) {
+		$id = get_post_thumbnail_id( $post );
+		return array(
+			'grande' => (string) wp_get_attachment_image_url( $id, '2048x2048' ),
+			'movil'  => (string) wp_get_attachment_image_url( $id, 'large' ),
+		);
+	}
+
+	$file = 'portadas/' . $post->post_name;
+	if ( ! file_exists( get_theme_file_path( 'assets/images/' . $file . '.webp' ) ) ) {
+		return null;
+	}
+	$movil = file_exists( get_theme_file_path( 'assets/images/' . $file . '-movil.webp' ) ) ? $file . '-movil' : $file;
+
+	return array(
+		'grande' => mmpadel_theme_image_url( $file . '.webp' ),
+		'movil'  => mmpadel_theme_image_url( $movil . '.webp' ),
+	);
+}
+
+/**
+ * Atributo style con las variables CSS de la portada (--mmpadel-portada y
+ * --mmpadel-portada-movil). Vacío si no hay portada.
+ *
+ * @param array|null $cover Resultado de mmpadel_theme_cover().
+ * @return string Atributo ya escapado, con espacio inicial.
+ */
+function mmpadel_theme_cover_style( $cover ) {
+	if ( ! $cover ) {
+		return '';
+	}
+	$style = sprintf(
+		'--mmpadel-portada:url("%1$s");--mmpadel-portada-movil:url("%2$s")',
+		esc_url( $cover['grande'] ),
+		esc_url( $cover['movil'] )
+	);
+	return ' style="' . esc_attr( $style ) . '"';
+}
+
+/**
  * URL de una página por su slug, con la ruta prevista como reserva.
  *
  * @param string $slug Slug de la página.
