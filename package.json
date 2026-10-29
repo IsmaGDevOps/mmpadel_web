@@ -1,0 +1,25 @@
+{
+  "name": "mmpadel",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Web de captación de MMPadel (WordPress): tema mmpadel y plugin mmpadel-core.",
+  "license": "GPL-2.0-or-later",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "env": "node dev/wp-env.js",
+    "start": "node dev/wp-env.js start",
+    "stop": "node dev/wp-env.js stop",
+    "setup": "node dev/wp-env.js run cli wp language core install es_ES --activate && node dev/wp-env.js run cli wp rewrite structure /%postname%/ --hard && node dev/wp-env.js run cli wp theme activate mmpadel && node dev/wp-env.js run cli wp option update timezone_string Europe/Madrid",
+    "wp": "node dev/wp-env.js run cli wp",
+    "destroy": "node dev/wp-env.js destroy",
+    "mail": "node dev/wp-env.js run cli cat wp-content/mmpadel-mail.log",
+    "lint:install": "node dev/wp-env.js run cli --env-cwd=wp-content/mmpadel composer install",
+    "lint": "node dev/wp-env.js run cli --env-cwd=wp-content/mmpadel vendor/bin/phpcs",
+    "lint:fix": "node dev/wp-env.js run cli --env-cwd=wp-content/mmpadel vendor/bin/phpcbf"
+  },
+  "devDependencies": {
+    "@wordpress/env": "11.17.0"
+  }
+}

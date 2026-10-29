@@ -1,0 +1,35 @@
+# Documentación del cliente (presupuesto y datos internos): no se versiona.
+/docs/
+
+# Dependencias
+node_modules/
+vendor/
+
+# WordPress: contenido subido y configuración con credenciales
+uploads/
+wp-config.php
+wp-config-local.php
+.env
+.env.*
+!.env.example
+*.sql
+*.sql.gz
+
+# wp-env: ajustes personales de cada desarrollador
+.wp-env.override.json
+
+# Logs (incluido el del mu-plugin de correo en local)
+*.log
+/dev/logs/
+
+# Caché de herramientas
+.phpcs-cache
+.phpunit.result.cache
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp

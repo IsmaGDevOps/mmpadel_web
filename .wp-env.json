@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/wp-env.json",
+  "core": null,
+  "phpVersion": "8.2",
+  "testsEnvironment": false,
+  "themes": [ "./themes/mmpadel" ],
+  "plugins": [ "./plugins/mmpadel-core" ],
+  "config": {
+    "WP_DEBUG": true,
+    "WP_DEBUG_LOG": true,
+    "WP_DEBUG_DISPLAY": false,
+    "SCRIPT_DEBUG": true,
+    "WP_ENVIRONMENT_TYPE": "local"
+  },
+  "mappings": {
+    "wp-content/mu-plugins/mmpadel-dev-mail.php": "./dev/mmpadel-dev-mail.php",
+    "wp-content/mmpadel": "."
+  }
+}

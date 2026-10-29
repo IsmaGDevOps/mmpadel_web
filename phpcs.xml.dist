@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ruleset name="MMPadel">
+	<description>Estándares de WordPress para el tema mmpadel y el plugin mmpadel-core.</description>
+
+	<file>./themes/mmpadel</file>
+	<file>./plugins/mmpadel-core</file>
+	<file>./dev</file>
+
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg name="cache" value=".phpcs-cache"/>
+	<arg value="sp"/>
+
+	<config name="testVersion" value="8.1-"/>
+	<config name="minimum_wp_version" value="6.5"/>
+
+	<rule ref="WordPress"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Prefijos obligatorios para todo lo global. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="mmpadel"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Dominios de traducción válidos. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="mmpadel"/>
+				<element value="mmpadel-core"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
