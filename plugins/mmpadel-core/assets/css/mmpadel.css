@@ -330,7 +330,7 @@
 }
 
 .mmpadel-campo legend,
-.mmpadel-campo > label {
+.mmpadel-campo > label:not(.mmpadel-opcion) {
 	display: block;
 	margin-bottom: 0.375rem;
 	padding: 0;
@@ -418,13 +418,17 @@
 }
 
 .mmpadel-opcion--consentimiento {
+	display: flex;
 	align-items: flex-start;
 	border-radius: var(--mmpadel-radius, 12px);
 }
 
+/* La casilla se centra con la primera línea, aunque el texto ocupe varias. */
 .mmpadel-opcion--consentimiento input {
-	margin-top: 0.2rem;
 	flex-shrink: 0;
+	font: inherit; /* 1lh = altura de línea del texto, no la del input */
+	margin-top: 0.25em;
+	margin-top: calc((1lh - 1.125rem) / 2);
 }
 
 .mmpadel-info-privacidad {
