@@ -1,0 +1,15 @@
+/**
+ * Estilos del editor de bloques. theme.json ya aplica colores y tipografía;
+ * aquí solo lo que hace falta para que el editor se parezca al front.
+ */
+.button {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+	padding: 0.625rem 1.25rem;
+	border-radius: 999px;
+	background: var(--wp--preset--color--primario);
+	color: var(--wp--preset--color--fondo);
+	font-weight: 600;
+	text-decoration: none;
+}

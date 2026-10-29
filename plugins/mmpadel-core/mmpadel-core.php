@@ -3,7 +3,7 @@
  * Plugin Name:       MMPadel Core
  * Description:       Contenidos y lógica de la web de MMPadel: tarifas, entrenadores, pools y eventos, preguntas frecuentes, formulario «Encuentra tu grupo» y solicitudes.
  * Version:           0.1.0
- * Requires at least: 6.5
+ * Requires at least: 6.6
  * Requires PHP:      8.1
  * Author:            MMPadel
  * License:           GPL-2.0-or-later

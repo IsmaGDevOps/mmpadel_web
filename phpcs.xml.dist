@@ -15,7 +15,7 @@
 	<arg value="sp"/>
 
 	<config name="testVersion" value="8.1-"/>
-	<config name="minimum_wp_version" value="6.5"/>
+	<config name="minimum_wp_version" value="6.6"/>
 
 	<rule ref="WordPress"/>
 	<rule ref="PHPCompatibilityWP"/>

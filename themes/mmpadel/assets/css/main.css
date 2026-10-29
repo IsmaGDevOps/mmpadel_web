@@ -1,0 +1,666 @@
+/**
+ * MMPadel – estilos base (provisionales, pendientes del diseño final).
+ *
+ * Los colores, tipografías y tamaños salen de theme.json como
+ * --wp--preset--*. Aquí se definen alias --mmpadel-* para no repetir los
+ * nombres largos y poder cambiar la marca en un solo sitio.
+ * Mobile first: los estilos base son para móvil; los min-width amplían.
+ */
+
+/* ------------------------------------------------------------------ *
+ * 1. Variables
+ * ------------------------------------------------------------------ */
+:root {
+	--mmpadel-color-primario: var(--wp--preset--color--primario, #0e5c4a);
+	--mmpadel-color-primario-oscuro: var(--wp--preset--color--primario-oscuro, #08392e);
+	--mmpadel-color-acento: var(--wp--preset--color--acento, #d7f25c);
+	--mmpadel-color-texto: var(--wp--preset--color--texto, #1b1f1d);
+	--mmpadel-color-texto-suave: var(--wp--preset--color--texto-suave, #55605b);
+	--mmpadel-color-fondo: var(--wp--preset--color--fondo, #fff);
+	--mmpadel-color-fondo-suave: var(--wp--preset--color--fondo-suave, #f3f6f4);
+	--mmpadel-color-borde: var(--wp--preset--color--borde, #dce3df);
+	--mmpadel-color-error: #b42318;
+	--mmpadel-color-ok: #157f3b;
+
+	--mmpadel-font-base: var(--wp--preset--font-family--base, system-ui, sans-serif);
+	--mmpadel-font-titulos: var(--wp--preset--font-family--titulos, system-ui, sans-serif);
+	--mmpadel-font-size-sm: var(--wp--preset--font-size--small, 0.875rem);
+	--mmpadel-font-size-md: var(--wp--preset--font-size--medium, 1.0625rem);
+	--mmpadel-font-size-lg: var(--wp--preset--font-size--large, 1.375rem);
+	--mmpadel-font-size-xl: var(--wp--preset--font-size--x-large, 2rem);
+
+	--mmpadel-space-xs: var(--wp--preset--spacing--20, 0.5rem);
+	--mmpadel-space-sm: var(--wp--preset--spacing--30, 1rem);
+	--mmpadel-space-md: var(--wp--preset--spacing--40, 1.5rem);
+	--mmpadel-space-lg: var(--wp--preset--spacing--50, 3rem);
+	--mmpadel-space-xl: var(--wp--preset--spacing--60, 5rem);
+
+	--mmpadel-gutter: 1rem;
+	--mmpadel-wide: var(--wp--style--global--wide-size, 1200px);
+	--mmpadel-content: var(--wp--style--global--content-size, 720px);
+	--mmpadel-radius: 12px;
+	--mmpadel-radius-pill: 999px;
+	--mmpadel-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 4px 16px rgb(0 0 0 / 0.06);
+	--mmpadel-header-height: 4rem;
+	--mmpadel-focus: 3px solid var(--mmpadel-color-acento);
+}
+
+/* ------------------------------------------------------------------ *
+ * 2. Base
+ * ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	scroll-padding-top: calc(var(--mmpadel-header-height) + 1rem);
+}
+
+body {
+	margin: 0;
+	background: var(--mmpadel-color-fondo);
+	color: var(--mmpadel-color-texto);
+	font-family: var(--mmpadel-font-base);
+	overflow-x: hidden;
+}
+
+img,
+video,
+iframe {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	text-underline-offset: 0.15em;
+}
+
+:focus-visible {
+	outline: var(--mmpadel-focus);
+	outline-offset: 2px;
+}
+
+.screen-reader-text {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+.skip-link:focus {
+	position: fixed !important;
+	top: 0.5rem;
+	left: 0.5rem;
+	z-index: 1000;
+	width: auto;
+	height: auto;
+	margin: 0;
+	padding: 0.75rem 1rem;
+	clip: auto;
+	clip-path: none;
+	background: var(--mmpadel-color-fondo);
+	color: var(--mmpadel-color-texto);
+	box-shadow: var(--mmpadel-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
+}
+
+/* ------------------------------------------------------------------ *
+ * 3. Layout
+ * ------------------------------------------------------------------ */
+.container {
+	width: 100%;
+	max-width: calc(var(--mmpadel-wide) + 2 * var(--mmpadel-gutter));
+	margin-inline: auto;
+	padding-inline: var(--mmpadel-gutter);
+}
+
+.container--narrow {
+	max-width: calc(var(--mmpadel-content) + 2 * var(--mmpadel-gutter));
+}
+
+.site-main {
+	padding-block: var(--mmpadel-space-md) var(--mmpadel-space-xl);
+}
+
+.site-main--front {
+	padding-top: 0;
+}
+
+.page-header,
+.entry-header {
+	margin-bottom: var(--mmpadel-space-md);
+}
+
+.entry-header {
+	max-width: calc(var(--mmpadel-content) + 2 * var(--mmpadel-gutter));
+}
+
+.page-title,
+.entry-title {
+	margin: 0;
+}
+
+.page-intro {
+	max-width: 60ch;
+	color: var(--mmpadel-color-texto-suave);
+	font-size: var(--mmpadel-font-size-lg);
+}
+
+.entry-meta,
+.card__meta {
+	margin: 0 0 0.25rem;
+	color: var(--mmpadel-color-texto-suave);
+	font-size: var(--mmpadel-font-size-sm);
+}
+
+.entry-thumbnail {
+	max-width: calc(var(--mmpadel-content) + 2 * var(--mmpadel-gutter));
+	margin-block: 0 var(--mmpadel-space-md);
+}
+
+.entry-thumbnail img {
+	border-radius: var(--mmpadel-radius);
+}
+
+.entry-footer {
+	max-width: calc(var(--mmpadel-content) + 2 * var(--mmpadel-gutter));
+	margin-top: var(--mmpadel-space-lg);
+}
+
+@media (min-width: 48em) {
+	:root {
+		--mmpadel-gutter: 1.5rem;
+	}
+
+	.site-main {
+		padding-top: var(--mmpadel-space-lg);
+	}
+}
+
+/* ------------------------------------------------------------------ *
+ * 4. Botones
+ * ------------------------------------------------------------------ */
+.button,
+.wp-element-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5em;
+	min-height: 2.75rem; /* objetivo táctil */
+	padding: 0.625rem 1.25rem;
+	border: 2px solid transparent;
+	border-radius: var(--mmpadel-radius-pill);
+	background: var(--mmpadel-color-primario);
+	color: var(--mmpadel-color-fondo);
+	font: inherit;
+	font-weight: 600;
+	line-height: 1.2;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+	background: var(--mmpadel-color-primario-oscuro);
+	color: var(--mmpadel-color-fondo);
+}
+
+.button--cta {
+	background: var(--mmpadel-color-acento);
+	color: var(--mmpadel-color-primario-oscuro);
+}
+
+.button--cta:hover,
+.button--cta:focus-visible {
+	background: var(--mmpadel-color-primario-oscuro);
+	color: var(--mmpadel-color-acento);
+}
+
+.button--outline {
+	border-color: currentcolor;
+	background: transparent;
+	color: var(--mmpadel-color-primario);
+}
+
+.button--outline:hover,
+.button--outline:focus-visible {
+	background: var(--mmpadel-color-primario);
+	color: var(--mmpadel-color-fondo);
+}
+
+.button-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--mmpadel-space-xs);
+}
+
+/* ------------------------------------------------------------------ *
+ * 5. Cabecera y menú
+ * ------------------------------------------------------------------ */
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	border-bottom: 1px solid var(--mmpadel-color-borde);
+	background: var(--mmpadel-color-fondo);
+}
+
+.admin-bar .site-header {
+	top: var(--wp-admin--admin-bar--height, 0);
+}
+
+@media (max-width: 600px) {
+	.admin-bar .site-header {
+		top: 0;
+	}
+}
+
+.site-header__inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 1rem;
+	min-height: var(--mmpadel-header-height);
+}
+
+.site-branding {
+	margin-right: auto;
+}
+
+.site-title {
+	color: var(--mmpadel-color-primario-oscuro);
+	font-family: var(--mmpadel-font-titulos);
+	font-size: var(--mmpadel-font-size-lg);
+	font-weight: 800;
+	text-decoration: none;
+}
+
+.custom-logo {
+	display: block;
+	width: auto;
+	max-height: 2.75rem;
+}
+
+/* El CTA de la cabecera se oculta en móvil: allí va dentro del flujo de cada página. */
+.site-header__cta {
+	display: none;
+}
+
+.menu-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-height: 2.75rem;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--mmpadel-color-borde);
+	border-radius: var(--mmpadel-radius-pill);
+	background: transparent;
+	color: var(--mmpadel-color-texto);
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.menu-toggle__icon,
+.menu-toggle__icon::before,
+.menu-toggle__icon::after {
+	display: block;
+	width: 1.125rem;
+	height: 2px;
+	background: currentcolor;
+	transition: transform 0.2s ease;
+}
+
+.menu-toggle__icon {
+	position: relative;
+}
+
+.menu-toggle__icon::before,
+.menu-toggle__icon::after {
+	content: "";
+	position: absolute;
+	left: 0;
+}
+
+.menu-toggle__icon::before {
+	top: -6px;
+}
+
+.menu-toggle__icon::after {
+	top: 6px;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon {
+	background: transparent;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon::before {
+	transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon::after {
+	transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Sin JS el botón no sirve: se oculta y el menú queda desplegado. */
+.no-js .menu-toggle {
+	display: none;
+}
+
+.main-navigation {
+	flex-basis: 100%;
+}
+
+.js .main-navigation {
+	display: none;
+}
+
+.js .menu-abierto .main-navigation {
+	display: block;
+	max-height: calc(100dvh - var(--mmpadel-header-height));
+	overflow-y: auto;
+	padding-bottom: 1rem;
+}
+
+.main-menu,
+.main-menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.main-menu a {
+	display: block;
+	padding: 0.75rem 0;
+	border-bottom: 1px solid var(--mmpadel-color-borde);
+	color: var(--mmpadel-color-texto);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.main-menu .sub-menu a {
+	padding-left: 1rem;
+	font-weight: 400;
+}
+
+.main-menu .current-menu-item > a,
+.main-menu .current_page_item > a {
+	color: var(--mmpadel-color-primario);
+}
+
+@media (min-width: 60em) {
+	.site-header__inner {
+		flex-wrap: nowrap;
+	}
+
+	.menu-toggle,
+	.no-js .menu-toggle {
+		display: none;
+	}
+
+	.main-navigation,
+	.js .main-navigation {
+		display: block;
+		flex-basis: auto;
+	}
+
+	.main-menu {
+		display: flex;
+		gap: 0.25rem;
+	}
+
+	.main-menu > li {
+		position: relative;
+	}
+
+	.main-menu a {
+		padding: 0.5rem 0.625rem;
+		border-bottom: 0;
+		border-radius: var(--mmpadel-radius-pill);
+		font-size: var(--mmpadel-font-size-sm);
+		white-space: nowrap;
+	}
+
+	.main-menu a:hover {
+		background: var(--mmpadel-color-fondo-suave);
+	}
+
+	.main-menu .sub-menu {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		min-width: 14rem;
+		padding: 0.5rem;
+		border: 1px solid var(--mmpadel-color-borde);
+		border-radius: var(--mmpadel-radius);
+		background: var(--mmpadel-color-fondo);
+		box-shadow: var(--mmpadel-shadow);
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	.main-menu li:hover > .sub-menu,
+	.main-menu li:focus-within > .sub-menu {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	.main-menu .sub-menu a {
+		padding-left: 0.625rem;
+	}
+
+	.site-header__cta {
+		display: inline-flex;
+		flex-shrink: 0;
+	}
+}
+
+/* ------------------------------------------------------------------ *
+ * 6. Contenido del editor
+ * ------------------------------------------------------------------ */
+.entry-content > * + * {
+	margin-block-start: var(--wp--style--block-gap, 1.25rem);
+}
+
+.entry-content .alignfull {
+	margin-inline: calc(-1 * var(--wp--style--root--padding-left, var(--mmpadel-gutter)));
+}
+
+.entry-content table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.entry-content th,
+.entry-content td {
+	padding: 0.5rem;
+	border-bottom: 1px solid var(--mmpadel-color-borde);
+	text-align: left;
+}
+
+/* ------------------------------------------------------------------ *
+ * 7. Tarjetas y listados
+ * ------------------------------------------------------------------ */
+.card-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+	gap: var(--mmpadel-space-md);
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid var(--mmpadel-color-borde);
+	border-radius: var(--mmpadel-radius);
+	background: var(--mmpadel-color-fondo);
+}
+
+.card__media img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+}
+
+.card__body {
+	padding: var(--mmpadel-space-sm);
+}
+
+.card__title {
+	margin: 0 0 0.5rem;
+	font-size: var(--mmpadel-font-size-lg);
+}
+
+.card__title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.card__title a:hover {
+	text-decoration: underline;
+}
+
+.card__excerpt p {
+	margin: 0;
+	color: var(--mmpadel-color-texto-suave);
+}
+
+.pagination,
+.post-navigation {
+	margin-top: var(--mmpadel-space-lg);
+}
+
+.pagination .nav-links,
+.post-navigation .nav-links {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+.nav-label {
+	display: block;
+	color: var(--mmpadel-color-texto-suave);
+	font-size: var(--mmpadel-font-size-sm);
+}
+
+.search-form {
+	display: flex;
+	gap: 0.5rem;
+	margin-block: var(--mmpadel-space-sm);
+}
+
+.search-form__input {
+	flex: 1;
+	min-width: 0;
+	min-height: 2.75rem;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--mmpadel-color-borde);
+	border-radius: var(--mmpadel-radius);
+	font: inherit;
+}
+
+/* ------------------------------------------------------------------ *
+ * 8. Pie
+ * ------------------------------------------------------------------ */
+.site-footer {
+	background: var(--mmpadel-color-primario-oscuro);
+	color: var(--mmpadel-color-fondo);
+	font-size: var(--mmpadel-font-size-sm);
+}
+
+.site-footer a {
+	color: inherit;
+}
+
+.site-footer a:hover {
+	color: var(--mmpadel-color-acento);
+}
+
+.site-footer .site-title {
+	color: var(--mmpadel-color-fondo);
+}
+
+.site-footer__inner {
+	display: grid;
+	gap: var(--mmpadel-space-md);
+	padding-block: var(--mmpadel-space-lg);
+}
+
+.site-footer__tagline {
+	max-width: 32ch;
+	opacity: 0.85;
+}
+
+.site-footer__title {
+	margin: 0 0 0.75rem;
+	color: var(--mmpadel-color-acento);
+	font-size: var(--mmpadel-font-size-md);
+}
+
+.contact-list,
+.footer-links,
+.legal-menu {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.contact-list li,
+.footer-links li {
+	margin-bottom: 0.625rem;
+}
+
+.contact-list__label {
+	display: block;
+	font-size: 0.75rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	opacity: 0.7;
+}
+
+.site-footer__legal {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 0.5rem 1.5rem;
+	padding-block: 1rem;
+	border-top: 1px solid rgb(255 255 255 / 0.15);
+}
+
+.site-footer__copy {
+	margin: 0;
+	opacity: 0.85;
+}
+
+.legal-menu {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 1.25rem;
+}
+
+@media (min-width: 48em) {
+	.site-footer__inner {
+		grid-template-columns: 1.2fr 1fr 1fr;
+	}
+}
