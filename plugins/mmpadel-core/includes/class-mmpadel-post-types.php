@@ -299,7 +299,7 @@ final class MMPadel_Post_Types {
 				'rewrite'             => false,
 				'menu_position'       => 3,
 				'menu_icon'           => 'dashicons-email-alt',
-				'supports'            => array( 'title' ),
+				'supports'            => false, // Sin título ni editor: los datos del formulario no se editan.
 				'capability_type'     => array( 'mmpadel_solicitud', 'mmpadel_solicitudes' ),
 				'map_meta_cap'        => true,
 				'capabilities'        => array(

@@ -35,6 +35,16 @@
 		<exclude-pattern>*/plugins/mmpadel-core/templates/*</exclude-pattern>
 	</rule>
 
+	<!-- Permisos propios de las solicitudes (MMPadel_Post_Types::add_caps()). -->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="edit_mmpadel_solicitudes"/>
+				<element value="read_private_mmpadel_solicitudes"/>
+			</property>
+		</properties>
+	</rule>
+
 	<!-- Dominios de traducción válidos. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>

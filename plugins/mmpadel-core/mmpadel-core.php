@@ -27,12 +27,16 @@ require MMPADEL_CORE_DIR . 'includes/class-mmpadel-settings.php';
 require MMPADEL_CORE_DIR . 'includes/class-mmpadel-shortcodes.php';
 require MMPADEL_CORE_DIR . 'includes/class-mmpadel-form.php';
 require MMPADEL_CORE_DIR . 'includes/class-mmpadel-mailer.php';
+require MMPADEL_CORE_DIR . 'includes/class-mmpadel-requests-admin.php';
+require MMPADEL_CORE_DIR . 'includes/class-mmpadel-privacy.php';
 
 MMPadel_Fields::init();
 MMPadel_Post_Types::init();
 MMPadel_Settings::init();
 MMPadel_Shortcodes::init();
 MMPadel_Form::init();
+MMPadel_Requests_Admin::init();
+MMPadel_Privacy::init();
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require MMPADEL_CORE_DIR . 'includes/class-mmpadel-cli.php';
