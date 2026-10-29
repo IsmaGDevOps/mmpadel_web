@@ -61,7 +61,8 @@ npm run demo       # opcional: tarifas, entrenadores, eventos, FAQ y píldoras d
 | Entrenadores | *Entrenadores* (la imagen destacada es la foto) |
 | Pools y eventos | *Pools y eventos* (cada uno tiene ficha en `/eventos/nombre/`) |
 | Preguntas frecuentes | *Preguntas frecuentes* (con categorías) |
-| Teléfono, WhatsApp, dirección, horario, enlaces, email de avisos, datos legales | *Ajustes → MMPadel* |
+| Teléfono, WhatsApp, dirección, horario, redes sociales, enlaces, email de avisos, datos legales | *Ajustes → MMPadel* |
+| Fotos (entrenadores, clases, eventos, píldoras) | *Medios* (Biblioteca de medios) |
 | Menús | *Apariencia → Menús* |
 | Solicitudes recibidas | *Solicitudes* (solo administradores) |
 
@@ -75,7 +76,7 @@ Las fichas se muestran en las páginas mediante shortcodes. Se ven en el editor 
 | `[mmpadel_faq]` | Preguntas frecuentes desplegables (`categoria="slug"` para filtrar) |
 | `[mmpadel_formulario]` | Formulario «Encuentra tu grupo» |
 | `[mmpadel_contacto]` | Dirección, horario, teléfono, email y botones |
-| `[mmpadel_boton destino="plazas"]` | Botón a un enlace de Ajustes: `grupo`, `whatsapp`, `plazas`, `software`, `telefono`, `resenas`, `instagram`. Admite `texto="…"` y `estilo="cta"` o `estilo="borde"`. Si falta el enlace no se muestra (los editores ven un aviso). |
+| `[mmpadel_boton destino="plazas"]` | Botón a un enlace de Ajustes: `grupo`, `whatsapp`, `plazas`, `software`, `telefono`, `resenas`, `instagram`, `facebook`. Admite `texto="…"` y `estilo="cta"` o `estilo="borde"`. Si falta el enlace no se muestra (los editores ven un aviso). |
 | `[mmpadel_dato clave="titular"]` | Un dato de Ajustes (para los textos legales). Si falta, sale marcado como pendiente. |
 
 ## Cómo está montado
@@ -115,6 +116,7 @@ composer.json           PHPCS + WordPress Coding Standards (solo desarrollo)
 phpcs.xml.dist          Reglas de PHPCS
 dev/                    Utilidades solo para desarrollo (no van a producción)
 themes/mmpadel/         Tema: plantillas, theme.json, estilos y menú
+  assets/images/        Imágenes de diseño: logotipo, portada, iconos (ver su README)
 plugins/mmpadel-core/   Plugin: contenidos, campos, formulario, solicitudes, CLI
 docs/                   Documentación del cliente (no se versiona)
 ```

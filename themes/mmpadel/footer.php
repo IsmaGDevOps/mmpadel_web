@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 $mmpadel_canal     = mmpadel_theme_option( 'canal_plazas_url' );
 $mmpadel_software  = mmpadel_theme_option( 'software_url' );
 $mmpadel_instagram = mmpadel_theme_option( 'instagram_url' );
+$mmpadel_facebook  = mmpadel_theme_option( 'facebook_url' );
 $mmpadel_resenas   = mmpadel_theme_option( 'google_resenas_url' );
 ?>
 <footer class="site-footer">
@@ -38,6 +39,9 @@ $mmpadel_resenas   = mmpadel_theme_option( 'google_resenas_url' );
 				<?php endif; ?>
 				<?php if ( $mmpadel_instagram ) : ?>
 					<li><a href="<?php echo esc_url( $mmpadel_instagram ); ?>" target="_blank" rel="noopener">Instagram</a></li>
+				<?php endif; ?>
+				<?php if ( $mmpadel_facebook ) : ?>
+					<li><a href="<?php echo esc_url( $mmpadel_facebook ); ?>" target="_blank" rel="noopener">Facebook</a></li>
 				<?php endif; ?>
 				<?php if ( $mmpadel_resenas ) : ?>
 					<li><a href="<?php echo esc_url( $mmpadel_resenas ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Opiniones en Google', 'mmpadel' ); ?></a></li>

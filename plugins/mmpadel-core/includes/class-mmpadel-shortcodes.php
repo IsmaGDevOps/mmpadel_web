@@ -7,7 +7,7 @@
  *   [mmpadel_eventos mostrar="proximos|pasados|todos" limite="10"]
  *   [mmpadel_faq categoria="slug"]
  *   [mmpadel_contacto]
- *   [mmpadel_boton destino="grupo|whatsapp|plazas|software|telefono|resenas|instagram" texto="…" estilo="primario|cta|borde"]
+ *   [mmpadel_boton destino="grupo|whatsapp|plazas|software|telefono|resenas|instagram|facebook" texto="…" estilo="primario|cta|borde"]
  *   [mmpadel_dato clave="titular"]
  *
  * El HTML sale de plugins/mmpadel-core/templates/; el tema puede sustituir
@@ -432,6 +432,7 @@ final class MMPadel_Shortcodes {
 			'telefono'  => array( mmpadel_get_tel_url( mmpadel_get_option( 'telefono' ) ), __( 'Llámanos', 'mmpadel-core' ), __( 'Teléfono', 'mmpadel-core' ) ),
 			'resenas'   => array( mmpadel_get_option( 'google_resenas_url' ), __( 'Ver opiniones en Google', 'mmpadel-core' ), __( 'Ficha de Google (reseñas)', 'mmpadel-core' ) ),
 			'instagram' => array( mmpadel_get_option( 'instagram_url' ), __( 'Síguenos en Instagram', 'mmpadel-core' ), 'Instagram' ),
+			'facebook'  => array( mmpadel_get_option( 'facebook_url' ), __( 'Síguenos en Facebook', 'mmpadel-core' ), 'Facebook' ),
 		);
 
 		if ( ! isset( $destinos[ $atts['destino'] ] ) ) {

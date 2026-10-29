@@ -28,6 +28,20 @@ final class MMPadel_Settings {
 	}
 
 	/**
+	 * Datos reales de MMPadel conocidos de antemano. Se usan mientras el ajuste
+	 * no se haya guardado nunca; después manda lo que haya en el panel.
+	 *
+	 * @return array<string, string>
+	 */
+	public static function defaults() {
+		return array(
+			'telefono'      => '608 45 96 91',
+			'instagram_url' => 'https://www.instagram.com/mmpadel/',
+			'facebook_url'  => 'https://www.facebook.com/escuelammpadel/',
+		);
+	}
+
+	/**
 	 * Secciones y campos de la página.
 	 *
 	 * @return array
@@ -85,6 +99,10 @@ final class MMPadel_Settings {
 					),
 					'instagram_url'      => array(
 						'label' => __( 'Instagram', 'mmpadel-core' ),
+						'type'  => 'url',
+					),
+					'facebook_url'       => array(
+						'label' => __( 'Facebook', 'mmpadel-core' ),
 						'type'  => 'url',
 					),
 					'google_resenas_url' => array(

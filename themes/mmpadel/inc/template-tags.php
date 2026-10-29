@@ -65,6 +65,16 @@ function mmpadel_theme_whatsapp_url( $number, $text = '' ) {
 }
 
 /**
+ * URL de una imagen de assets/images/ del tema.
+ *
+ * @param string $file Nombre del archivo, p. ej. «logo.svg».
+ * @return string
+ */
+function mmpadel_theme_image_url( $file ) {
+	return get_theme_file_uri( 'assets/images/' . ltrim( $file, '/' ) );
+}
+
+/**
  * URL de una página por su slug, con la ruta prevista como reserva.
  *
  * @param string $slug Slug de la página.

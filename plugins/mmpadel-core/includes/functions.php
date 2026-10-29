@@ -14,8 +14,16 @@ defined( 'ABSPATH' ) || exit;
  * @return string Valor o cadena vacía.
  */
 function mmpadel_get_option( $key ) {
-	$options = get_option( MMPadel_Settings::OPTION, array() );
-	$value   = is_array( $options ) && isset( $options[ $key ] ) ? (string) $options[ $key ] : '';
+	$options  = get_option( MMPadel_Settings::OPTION, array() );
+	$defaults = MMPadel_Settings::defaults();
+
+	if ( is_array( $options ) && isset( $options[ $key ] ) ) {
+		$value = (string) $options[ $key ];
+	} else {
+		// Nunca guardado: dato real conocido, si lo hay. El panel lo muestra relleno
+		// y al guardar se queda como valor propio.
+		$value = $defaults[ $key ] ?? '';
+	}
 
 	if ( '' === $value && 'email_destino' === $key ) {
 		$value = (string) get_option( 'admin_email' );
