@@ -35,7 +35,8 @@
 		}
 	} );
 
-	window.matchMedia( '(min-width: 60em)' ).addEventListener( 'change', ( event ) => {
+	// Mismo punto de corte que el menú horizontal en main.css.
+	window.matchMedia( '(min-width: 75em)' ).addEventListener( 'change', ( event ) => {
 		if ( event.matches ) {
 			setOpen( false );
 		}

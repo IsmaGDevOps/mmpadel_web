@@ -29,6 +29,12 @@
 		</properties>
 	</rule>
 
+	<!-- Las plantillas del plugin se cargan con load_template() dentro de una
+	     función: sus variables son locales, no globales. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound">
+		<exclude-pattern>*/plugins/mmpadel-core/templates/*</exclude-pattern>
+	</rule>
+
 	<!-- Dominios de traducción válidos. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>

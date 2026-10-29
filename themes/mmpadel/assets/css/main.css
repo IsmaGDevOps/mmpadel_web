@@ -139,7 +139,7 @@ a {
 	padding-block: var(--mmpadel-space-md) var(--mmpadel-space-xl);
 }
 
-.site-main--front {
+.site-main.site-main--front {
 	padding-top: 0;
 }
 
@@ -407,7 +407,20 @@ a {
 	color: var(--mmpadel-color-primario);
 }
 
-@media (min-width: 60em) {
+/* El CTA de la cabecera aparece en cuanto cabe; entonces sobra el del menú. */
+@media (min-width: 40em) {
+	.site-header__cta {
+		display: inline-flex;
+		flex-shrink: 0;
+	}
+
+	.main-menu .menu-cta {
+		display: none;
+	}
+}
+
+/* Menú horizontal solo cuando caben todos los elementos. */
+@media (min-width: 75em) {
 	.site-header__inner {
 		flex-wrap: nowrap;
 	}
@@ -467,11 +480,10 @@ a {
 	.main-menu .sub-menu a {
 		padding-left: 0.625rem;
 	}
+}
 
-	.site-header__cta {
-		display: inline-flex;
-		flex-shrink: 0;
-	}
+.main-menu .menu-cta a {
+	color: var(--mmpadel-color-primario);
 }
 
 /* ------------------------------------------------------------------ *
@@ -481,8 +493,105 @@ a {
 	margin-block-start: var(--wp--style--block-gap, 1.25rem);
 }
 
-.entry-content .alignfull {
-	margin-inline: calc(-1 * var(--wp--style--root--padding-left, var(--mmpadel-gutter)));
+.entry-content > h2,
+.entry-content > .alignfull,
+.entry-content > .alignfull + * {
+	margin-block-start: var(--mmpadel-space-lg);
+}
+
+.entry-content > .alignfull:first-child {
+	margin-block-start: 0;
+}
+
+/* Botones del editor de bloques: estilo «Destacado» y «Contorno». */
+.wp-block-button.is-style-cta .wp-block-button__link {
+	background: var(--mmpadel-color-acento);
+	color: var(--mmpadel-color-primario-oscuro);
+}
+
+.wp-block-button.is-style-cta .wp-block-button__link:hover {
+	background: var(--mmpadel-color-fondo);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link {
+	border: 2px solid currentcolor;
+	background: transparent;
+	color: var(--mmpadel-color-primario);
+}
+
+/* Secciones (clases CSS adicionales en bloques Grupo) */
+.mmpadel-hero {
+	padding-block: var(--mmpadel-space-xl);
+	background: var(--mmpadel-color-primario-oscuro);
+	color: var(--mmpadel-color-fondo);
+}
+
+.mmpadel-hero h1 {
+	color: inherit;
+	text-wrap: balance;
+}
+
+.mmpadel-hero p {
+	font-size: var(--mmpadel-font-size-lg);
+}
+
+.mmpadel-hero .is-style-outline .wp-block-button__link {
+	color: var(--mmpadel-color-fondo);
+}
+
+.mmpadel-hero .mmpadel-antetitulo,
+.mmpadel-antetitulo {
+	margin-bottom: 0;
+	color: var(--mmpadel-color-acento);
+	font-size: var(--mmpadel-font-size-sm);
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.mmpadel-seccion-suave {
+	padding-block: var(--mmpadel-space-lg);
+	background: var(--mmpadel-color-fondo-suave);
+}
+
+.mmpadel-entradilla {
+	color: var(--mmpadel-color-texto-suave);
+	font-size: var(--mmpadel-font-size-lg);
+}
+
+.mmpadel-pasos {
+	padding: 0;
+	list-style: none;
+	counter-reset: paso;
+}
+
+.mmpadel-pasos li {
+	position: relative;
+	margin-bottom: 1rem;
+	padding-left: 3rem;
+	counter-increment: paso;
+}
+
+.mmpadel-pasos li::before {
+	content: counter(paso);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: grid;
+	place-items: center;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	background: var(--mmpadel-color-primario);
+	color: var(--mmpadel-color-fondo);
+	font-weight: 700;
+}
+
+.mmpadel-aviso-legal {
+	padding: 1rem;
+	border-left: 4px solid #b45309;
+	background: #fef3c7;
+	color: #7c2d12;
 }
 
 .entry-content table {

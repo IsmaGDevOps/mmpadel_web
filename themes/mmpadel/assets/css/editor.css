@@ -1,6 +1,7 @@
 /**
  * Estilos del editor de bloques. theme.json ya aplica colores y tipografía;
- * aquí solo lo que hace falta para que el editor se parezca al front.
+ * aquí solo lo que hace falta para que las secciones y botones propios se
+ * vean en el editor como en la web.
  */
 .button {
 	display: inline-flex;
@@ -12,4 +13,54 @@
 	color: var(--wp--preset--color--fondo);
 	font-weight: 600;
 	text-decoration: none;
+}
+
+.wp-block-button.is-style-cta .wp-block-button__link {
+	background: var(--wp--preset--color--acento);
+	color: var(--wp--preset--color--primario-oscuro);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link {
+	border: 2px solid currentcolor;
+	background: transparent;
+	color: var(--wp--preset--color--primario);
+}
+
+.mmpadel-hero {
+	padding-block: 3rem;
+	background: var(--wp--preset--color--primario-oscuro);
+	color: var(--wp--preset--color--fondo);
+}
+
+.mmpadel-hero h1 {
+	color: inherit;
+}
+
+.mmpadel-hero .is-style-outline .wp-block-button__link {
+	color: var(--wp--preset--color--fondo);
+}
+
+.mmpadel-antetitulo {
+	color: var(--wp--preset--color--acento);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.mmpadel-seccion-suave {
+	padding-block: 2rem;
+	background: var(--wp--preset--color--fondo-suave);
+}
+
+.mmpadel-entradilla {
+	color: var(--wp--preset--color--texto-suave);
+	font-size: var(--wp--preset--font-size--large);
+}
+
+.mmpadel-aviso-legal {
+	padding: 1rem;
+	border-left: 4px solid #b45309;
+	background: #fef3c7;
+	color: #7c2d12;
 }

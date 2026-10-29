@@ -92,6 +92,17 @@ function mmpadel_get_whatsapp_url( $number = '', $text = '' ) {
 }
 
 /**
+ * URL de una página por su slug, con la ruta prevista como reserva.
+ *
+ * @param string $slug Slug de la página.
+ * @return string
+ */
+function mmpadel_get_page_url( $slug ) {
+	$page = get_page_by_path( $slug );
+	return $page ? (string) get_permalink( $page ) : home_url( '/' . $slug . '/' );
+}
+
+/**
  * Carga una plantilla del plugin. El tema puede sustituirla copiándola a
  * {tema}/mmpadel/{nombre}.php.
  *

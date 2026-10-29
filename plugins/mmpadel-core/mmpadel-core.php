@@ -24,10 +24,17 @@ require MMPADEL_CORE_DIR . 'includes/functions.php';
 require MMPADEL_CORE_DIR . 'includes/class-mmpadel-fields.php';
 require MMPADEL_CORE_DIR . 'includes/class-mmpadel-post-types.php';
 require MMPADEL_CORE_DIR . 'includes/class-mmpadel-settings.php';
+require MMPADEL_CORE_DIR . 'includes/class-mmpadel-shortcodes.php';
 
 MMPadel_Fields::init();
 MMPadel_Post_Types::init();
 MMPadel_Settings::init();
+MMPadel_Shortcodes::init();
+
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	require MMPADEL_CORE_DIR . 'includes/class-mmpadel-cli.php';
+	WP_CLI::add_command( 'mmpadel', 'MMPadel_CLI' );
+}
 
 register_activation_hook( __FILE__, array( 'MMPadel_Post_Types', 'activate' ) );
 register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );

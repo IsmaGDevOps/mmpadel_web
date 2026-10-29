@@ -1,0 +1,302 @@
+/**
+ * MMPadel Core – estilos de los componentes del plugin (listados, ficha de
+ * evento, FAQ y formulario).
+ *
+ * Usa las variables --mmpadel-* del tema, con valores de reserva para que
+ * funcione aunque se cambie de tema. Mobile first.
+ */
+
+.mmpadel-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+	gap: var(--mmpadel-space-md, 1.5rem);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.mmpadel-vacio,
+.mmpadel-aviso-editor {
+	padding: 1rem;
+	border-radius: var(--mmpadel-radius, 12px);
+	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
+}
+
+.mmpadel-aviso-editor {
+	border: 2px dashed #b45309;
+	color: #7c2d12;
+	font-size: 0.875rem;
+}
+
+.mmpadel-pendiente {
+	padding: 0 0.25em;
+	background: #fde68a;
+	color: #7c2d12;
+}
+
+/* ------------------------------------------------------------------ *
+ * Tarifas
+ * ------------------------------------------------------------------ */
+.mmpadel-tarifas__grupo + .mmpadel-tarifas__grupo {
+	margin-top: var(--mmpadel-space-lg, 3rem);
+}
+
+.mmpadel-tarifas__tipo {
+	margin-bottom: 0.25rem;
+}
+
+.mmpadel-tarifas__desc {
+	margin-top: 0;
+	color: var(--mmpadel-color-texto-suave, #55605b);
+}
+
+.mmpadel-tarifa {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	padding: var(--mmpadel-space-md, 1.5rem);
+	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border-radius: var(--mmpadel-radius, 12px);
+	background: var(--mmpadel-color-fondo, #fff);
+}
+
+.mmpadel-tarifa > * {
+	margin: 0;
+}
+
+.mmpadel-tarifa__titulo {
+	font-size: var(--mmpadel-font-size-md, 1.0625rem);
+}
+
+.mmpadel-tarifa__tamano {
+	color: var(--mmpadel-color-texto-suave, #55605b);
+	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+}
+
+.mmpadel-tarifa__precio {
+	margin-top: 0.5rem;
+}
+
+.mmpadel-tarifa__precio strong {
+	display: block;
+	color: var(--mmpadel-color-primario, #0e5c4a);
+	font-size: var(--mmpadel-font-size-xl, 2rem);
+	line-height: 1.1;
+}
+
+.mmpadel-tarifa__precio span,
+.mmpadel-tarifa__notas {
+	color: var(--mmpadel-color-texto-suave, #55605b);
+	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+}
+
+.mmpadel-tarifa__notas {
+	margin-top: 0.75rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--mmpadel-color-borde, #dce3df);
+}
+
+/* ------------------------------------------------------------------ *
+ * Equipo
+ * ------------------------------------------------------------------ */
+.mmpadel-entrenador {
+	overflow: hidden;
+	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border-radius: var(--mmpadel-radius, 12px);
+}
+
+.mmpadel-entrenador__foto {
+	display: grid;
+	place-items: center;
+	aspect-ratio: 4 / 5;
+	background: var(--mmpadel-color-primario, #0e5c4a);
+}
+
+.mmpadel-entrenador__foto img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.mmpadel-entrenador__iniciales {
+	color: var(--mmpadel-color-acento, #d7f25c);
+	font-size: 3rem;
+	font-weight: 800;
+}
+
+.mmpadel-entrenador__texto {
+	padding: var(--mmpadel-space-sm, 1rem) var(--mmpadel-space-md, 1.5rem) var(--mmpadel-space-md, 1.5rem);
+}
+
+.mmpadel-entrenador__nombre {
+	margin: 0;
+}
+
+.mmpadel-entrenador__especialidad {
+	margin: 0.25rem 0 0;
+	color: var(--mmpadel-color-primario, #0e5c4a);
+	font-weight: 600;
+}
+
+.mmpadel-entrenador h4 {
+	margin: 1rem 0 0.25rem;
+	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.mmpadel-entrenador p {
+	margin: 0;
+}
+
+/* ------------------------------------------------------------------ *
+ * Eventos
+ * ------------------------------------------------------------------ */
+.mmpadel-eventos {
+	display: grid;
+	gap: var(--mmpadel-space-sm, 1rem);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.mmpadel-evento {
+	display: flex;
+	gap: var(--mmpadel-space-sm, 1rem);
+	padding: var(--mmpadel-space-sm, 1rem);
+	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border-radius: var(--mmpadel-radius, 12px);
+}
+
+.mmpadel-evento__fecha {
+	display: flex;
+	flex: 0 0 4rem;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	align-self: flex-start;
+	height: 4rem;
+	border-radius: var(--mmpadel-radius, 12px);
+	background: var(--mmpadel-color-primario-oscuro, #08392e);
+	color: var(--mmpadel-color-acento, #d7f25c);
+	line-height: 1;
+}
+
+.mmpadel-evento--terminado .mmpadel-evento__fecha {
+	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
+	color: var(--mmpadel-color-texto-suave, #55605b);
+}
+
+.mmpadel-evento__dia {
+	font-size: 1.5rem;
+	font-weight: 800;
+}
+
+.mmpadel-evento__mes {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+}
+
+.mmpadel-evento__texto {
+	flex: 1;
+	min-width: 0;
+}
+
+.mmpadel-evento__texto > * {
+	margin: 0 0 0.5rem;
+}
+
+.mmpadel-evento__titulo {
+	font-size: var(--mmpadel-font-size-lg, 1.375rem);
+}
+
+.mmpadel-evento__titulo a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.mmpadel-evento__meta {
+	color: var(--mmpadel-color-texto-suave, #55605b);
+	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+}
+
+.mmpadel-evento__acciones {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+/* Ficha (evento y contacto) */
+.mmpadel-ficha {
+	display: grid;
+	gap: 0.75rem;
+	margin: 0 0 var(--mmpadel-space-md, 1.5rem);
+	padding: var(--mmpadel-space-sm, 1rem);
+	border-radius: var(--mmpadel-radius, 12px);
+	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
+}
+
+.mmpadel-ficha dt {
+	color: var(--mmpadel-color-texto-suave, #55605b);
+	font-size: 0.75rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.mmpadel-ficha dd {
+	margin: 0;
+	font-weight: 600;
+}
+
+@media (min-width: 40em) {
+	.mmpadel-ficha {
+		grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+	}
+}
+
+/* ------------------------------------------------------------------ *
+ * FAQ
+ * ------------------------------------------------------------------ */
+.mmpadel-faq__grupo + .mmpadel-faq__grupo {
+	margin-top: var(--mmpadel-space-md, 1.5rem);
+}
+
+.mmpadel-faq__item {
+	border-bottom: 1px solid var(--mmpadel-color-borde, #dce3df);
+}
+
+.mmpadel-faq__item summary {
+	position: relative;
+	padding: 1rem 2rem 1rem 0;
+	font-weight: 600;
+	list-style: none;
+	cursor: pointer;
+}
+
+.mmpadel-faq__item summary::-webkit-details-marker {
+	display: none;
+}
+
+.mmpadel-faq__item summary::after {
+	content: "+";
+	position: absolute;
+	top: 50%;
+	right: 0.25rem;
+	color: var(--mmpadel-color-primario, #0e5c4a);
+	font-size: 1.5rem;
+	line-height: 1;
+	transform: translateY(-50%);
+}
+
+.mmpadel-faq__item[open] summary::after {
+	content: "−";
+}
+
+.mmpadel-faq__respuesta {
+	padding-bottom: 1rem;
+	color: var(--mmpadel-color-texto-suave, #55605b);
+}
+
+.mmpadel-faq__respuesta > :first-child {
+	margin-top: 0;
+}

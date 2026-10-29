@@ -43,6 +43,20 @@ function mmpadel_theme_setup() {
 add_action( 'after_setup_theme', 'mmpadel_theme_setup' );
 
 /**
+ * Estilos de bloque propios, elegibles desde el editor.
+ */
+function mmpadel_theme_block_styles() {
+	register_block_style(
+		'core/button',
+		array(
+			'name'  => 'cta',
+			'label' => __( 'Destacado', 'mmpadel' ),
+		)
+	);
+}
+add_action( 'init', 'mmpadel_theme_block_styles' );
+
+/**
  * Marca el documento como «con JavaScript» lo antes posible.
  *
  * Sin JS el menú móvil se muestra desplegado; con JS se pliega tras el botón.
