@@ -49,13 +49,35 @@ final class MMPadel_Shortcodes {
 	 * Estilos de los componentes del plugin (listados y formulario).
 	 */
 	public static function enqueue() {
-		$file = 'assets/css/mmpadel.css';
 		wp_enqueue_style(
 			'mmpadel-core',
-			MMPADEL_CORE_URL . $file,
+			MMPADEL_CORE_URL . 'assets/css/mmpadel.css',
 			array(),
-			'local' === wp_get_environment_type() ? (string) filemtime( MMPADEL_CORE_DIR . $file ) : MMPADEL_CORE_VERSION
+			self::asset_version( 'assets/css/mmpadel.css' )
 		);
+
+		// Origen y eventos de dataLayer: en todas las páginas, porque los clics a
+		// WhatsApp y teléfono pueden estar en cualquiera.
+		wp_enqueue_script(
+			'mmpadel-tracking',
+			MMPADEL_CORE_URL . 'assets/js/mmpadel-tracking.js',
+			array(),
+			self::asset_version( 'assets/js/mmpadel-tracking.js' ),
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+	}
+
+	/**
+	 * Versión de un recurso: en local, la fecha del archivo (evita la caché).
+	 *
+	 * @param string $file Ruta relativa al plugin.
+	 * @return string
+	 */
+	private static function asset_version( $file ) {
+		return 'local' === wp_get_environment_type() ? (string) filemtime( MMPADEL_CORE_DIR . $file ) : MMPADEL_CORE_VERSION;
 	}
 
 	/**
