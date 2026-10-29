@@ -19,3 +19,15 @@ define( 'MMPADEL_CORE_VERSION', '0.1.0' );
 define( 'MMPADEL_CORE_FILE', __FILE__ );
 define( 'MMPADEL_CORE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MMPADEL_CORE_URL', plugin_dir_url( __FILE__ ) );
+
+require MMPADEL_CORE_DIR . 'includes/functions.php';
+require MMPADEL_CORE_DIR . 'includes/class-mmpadel-fields.php';
+require MMPADEL_CORE_DIR . 'includes/class-mmpadel-post-types.php';
+require MMPADEL_CORE_DIR . 'includes/class-mmpadel-settings.php';
+
+MMPadel_Fields::init();
+MMPadel_Post_Types::init();
+MMPadel_Settings::init();
+
+register_activation_hook( __FILE__, array( 'MMPadel_Post_Types', 'activate' ) );
+register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
