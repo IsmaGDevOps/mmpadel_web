@@ -300,3 +300,194 @@
 .mmpadel-faq__respuesta > :first-child {
 	margin-top: 0;
 }
+
+/* ------------------------------------------------------------------ *
+ * Formulario «Encuentra tu grupo»
+ * ------------------------------------------------------------------ */
+.mmpadel-form {
+	display: grid;
+	gap: var(--mmpadel-space-md, 1.5rem);
+}
+
+.mmpadel-form__seccion {
+	display: grid;
+	gap: var(--mmpadel-space-sm, 1rem);
+	padding: var(--mmpadel-space-md, 1.5rem) var(--mmpadel-space-sm, 1rem);
+	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border-radius: var(--mmpadel-radius, 12px);
+}
+
+.mmpadel-form__titulo {
+	margin: 0;
+	font-size: var(--mmpadel-font-size-lg, 1.375rem);
+}
+
+.mmpadel-campo {
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.mmpadel-campo legend,
+.mmpadel-campo > label {
+	display: block;
+	margin-bottom: 0.375rem;
+	padding: 0;
+	font-weight: 600;
+}
+
+.mmpadel-req {
+	color: var(--mmpadel-color-error, #b42318);
+}
+
+.mmpadel-ayuda {
+	margin: 0 0 0.5rem;
+	color: var(--mmpadel-color-texto-suave, #55605b);
+	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+}
+
+.mmpadel-error {
+	margin: 0 0 0.5rem;
+	color: var(--mmpadel-color-error, #b42318);
+	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+	font-weight: 600;
+}
+
+.mmpadel-campo input[type="text"],
+.mmpadel-campo input[type="tel"],
+.mmpadel-campo input[type="email"],
+.mmpadel-campo textarea {
+	width: 100%;
+	min-height: 3rem;
+	padding: 0.625rem 0.75rem;
+	border: 1px solid var(--mmpadel-color-texto-suave, #55605b);
+	border-radius: var(--mmpadel-radius, 12px);
+	background: var(--mmpadel-color-fondo, #fff);
+	color: inherit;
+	font: inherit;
+	font-size: max(16px, 1rem); /* Evita el zoom automático en iOS */
+}
+
+.mmpadel-campo--error input,
+.mmpadel-campo--error textarea {
+	border-color: var(--mmpadel-color-error, #b42318);
+	border-width: 2px;
+}
+
+/* Opciones como «chips»: zona táctil grande en móvil */
+.mmpadel-opciones {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.mmpadel-opcion {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-height: 2.75rem;
+	padding: 0.5rem 0.875rem;
+	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border-radius: var(--mmpadel-radius-pill, 999px);
+	background: var(--mmpadel-color-fondo, #fff);
+	cursor: pointer;
+}
+
+.mmpadel-opcion input {
+	width: 1.125rem;
+	height: 1.125rem;
+	margin: 0;
+	accent-color: var(--mmpadel-color-primario, #0e5c4a);
+}
+
+.mmpadel-opcion:has(input:checked) {
+	border-color: var(--mmpadel-color-primario, #0e5c4a);
+	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
+	font-weight: 600;
+}
+
+.mmpadel-opcion:has(input:focus-visible) {
+	outline: var(--mmpadel-focus, 3px solid #d7f25c);
+	outline-offset: 2px;
+}
+
+.mmpadel-campo--error .mmpadel-opcion {
+	border-color: var(--mmpadel-color-error, #b42318);
+}
+
+.mmpadel-opcion--consentimiento {
+	align-items: flex-start;
+	border-radius: var(--mmpadel-radius, 12px);
+}
+
+.mmpadel-opcion--consentimiento input {
+	margin-top: 0.2rem;
+	flex-shrink: 0;
+}
+
+.mmpadel-info-privacidad {
+	margin-top: 0.5rem;
+	font-size: 0.8125rem;
+}
+
+.mmpadel-form__resumen {
+	padding: 1rem;
+	border: 2px solid var(--mmpadel-color-error, #b42318);
+	border-radius: var(--mmpadel-radius, 12px);
+	background: #fef3f2;
+}
+
+.mmpadel-form__resumen p,
+.mmpadel-form__resumen ul {
+	margin: 0;
+}
+
+.mmpadel-form__resumen ul {
+	margin-top: 0.5rem;
+	padding-left: 1.25rem;
+}
+
+.mmpadel-form__resumen a {
+	color: var(--mmpadel-color-error, #b42318);
+}
+
+.mmpadel-form__enviar {
+	margin: 0;
+}
+
+.mmpadel-form__enviar .button {
+	width: 100%;
+	font-size: var(--mmpadel-font-size-md, 1.0625rem);
+}
+
+/* Honeypot: fuera de la vista pero no display:none (algunos bots lo detectan) */
+.mmpadel-hp {
+	position: absolute !important;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.mmpadel-form-ok {
+	padding: var(--mmpadel-space-md, 1.5rem);
+	border-left: 4px solid var(--mmpadel-color-ok, #157f3b);
+	border-radius: var(--mmpadel-radius, 12px);
+	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
+}
+
+.mmpadel-form-ok h2 {
+	margin-top: 0;
+}
+
+@media (min-width: 40em) {
+	.mmpadel-form__seccion {
+		padding: var(--mmpadel-space-md, 1.5rem);
+	}
+
+	.mmpadel-form__enviar .button {
+		width: auto;
+	}
+}
