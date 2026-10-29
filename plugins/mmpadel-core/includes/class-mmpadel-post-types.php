@@ -64,7 +64,7 @@ final class MMPadel_Post_Types {
 		register_post_type(
 			self::TARIFA,
 			array(
-				'labels'        => self::labels( __( 'Tarifas', 'mmpadel-core' ), __( 'Tarifa', 'mmpadel-core' ), false ),
+				'labels'        => self::labels( __( 'Tarifas', 'mmpadel-core' ), __( 'Tarifa', 'mmpadel-core' ), true ),
 				'public'        => false,
 				'show_ui'       => true,
 				'show_in_rest'  => true,
