@@ -36,6 +36,7 @@ final class MMPadel_Settings {
 	public static function defaults() {
 		return array(
 			'telefono'      => '608 45 96 91',
+			'whatsapp'      => '608 45 96 91',
 			'instagram_url' => 'https://www.instagram.com/mmpadel/',
 			'facebook_url'  => 'https://www.facebook.com/escuelammpadel/',
 		);

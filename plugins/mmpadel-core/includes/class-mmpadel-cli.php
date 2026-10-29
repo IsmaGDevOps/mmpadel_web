@@ -352,13 +352,13 @@ final class MMPadel_CLI {
 	}
 
 	/**
-	 * Rellena los ajustes vacíos con datos de ejemplo. Teléfono, Instagram y
-	 * Facebook no: ya tienen sus valores reales (MMPadel_Settings::defaults()).
+	 * Rellena los ajustes vacíos con datos de ejemplo. Teléfono, WhatsApp,
+	 * Instagram y Facebook no: ya tienen sus valores reales
+	 * (MMPadel_Settings::defaults()).
 	 */
 	private static function demo_settings() {
 		$options = (array) get_option( MMPadel_Settings::OPTION, array() );
 		$demo    = array(
-			'whatsapp'           => '600 000 000',
 			'email_publico'      => 'hola@mmpadel.test',
 			'direccion'          => 'Calle de Ejemplo 1, 29000 Málaga',
 			'mapa_url'           => 'https://www.google.com/maps/search/?api=1&query=M%C3%A1laga',
