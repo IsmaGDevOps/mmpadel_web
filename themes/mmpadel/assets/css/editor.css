@@ -28,7 +28,7 @@
 
 .mmpadel-hero {
 	padding-block: 3rem;
-	background: var(--wp--preset--color--primario-oscuro);
+	background: var(--wp--preset--color--primario);
 	color: var(--wp--preset--color--fondo);
 }
 

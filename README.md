@@ -4,7 +4,7 @@ Web de la escuela de pádel MMPadel (Málaga) en WordPress: un tema propio liger
 
 La web explica la escuela y lleva al usuario a tres sitios: el formulario «Encuentra tu grupo», el canal de WhatsApp de plazas libres o el software de gestión. No tiene login, reservas, disponibilidad ni pagos; eso lo hará el software de gestión.
 
-> Estado: **base del proyecto**. El diseño, los textos y los datos son provisionales.
+> Estado: **base del proyecto** con el logo y los colores de marca. Los textos, las tarifas y las fotos son provisionales.
 
 ## Requisitos
 
@@ -131,7 +131,7 @@ docs/                   Documentación del cliente (no se versiona)
 ## Pendiente
 
 **Contenido y diseño**
-- Diseño final: logotipo, colores y tipografía de marca (sustituir los valores provisionales de `theme.json`; las fuentes, alojadas en el propio servidor), fotos reales y la imagen `screenshot.png` del tema.
+- Diseño final: tipografía de marca (alojada en el propio servidor, en `theme.json`), fotos reales y revisión visual completa. El logo y los colores (azul `#2A2763` del logo y amarillo pelota `#D7F25C` como acento) ya están aplicados.
 - Textos definitivos, tarifas reales, equipo y FAQ. Borrar el contenido de ejemplo con `wp mmpadel demo --borrar`.
 - Widget oficial de reseñas de Google en *Opiniones*.
 

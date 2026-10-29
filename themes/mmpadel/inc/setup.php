@@ -57,6 +57,54 @@ function mmpadel_theme_block_styles() {
 add_action( 'init', 'mmpadel_theme_block_styles' );
 
 /**
+ * Favicon del tema mientras no se suba un icono del sitio desde el panel, y
+ * color de la barra del navegador en el móvil.
+ */
+function mmpadel_theme_head_icons() {
+	if ( ! has_site_icon() ) {
+		$icon = mmpadel_theme_image_url( 'favicon.png' );
+		printf( '<link rel="icon" href="%s" sizes="512x512" type="image/png">' . "\n", esc_url( $icon ) );
+		printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( $icon ) );
+	}
+	echo '<meta name="theme-color" content="#2A2763">' . "\n";
+}
+add_action( 'wp_head', 'mmpadel_theme_head_icons', 2 );
+
+/**
+ * Logo de MMPadel en la pantalla de acceso al panel.
+ */
+function mmpadel_theme_login_logo() {
+	wp_add_inline_style(
+		'login',
+		sprintf(
+			'#login h1 a { background-image: url(%s); background-size: contain; width: 120px; height: 120px; border-radius: 12px; }',
+			esc_url( mmpadel_theme_image_url( 'logommpadel.webp' ) )
+		)
+	);
+}
+add_action( 'login_enqueue_scripts', 'mmpadel_theme_login_logo' );
+
+/**
+ * El logo del acceso enlaza a la web y se anuncia con su nombre.
+ *
+ * @return string
+ */
+function mmpadel_theme_login_url() {
+	return home_url( '/' );
+}
+add_filter( 'login_headerurl', 'mmpadel_theme_login_url' );
+
+/**
+ * Texto accesible del logo del acceso.
+ *
+ * @return string
+ */
+function mmpadel_theme_login_text() {
+	return get_bloginfo( 'name' );
+}
+add_filter( 'login_headertext', 'mmpadel_theme_login_text' );
+
+/**
  * Marca el documento como «con JavaScript» lo antes posible.
  *
  * Sin JS el menú móvil se muestra desplegado; con JS se pliega tras el botón.

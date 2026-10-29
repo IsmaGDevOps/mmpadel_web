@@ -11,14 +11,14 @@
       "defaultGradients": false,
       "defaultDuotone": false,
       "palette": [
-        { "slug": "primario", "color": "#0E5C4A", "name": "Primario" },
-        { "slug": "primario-oscuro", "color": "#08392E", "name": "Primario oscuro" },
-        { "slug": "acento", "color": "#D7F25C", "name": "Acento" },
-        { "slug": "texto", "color": "#1B1F1D", "name": "Texto" },
-        { "slug": "texto-suave", "color": "#55605B", "name": "Texto suave" },
-        { "slug": "fondo", "color": "#FFFFFF", "name": "Fondo" },
-        { "slug": "fondo-suave", "color": "#F3F6F4", "name": "Fondo suave" },
-        { "slug": "borde", "color": "#DCE3DF", "name": "Borde" }
+        { "slug": "primario", "color": "#2A2763", "name": "Azul MMPadel" },
+        { "slug": "primario-oscuro", "color": "#1B1944", "name": "Azul oscuro" },
+        { "slug": "acento", "color": "#D7F25C", "name": "Amarillo pelota" },
+        { "slug": "texto", "color": "#1E1D3A", "name": "Texto" },
+        { "slug": "texto-suave", "color": "#55546E", "name": "Texto suave" },
+        { "slug": "fondo", "color": "#FFFFFF", "name": "Blanco" },
+        { "slug": "fondo-suave", "color": "#F4F4F9", "name": "Fondo suave" },
+        { "slug": "borde", "color": "#DCDCE8", "name": "Borde" }
       ]
     },
     "typography": {

@@ -19,7 +19,7 @@
 .mmpadel-aviso-editor {
 	padding: 1rem;
 	border-radius: var(--mmpadel-radius, 12px);
-	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
+	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
 }
 
 .mmpadel-aviso-editor {
@@ -47,7 +47,7 @@
 
 .mmpadel-tarifas__desc {
 	margin-top: 0;
-	color: var(--mmpadel-color-texto-suave, #55605b);
+	color: var(--mmpadel-color-texto-suave, #55546e);
 }
 
 .mmpadel-tarifa {
@@ -55,7 +55,7 @@
 	flex-direction: column;
 	gap: 0.25rem;
 	padding: var(--mmpadel-space-md, 1.5rem);
-	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
 	border-radius: var(--mmpadel-radius, 12px);
 	background: var(--mmpadel-color-fondo, #fff);
 }
@@ -69,7 +69,7 @@
 }
 
 .mmpadel-tarifa__tamano {
-	color: var(--mmpadel-color-texto-suave, #55605b);
+	color: var(--mmpadel-color-texto-suave, #55546e);
 	font-size: var(--mmpadel-font-size-sm, 0.875rem);
 }
 
@@ -79,21 +79,21 @@
 
 .mmpadel-tarifa__precio strong {
 	display: block;
-	color: var(--mmpadel-color-primario, #0e5c4a);
+	color: var(--mmpadel-color-primario, #2a2763);
 	font-size: var(--mmpadel-font-size-xl, 2rem);
 	line-height: 1.1;
 }
 
 .mmpadel-tarifa__precio span,
 .mmpadel-tarifa__notas {
-	color: var(--mmpadel-color-texto-suave, #55605b);
+	color: var(--mmpadel-color-texto-suave, #55546e);
 	font-size: var(--mmpadel-font-size-sm, 0.875rem);
 }
 
 .mmpadel-tarifa__notas {
 	margin-top: 0.75rem;
 	padding-top: 0.75rem;
-	border-top: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border-top: 1px solid var(--mmpadel-color-borde, #dcdce8);
 }
 
 /* ------------------------------------------------------------------ *
@@ -101,7 +101,7 @@
  * ------------------------------------------------------------------ */
 .mmpadel-entrenador {
 	overflow: hidden;
-	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
 	border-radius: var(--mmpadel-radius, 12px);
 }
 
@@ -109,7 +109,7 @@
 	display: grid;
 	place-items: center;
 	aspect-ratio: 4 / 5;
-	background: var(--mmpadel-color-primario, #0e5c4a);
+	background: var(--mmpadel-color-primario, #2a2763);
 }
 
 .mmpadel-entrenador__foto img {
@@ -134,7 +134,7 @@
 
 .mmpadel-entrenador__especialidad {
 	margin: 0.25rem 0 0;
-	color: var(--mmpadel-color-primario, #0e5c4a);
+	color: var(--mmpadel-color-primario, #2a2763);
 	font-weight: 600;
 }
 
@@ -164,7 +164,7 @@
 	display: flex;
 	gap: var(--mmpadel-space-sm, 1rem);
 	padding: var(--mmpadel-space-sm, 1rem);
-	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
 	border-radius: var(--mmpadel-radius, 12px);
 }
 
@@ -177,14 +177,14 @@
 	align-self: flex-start;
 	height: 4rem;
 	border-radius: var(--mmpadel-radius, 12px);
-	background: var(--mmpadel-color-primario-oscuro, #08392e);
+	background: var(--mmpadel-color-primario-oscuro, #1b1944);
 	color: var(--mmpadel-color-acento, #d7f25c);
 	line-height: 1;
 }
 
 .mmpadel-evento--terminado .mmpadel-evento__fecha {
-	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
-	color: var(--mmpadel-color-texto-suave, #55605b);
+	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
+	color: var(--mmpadel-color-texto-suave, #55546e);
 }
 
 .mmpadel-evento__dia {
@@ -216,7 +216,7 @@
 }
 
 .mmpadel-evento__meta {
-	color: var(--mmpadel-color-texto-suave, #55605b);
+	color: var(--mmpadel-color-texto-suave, #55546e);
 	font-size: var(--mmpadel-font-size-sm, 0.875rem);
 }
 
@@ -233,11 +233,11 @@
 	margin: 0 0 var(--mmpadel-space-md, 1.5rem);
 	padding: var(--mmpadel-space-sm, 1rem);
 	border-radius: var(--mmpadel-radius, 12px);
-	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
+	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
 }
 
 .mmpadel-ficha dt {
-	color: var(--mmpadel-color-texto-suave, #55605b);
+	color: var(--mmpadel-color-texto-suave, #55546e);
 	font-size: 0.75rem;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
@@ -262,7 +262,7 @@
 }
 
 .mmpadel-faq__item {
-	border-bottom: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border-bottom: 1px solid var(--mmpadel-color-borde, #dcdce8);
 }
 
 .mmpadel-faq__item summary {
@@ -282,7 +282,7 @@
 	position: absolute;
 	top: 50%;
 	right: 0.25rem;
-	color: var(--mmpadel-color-primario, #0e5c4a);
+	color: var(--mmpadel-color-primario, #2a2763);
 	font-size: 1.5rem;
 	line-height: 1;
 	transform: translateY(-50%);
@@ -294,7 +294,7 @@
 
 .mmpadel-faq__respuesta {
 	padding-bottom: 1rem;
-	color: var(--mmpadel-color-texto-suave, #55605b);
+	color: var(--mmpadel-color-texto-suave, #55546e);
 }
 
 .mmpadel-faq__respuesta > :first-child {
@@ -313,7 +313,7 @@
 	display: grid;
 	gap: var(--mmpadel-space-sm, 1rem);
 	padding: var(--mmpadel-space-md, 1.5rem) var(--mmpadel-space-sm, 1rem);
-	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
 	border-radius: var(--mmpadel-radius, 12px);
 }
 
@@ -343,7 +343,7 @@
 
 .mmpadel-ayuda {
 	margin: 0 0 0.5rem;
-	color: var(--mmpadel-color-texto-suave, #55605b);
+	color: var(--mmpadel-color-texto-suave, #55546e);
 	font-size: var(--mmpadel-font-size-sm, 0.875rem);
 }
 
@@ -361,7 +361,7 @@
 	width: 100%;
 	min-height: 3rem;
 	padding: 0.625rem 0.75rem;
-	border: 1px solid var(--mmpadel-color-texto-suave, #55605b);
+	border: 1px solid var(--mmpadel-color-texto-suave, #55546e);
 	border-radius: var(--mmpadel-radius, 12px);
 	background: var(--mmpadel-color-fondo, #fff);
 	color: inherit;
@@ -389,7 +389,7 @@
 	gap: 0.5rem;
 	min-height: 2.75rem;
 	padding: 0.5rem 0.875rem;
-	border: 1px solid var(--mmpadel-color-borde, #dce3df);
+	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
 	border-radius: var(--mmpadel-radius-pill, 999px);
 	background: var(--mmpadel-color-fondo, #fff);
 	cursor: pointer;
@@ -399,17 +399,17 @@
 	width: 1.125rem;
 	height: 1.125rem;
 	margin: 0;
-	accent-color: var(--mmpadel-color-primario, #0e5c4a);
+	accent-color: var(--mmpadel-color-primario, #2a2763);
 }
 
 .mmpadel-opcion:has(input:checked) {
-	border-color: var(--mmpadel-color-primario, #0e5c4a);
-	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
+	border-color: var(--mmpadel-color-primario, #2a2763);
+	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
 	font-weight: 600;
 }
 
 .mmpadel-opcion:has(input:focus-visible) {
-	outline: var(--mmpadel-focus, 3px solid #d7f25c);
+	outline: var(--mmpadel-focus, 3px solid #2a2763);
 	outline-offset: 2px;
 }
 
@@ -475,7 +475,7 @@
 	padding: var(--mmpadel-space-md, 1.5rem);
 	border-left: 4px solid var(--mmpadel-color-ok, #157f3b);
 	border-radius: var(--mmpadel-radius, 12px);
-	background: var(--mmpadel-color-fondo-suave, #f3f6f4);
+	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
 }
 
 .mmpadel-form-ok h2 {

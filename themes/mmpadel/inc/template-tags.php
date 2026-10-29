@@ -86,13 +86,28 @@ function mmpadel_theme_page_url( $slug ) {
 }
 
 /**
- * Logo personalizado o, si no hay, el nombre del sitio.
+ * Logo del sitio, por orden de preferencia:
+ * 1. El subido en Apariencia → Personalizar → Identidad del sitio.
+ * 2. El del tema (assets/images/logo-blanco.webp), pensado para fondo azul.
+ * 3. El nombre del sitio en texto.
  */
 function mmpadel_theme_branding() {
 	if ( has_custom_logo() ) {
 		the_custom_logo();
 		return;
 	}
+
+	$logo = 'logo-blanco.webp';
+	if ( file_exists( get_theme_file_path( 'assets/images/' . $logo ) ) ) {
+		printf(
+			'<a class="site-logo" href="%1$s" rel="home"><img src="%2$s" width="665" height="228" alt="%3$s"></a>',
+			esc_url( home_url( '/' ) ),
+			esc_url( mmpadel_theme_image_url( $logo ) ),
+			esc_attr( get_bloginfo( 'name' ) )
+		);
+		return;
+	}
+
 	printf(
 		'<a class="site-title" href="%1$s" rel="home">%2$s</a>',
 		esc_url( home_url( '/' ) ),

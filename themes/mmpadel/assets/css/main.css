@@ -1,5 +1,5 @@
 /**
- * MMPadel – estilos base (provisionales, pendientes del diseño final).
+ * MMPadel – estilos base con los colores de marca (azul del logo).
  *
  * Los colores, tipografías y tamaños salen de theme.json como
  * --wp--preset--*. Aquí se definen alias --mmpadel-* para no repetir los
@@ -11,14 +11,14 @@
  * 1. Variables
  * ------------------------------------------------------------------ */
 :root {
-	--mmpadel-color-primario: var(--wp--preset--color--primario, #0e5c4a);
-	--mmpadel-color-primario-oscuro: var(--wp--preset--color--primario-oscuro, #08392e);
+	--mmpadel-color-primario: var(--wp--preset--color--primario, #2a2763);
+	--mmpadel-color-primario-oscuro: var(--wp--preset--color--primario-oscuro, #1b1944);
 	--mmpadel-color-acento: var(--wp--preset--color--acento, #d7f25c);
-	--mmpadel-color-texto: var(--wp--preset--color--texto, #1b1f1d);
-	--mmpadel-color-texto-suave: var(--wp--preset--color--texto-suave, #55605b);
+	--mmpadel-color-texto: var(--wp--preset--color--texto, #1e1d3a);
+	--mmpadel-color-texto-suave: var(--wp--preset--color--texto-suave, #55546e);
 	--mmpadel-color-fondo: var(--wp--preset--color--fondo, #fff);
-	--mmpadel-color-fondo-suave: var(--wp--preset--color--fondo-suave, #f3f6f4);
-	--mmpadel-color-borde: var(--wp--preset--color--borde, #dce3df);
+	--mmpadel-color-fondo-suave: var(--wp--preset--color--fondo-suave, #f4f4f9);
+	--mmpadel-color-borde: var(--wp--preset--color--borde, #dcdce8);
 	--mmpadel-color-error: #b42318;
 	--mmpadel-color-ok: #157f3b;
 
@@ -42,7 +42,8 @@
 	--mmpadel-radius-pill: 999px;
 	--mmpadel-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 4px 16px rgb(0 0 0 / 0.06);
 	--mmpadel-header-height: 4rem;
-	--mmpadel-focus: 3px solid var(--mmpadel-color-acento);
+	/* Foco: azul sobre fondos claros; en zonas oscuras se cambia a amarillo (ver abajo). */
+	--mmpadel-focus: 3px solid var(--mmpadel-color-primario);
 }
 
 /* ------------------------------------------------------------------ *
@@ -256,12 +257,21 @@ a {
 /* ------------------------------------------------------------------ *
  * 5. Cabecera y menú
  * ------------------------------------------------------------------ */
+/* Cabecera en el azul del logo: el logo se ve tal como es (blanco sobre azul). */
 .site-header {
 	position: sticky;
 	top: 0;
 	z-index: 100;
-	border-bottom: 1px solid var(--mmpadel-color-borde);
-	background: var(--mmpadel-color-fondo);
+	border-bottom: 1px solid rgb(255 255 255 / 0.12);
+	background: var(--mmpadel-color-primario);
+	color: var(--mmpadel-color-fondo);
+}
+
+/* En zonas oscuras el contorno de foco pasa a amarillo para que se vea. */
+.site-header,
+.site-footer,
+.mmpadel-hero {
+	--mmpadel-focus: 3px solid var(--mmpadel-color-acento);
 }
 
 .admin-bar .site-header {
@@ -287,17 +297,30 @@ a {
 }
 
 .site-title {
-	color: var(--mmpadel-color-primario-oscuro);
+	color: var(--mmpadel-color-fondo);
 	font-family: var(--mmpadel-font-titulos);
 	font-size: var(--mmpadel-font-size-lg);
 	font-weight: 800;
 	text-decoration: none;
 }
 
+.site-logo {
+	display: block;
+	line-height: 0;
+}
+
+.site-logo img,
 .custom-logo {
 	display: block;
 	width: auto;
-	max-height: 2.75rem;
+	height: 2.75rem;
+}
+
+@media (min-width: 48em) {
+	.site-header .site-logo img,
+	.site-header .custom-logo {
+		height: 3rem;
+	}
 }
 
 /* El CTA de la cabecera se oculta en móvil: allí va dentro del flujo de cada página. */
@@ -311,10 +334,10 @@ a {
 	gap: 0.5rem;
 	min-height: 2.75rem;
 	padding: 0.5rem 0.75rem;
-	border: 1px solid var(--mmpadel-color-borde);
+	border: 1px solid rgb(255 255 255 / 0.4);
 	border-radius: var(--mmpadel-radius-pill);
 	background: transparent;
-	color: var(--mmpadel-color-texto);
+	color: var(--mmpadel-color-fondo);
 	font: inherit;
 	font-weight: 600;
 	cursor: pointer;
@@ -391,8 +414,8 @@ a {
 .main-menu a {
 	display: block;
 	padding: 0.75rem 0;
-	border-bottom: 1px solid var(--mmpadel-color-borde);
-	color: var(--mmpadel-color-texto);
+	border-bottom: 1px solid rgb(255 255 255 / 0.15);
+	color: var(--mmpadel-color-fondo);
 	font-weight: 600;
 	text-decoration: none;
 }
@@ -403,8 +426,9 @@ a {
 }
 
 .main-menu .current-menu-item > a,
-.main-menu .current_page_item > a {
-	color: var(--mmpadel-color-primario);
+.main-menu .current_page_item > a,
+.main-menu .current_page_parent > a {
+	color: var(--mmpadel-color-acento);
 }
 
 /* El CTA de la cabecera aparece en cuanto cabe; entonces sobra el del menú. */
@@ -454,7 +478,7 @@ a {
 	}
 
 	.main-menu a:hover {
-		background: var(--mmpadel-color-fondo-suave);
+		background: rgb(255 255 255 / 0.1);
 	}
 
 	.main-menu .sub-menu {
@@ -463,9 +487,9 @@ a {
 		left: 0;
 		min-width: 14rem;
 		padding: 0.5rem;
-		border: 1px solid var(--mmpadel-color-borde);
+		border: 1px solid rgb(255 255 255 / 0.15);
 		border-radius: var(--mmpadel-radius);
-		background: var(--mmpadel-color-fondo);
+		background: var(--mmpadel-color-primario);
 		box-shadow: var(--mmpadel-shadow);
 		visibility: hidden;
 		opacity: 0;
@@ -483,7 +507,7 @@ a {
 }
 
 .main-menu .menu-cta a {
-	color: var(--mmpadel-color-primario);
+	color: var(--mmpadel-color-acento);
 }
 
 /* ------------------------------------------------------------------ *
@@ -522,7 +546,7 @@ a {
 /* Secciones (clases CSS adicionales en bloques Grupo) */
 .mmpadel-hero {
 	padding-block: var(--mmpadel-space-xl);
-	background: var(--mmpadel-color-primario-oscuro);
+	background: var(--mmpadel-color-primario);
 	color: var(--mmpadel-color-fondo);
 }
 
