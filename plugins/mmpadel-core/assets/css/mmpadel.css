@@ -785,18 +785,61 @@
 /* ------------------------------------------------------------------ *
  * FAQ
  * ------------------------------------------------------------------ */
-.mmpadel-faq__grupo + .mmpadel-faq__grupo {
-	margin-top: var(--mmpadel-space-md, 1.5rem);
+/*
+ * Cada pregunta es una tarjeta que se despliega; el botón redondo con «+»
+ * gira hasta «×» al abrirla y la tarjeta abierta se marca en amarillo. El
+ * título de cada categoría lleva la raya amarilla de la marca.
+ */
+.mmpadel-faq {
+	display: grid;
+	gap: var(--mmpadel-space-md, 1.5rem);
+}
+
+.mmpadel-faq__grupo {
+	display: grid;
+	gap: 0.6rem;
+}
+
+.mmpadel-faq__categoria {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	margin: 0 0 0.25rem;
+	color: var(--mmpadel-color-primario, #2a2763);
+	font-size: 0.8125rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.mmpadel-faq__categoria::before {
+	content: "";
+	width: 1.5rem;
+	height: 3px;
+	border-radius: 999px;
+	background: var(--mmpadel-color-acento, #d7f25c);
 }
 
 .mmpadel-faq__item {
-	border-bottom: 1px solid var(--mmpadel-color-borde, #dcdce8);
+	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
+	border-radius: 1rem;
+	background: var(--mmpadel-color-fondo, #fff);
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mmpadel-faq__item:hover {
+	border-color: color-mix(in srgb, var(--mmpadel-color-primario, #2a2763) 40%, transparent);
+}
+
+.mmpadel-faq__item[open] {
+	border-color: var(--mmpadel-color-primario, #2a2763);
+	box-shadow: inset 4px 0 0 var(--mmpadel-color-acento, #d7f25c), var(--mmpadel-shadow, 0 4px 16px rgb(0 0 0 / 0.06));
 }
 
 .mmpadel-faq__item summary {
 	position: relative;
-	padding: 1rem 2rem 1rem 0;
-	font-weight: 600;
+	padding: 1.05rem 3.75rem 1.05rem 1.25rem;
+	border-radius: 1rem;
+	font-weight: 700;
 	list-style: none;
 	cursor: pointer;
 }
@@ -809,20 +852,35 @@
 	content: "+";
 	position: absolute;
 	top: 50%;
-	right: 0.25rem;
+	right: 1rem;
+	display: grid;
+	place-items: center;
+	width: 1.9rem;
+	height: 1.9rem;
+	margin-top: -0.95rem;
+	border-radius: 50%;
+	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
 	color: var(--mmpadel-color-primario, #2a2763);
-	font-size: 1.5rem;
+	font-size: 1.25rem;
+	font-weight: 600;
 	line-height: 1;
-	transform: translateY(-50%);
+	transition: transform 0.25s ease, background-color 0.2s ease;
 }
 
 .mmpadel-faq__item[open] summary::after {
-	content: "−";
+	background: var(--mmpadel-color-acento, #d7f25c);
+	transform: rotate(45deg);
 }
 
 .mmpadel-faq__respuesta {
-	padding-bottom: 1rem;
+	padding: 0 1.25rem 1.15rem;
 	color: var(--mmpadel-color-texto-suave, #55546e);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mmpadel-faq__item summary::after {
+		transition: none;
+	}
 }
 
 .mmpadel-faq__respuesta > :first-child {
@@ -1212,4 +1270,277 @@
 .mmpadel-opinion__detalle {
 	color: var(--mmpadel-color-texto-suave, #55546e);
 	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+}
+
+/* ------------------------------------------------------------------ *
+ * Contacto ([mmpadel_contacto])
+ * Mosaico de tarjetas: WhatsApp grande en azul, teléfono, email, horario
+ * y dónde estamos con un plano dibujado (calles, un parque y el pin con
+ * la bola). Las tarjetas con enlace se elevan al pasar el ratón.
+ * ------------------------------------------------------------------ */
+.mmpadel-contacto {
+	display: grid;
+	gap: 1rem;
+}
+
+.mmpadel-canal {
+	position: relative;
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.4rem;
+	padding: 1.5rem;
+	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
+	border-radius: 1.5rem;
+	background: var(--mmpadel-color-fondo, #fff);
+	box-shadow: var(--mmpadel-shadow, 0 4px 16px rgb(0 0 0 / 0.06));
+	color: var(--mmpadel-color-texto, #1e1d3a);
+	text-decoration: none;
+	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+a.mmpadel-canal:hover {
+	border-color: var(--mmpadel-color-primario, #2a2763);
+	box-shadow: 0 2px 4px rgb(0 0 0 / 0.06), 0 18px 36px -14px rgb(42 39 99 / 0.35);
+	transform: translateY(-4px);
+}
+
+.mmpadel-canal__icono {
+	display: grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	margin-bottom: 0.6rem;
+	border-radius: 50%;
+	background: var(--mmpadel-color-primario, #2a2763);
+	color: var(--mmpadel-color-acento, #d7f25c);
+}
+
+.mmpadel-canal__icono svg {
+	width: 1.3rem;
+	height: 1.3rem;
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.mmpadel-canal__etiqueta {
+	color: var(--mmpadel-color-primario, #2a2763);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.mmpadel-canal__valor {
+	font-size: var(--mmpadel-font-size-lg, 1.375rem);
+	line-height: 1.25;
+	overflow-wrap: anywhere;
+}
+
+.mmpadel-canal__texto {
+	color: var(--mmpadel-color-texto-suave, #55546e);
+}
+
+/* «Escríbenos →»: abajo del todo, con la flecha que avanza al pasar. */
+.mmpadel-canal__accion {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-top: auto;
+	padding-top: 0.75rem;
+	color: var(--mmpadel-color-primario, #2a2763);
+	font-weight: 700;
+}
+
+.mmpadel-canal__accion::after {
+	content: "→";
+	transition: transform 0.2s ease;
+}
+
+a.mmpadel-canal:hover .mmpadel-canal__accion::after {
+	transform: translateX(0.3rem);
+}
+
+/* WhatsApp: azul de marca, número grande y una burbuja de fondo. */
+.mmpadel-canal--whatsapp {
+	--mmpadel-focus: 3px solid var(--mmpadel-color-acento, #d7f25c);
+	border-color: transparent;
+	background:
+		radial-gradient(circle at 100% 0%, rgb(255 255 255 / 0.14), transparent 55%),
+		var(--mmpadel-color-primario, #2a2763);
+	color: var(--mmpadel-color-fondo, #fff);
+}
+
+.mmpadel-canal--whatsapp::before {
+	content: "";
+	position: absolute;
+	right: -2.5rem;
+	bottom: -2.5rem;
+	width: 12rem;
+	height: 12rem;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d7f25c' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z'/%3E%3C/svg%3E") center / contain no-repeat;
+	opacity: 0.25;
+	pointer-events: none;
+}
+
+a.mmpadel-canal--whatsapp:hover {
+	border-color: transparent;
+}
+
+.mmpadel-canal--whatsapp .mmpadel-canal__icono {
+	background: var(--mmpadel-color-acento, #d7f25c);
+	color: var(--mmpadel-color-primario-oscuro, #1b1944);
+}
+
+.mmpadel-canal--whatsapp .mmpadel-canal__etiqueta,
+.mmpadel-canal--whatsapp .mmpadel-canal__accion {
+	color: var(--mmpadel-color-acento, #d7f25c);
+}
+
+.mmpadel-canal--whatsapp .mmpadel-canal__valor {
+	font-size: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+	font-weight: 800;
+	letter-spacing: -0.02em;
+}
+
+.mmpadel-canal--whatsapp .mmpadel-canal__texto {
+	position: relative;
+	max-width: 30ch;
+	color: rgb(255 255 255 / 0.85);
+}
+
+/* Horario: una fila por línea, días a la izquierda y horas a la derecha. */
+.mmpadel-horario {
+	display: grid;
+	align-self: stretch;
+	gap: 0;
+	margin: 0.25rem 0 0;
+}
+
+.mmpadel-horario div {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 0.25rem 1rem;
+	padding-block: 0.6rem;
+	border-bottom: 1px dashed var(--mmpadel-color-borde, #dcdce8);
+}
+
+.mmpadel-horario div:last-child {
+	border-bottom: 0;
+}
+
+.mmpadel-horario dt {
+	font-weight: 600;
+}
+
+.mmpadel-horario dd {
+	margin: 0;
+	color: var(--mmpadel-color-primario, #2a2763);
+	font-variant-numeric: tabular-nums;
+	font-weight: 700;
+}
+
+/* Dónde estamos: datos a un lado y, al otro, el plano. */
+.mmpadel-canal--mapa {
+	display: grid;
+	padding: 0;
+}
+
+.mmpadel-canal__datos {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.4rem;
+	padding: 1.5rem;
+}
+
+.mmpadel-canal--mapa .mmpadel-canal__valor {
+	font-size: var(--mmpadel-font-size-md, 1.0625rem);
+}
+
+.mmpadel-plano {
+	position: relative;
+	min-height: 12rem;
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240' preserveAspectRatio='xMidYMid slice'%3E%3Crect width='400' height='240' fill='%23e9e9f3'/%3E%3Cpath d='M250 20h90a10 10 0 0 1 10 10v60a10 10 0 0 1-10 10h-90a10 10 0 0 1-10-10V30a10 10 0 0 1 10-10z' fill='%23d7f25c' fill-opacity='.55'/%3E%3Cg fill='none' stroke='%23fff' stroke-linecap='round'%3E%3Cpath d='M-10 130C80 120 150 150 220 128S330 70 410 80' stroke-width='18'/%3E%3Cpath d='M120-10 160 250M300 250 260 110M-10 40 230 60M190 250 210 140 410 170' stroke-width='9'/%3E%3C/g%3E%3Cpath d='M-10 130C80 120 150 150 220 128S330 70 410 80' fill='none' stroke='%232a2763' stroke-opacity='.18' stroke-width='2' stroke-dasharray='8 8'/%3E%3C/svg%3E") center / cover no-repeat;
+}
+
+/* Pin con la bola, que salta un poco al pasar el ratón. */
+.mmpadel-plano__pin {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 3rem;
+	height: 3rem;
+	margin: -3rem 0 0 -1.5rem;
+	border-radius: 50% 50% 50% 0;
+	background: var(--mmpadel-color-primario, #2a2763);
+	box-shadow: 0 10px 18px -6px rgb(27 25 68 / 0.6);
+	transform: rotate(-45deg);
+	transition: translate 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mmpadel-plano__pin::after {
+	content: "";
+	position: absolute;
+	inset: 0.6rem;
+	border-radius: 50%;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='22' fill='%23d7f25c'/%3E%3Cpath d='M9.92 7.28c6.82 6.6 6.82 26.84 0 33.44M38.08 7.28c-6.82 6.6-6.82 26.84 0 33.44' fill='none' stroke='%232a2763' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+	transform: rotate(45deg);
+}
+
+a.mmpadel-canal:hover .mmpadel-plano__pin {
+	translate: 0 -0.4rem;
+}
+
+@media (min-width: 40em) {
+	.mmpadel-contacto {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.mmpadel-canal--whatsapp,
+	.mmpadel-canal--horario,
+	.mmpadel-canal--mapa {
+		grid-column: span 2;
+	}
+
+	.mmpadel-canal--mapa {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+	}
+}
+
+@media (min-width: 64em) {
+	.mmpadel-contacto {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 1.25rem;
+	}
+
+	.mmpadel-canal--whatsapp {
+		grid-row: span 2;
+		padding: 2rem;
+	}
+
+	.mmpadel-canal--mapa {
+		grid-column: 1 / -1;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+	}
+
+	.mmpadel-plano {
+		min-height: 15rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	a.mmpadel-canal:hover {
+		transform: none;
+	}
+
+	a.mmpadel-canal:hover .mmpadel-plano__pin {
+		translate: none;
+	}
 }

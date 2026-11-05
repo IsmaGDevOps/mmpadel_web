@@ -1990,7 +1990,7 @@ a {
 }
 
 /* El título de la página, alineado con la apertura ancha en vez de con el texto estrecho. */
-.entry-header:has(~ .entry-content > :is(.mmpadel-plazas, .mmpadel-opiniones-intro):first-child) {
+.entry-header:has(~ .entry-content > :is(.mmpadel-plazas, .mmpadel-opiniones-intro, .mmpadel-contacto-seccion):first-child) {
 	max-width: calc(var(--mmpadel-wide) + 2 * var(--mmpadel-gutter));
 }
 
@@ -2406,6 +2406,88 @@ a {
 	color: var(--mmpadel-color-texto-suave);
 	font-size: var(--mmpadel-font-size-sm);
 	text-align: center;
+}
+
+/* ------------------------------------------------------------------ *
+ * 6h. Contacto (clases CSS adicionales en los bloques de la página)
+ * ------------------------------------------------------------------ */
+.mmpadel-contacto-seccion > *,
+.mmpadel-faq-seccion__lado > * {
+	margin-block: 0;
+}
+
+.mmpadel-contacto-seccion .mmpadel-antetitulo,
+.mmpadel-faq-seccion .mmpadel-antetitulo {
+	color: var(--mmpadel-color-primario);
+}
+
+.mmpadel-contacto-seccion > h2 {
+	margin-top: 0.75rem;
+	font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem);
+	letter-spacing: -0.02em;
+	line-height: 1.08;
+	text-wrap: balance;
+}
+
+.mmpadel-contacto-seccion > .mmpadel-entradilla {
+	max-width: 46ch;
+	margin-top: 1.25rem;
+}
+
+.mmpadel-contacto-seccion > .mmpadel-contacto {
+	margin-top: var(--mmpadel-space-lg);
+}
+
+/*
+ * Preguntas frecuentes: en escritorio, el título y el botón de WhatsApp
+ * quedan fijos a la izquierda mientras se recorren las preguntas.
+ */
+.entry-content > .mmpadel-faq-seccion {
+	margin-block-start: var(--mmpadel-space-xl);
+}
+
+.mmpadel-faq-seccion {
+	display: grid;
+	gap: var(--mmpadel-space-md);
+	align-items: start;
+}
+
+.mmpadel-faq-seccion__lado {
+	padding: var(--mmpadel-space-md);
+	border-radius: 1.5rem;
+	background: var(--mmpadel-color-fondo-suave);
+}
+
+.mmpadel-faq-seccion__lado > * + * {
+	margin-top: 1rem;
+}
+
+.mmpadel-faq-seccion__lado h2 {
+	margin-top: 0.75rem;
+	font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
+	line-height: 1.15;
+	text-wrap: balance;
+}
+
+.mmpadel-faq-seccion__lado p:not(.mmpadel-antetitulo) {
+	color: var(--mmpadel-color-texto-suave);
+}
+
+.mmpadel-faq-seccion__lado .mmpadel-boton {
+	margin-top: var(--mmpadel-space-md);
+}
+
+@media (min-width: 56em) {
+	.mmpadel-faq-seccion {
+		grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+		gap: var(--mmpadel-space-lg);
+	}
+
+	.mmpadel-faq-seccion__lado {
+		position: sticky;
+		top: calc(var(--mmpadel-header-height) + 1.5rem);
+		padding: var(--mmpadel-space-lg) var(--mmpadel-space-md);
+	}
 }
 
 /* ------------------------------------------------------------------ *
