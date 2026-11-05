@@ -2307,35 +2307,148 @@ a {
 /* ------------------------------------------------------------------ *
  * 7. Tarjetas y listados
  * ------------------------------------------------------------------ */
+/*
+ * Tarjetas de entradas (píldoras, temas y búsqueda). Toda la tarjeta es
+ * clicable: el enlace del título se estira con ::after; la etiqueta del
+ * tema queda por encima para que siga siendo su propio enlace.
+ */
 .card-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
 	gap: var(--mmpadel-space-md);
 }
 
 .card {
+	position: relative;
 	display: flex;
-	flex-direction: column;
 	overflow: hidden;
+	flex-direction: column;
 	border: 1px solid var(--mmpadel-color-borde);
-	border-radius: var(--mmpadel-radius);
+	border-radius: 1.5rem;
 	background: var(--mmpadel-color-fondo);
+	box-shadow: var(--mmpadel-shadow);
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+	box-shadow: 0 2px 4px rgb(0 0 0 / 0.06), 0 18px 36px -14px rgb(42 39 99 / 0.35);
+	transform: translateY(-4px);
+}
+
+.card__media {
+	position: relative;
+	overflow: hidden;
+	aspect-ratio: 16 / 10;
+	background: var(--mmpadel-color-primario);
 }
 
 .card__media img {
 	display: block;
 	width: 100%;
-	aspect-ratio: 16 / 10;
+	height: 100%;
 	object-fit: cover;
+	transition: transform 0.6s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+.card:hover .card__media img {
+	transform: scale(1.05);
+}
+
+/* Sin imagen: una cápsula sobre las líneas de una pista, en tres colores que se alternan. */
+.card__arte {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.14' stroke-width='2'%3E%3Crect x='1' y='1' width='398' height='198'/%3E%3Cpath d='M61 1v198M339 1v198M61 100h278'/%3E%3C/g%3E%3Cpath d='M200-10v220' stroke='%23d7f25c' stroke-opacity='.45' stroke-width='3'/%3E%3C/svg%3E") center / 115% auto no-repeat,
+		radial-gradient(circle at 75% 20%, rgb(255 255 255 / 0.14), transparent 60%),
+		linear-gradient(160deg, var(--mmpadel-color-primario), var(--mmpadel-color-primario-oscuro));
+}
+
+.card-grid > :nth-child(3n + 2) .card__arte {
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Cg fill='none' stroke='%232a2763' stroke-opacity='.18' stroke-width='2'%3E%3Crect x='1' y='1' width='398' height='198'/%3E%3Cpath d='M61 1v198M339 1v198M61 100h278M200-10v220'/%3E%3C/g%3E%3C/svg%3E") center / 115% auto no-repeat,
+		var(--mmpadel-color-acento);
+}
+
+.card-grid > :nth-child(3n + 2) .card__arte .capsula {
+	--capsula-a: var(--mmpadel-color-primario);
+}
+
+.card-grid > :nth-child(3n + 3) .card__arte {
+	background-color: var(--mmpadel-color-primario-oscuro);
+	background-image:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.12' stroke-width='2'%3E%3Crect x='1' y='1' width='398' height='198'/%3E%3Cpath d='M61 1v198M339 1v198M61 100h278M200-10v220'/%3E%3C/g%3E%3C/svg%3E"),
+		radial-gradient(circle at 25% 80%, rgb(215 242 92 / 0.18), transparent 55%);
+}
+
+.card-grid > :nth-child(3n + 3) .card__arte .capsula {
+	--capsula-b: #a9a6ff;
+}
+
+/* Etiqueta «Vídeo» con triángulo de play, sobre la imagen. */
+.card__video {
+	position: absolute;
+	top: 0.85rem;
+	left: 0.85rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.3rem 0.75rem 0.3rem 0.6rem;
+	border-radius: var(--mmpadel-radius-pill);
+	background: color-mix(in srgb, var(--mmpadel-color-primario-oscuro) 82%, transparent);
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+	color: var(--mmpadel-color-fondo);
+	font-size: 0.75rem;
+	font-weight: 700;
+}
+
+.card__video::before {
+	content: "";
+	border-block: 0.3rem solid transparent;
+	border-left: 0.5rem solid var(--mmpadel-color-acento);
 }
 
 .card__body {
-	padding: var(--mmpadel-space-sm);
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 0.6rem;
+	padding: 1.4rem 1.5rem 1.5rem;
+}
+
+.card__body > * {
+	margin: 0;
+}
+
+.card__categoria a,
+.card__categoria-enlace {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	padding: 0.2rem 0.75rem;
+	border-radius: var(--mmpadel-radius-pill);
+	background: var(--mmpadel-color-fondo-suave);
+	color: var(--mmpadel-color-primario);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: background-color 0.15s ease;
+}
+
+.card__categoria a:hover,
+.card__categoria-enlace:hover {
+	background: var(--mmpadel-color-acento);
 }
 
 .card__title {
-	margin: 0 0 0.5rem;
 	font-size: var(--mmpadel-font-size-lg);
+	line-height: 1.25;
+	text-wrap: balance;
 }
 
 .card__title a {
@@ -2343,13 +2456,121 @@ a {
 	text-decoration: none;
 }
 
-.card__title a:hover {
+.card__title a::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+}
+
+.card:hover .card__title a {
 	text-decoration: underline;
+	text-decoration-color: var(--mmpadel-color-acento);
+	text-decoration-thickness: 3px;
 }
 
 .card__excerpt p {
 	margin: 0;
 	color: var(--mmpadel-color-texto-suave);
+}
+
+.card .card__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	margin-top: auto;
+	padding-top: 0.85rem;
+	border-top: 1px dashed var(--mmpadel-color-borde);
+}
+
+/* Destacada: a todo el ancho; desde 48em, imagen a la izquierda y texto grande. */
+.card--destacada .card__leer {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: var(--mmpadel-color-primario);
+	font-weight: 700;
+}
+
+.card--destacada .card__leer::after {
+	content: "→";
+	transition: transform 0.2s ease;
+}
+
+.card--destacada:hover .card__leer::after {
+	transform: translateX(0.3rem);
+}
+
+@media (min-width: 48em) {
+	.card--destacada {
+		grid-column: 1 / -1;
+		flex-direction: row;
+	}
+
+	.card--destacada .card__media {
+		flex: 0 0 55%;
+		min-height: 22rem;
+		aspect-ratio: auto;
+	}
+
+	.card--destacada .card__body {
+		justify-content: center;
+		gap: 0.9rem;
+		padding: var(--mmpadel-space-lg);
+	}
+
+	.card--destacada .card__title {
+		font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem);
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+	}
+
+	.card--destacada .card__excerpt p {
+		font-size: var(--mmpadel-font-size-md);
+	}
+
+	.card--destacada .card__meta {
+		margin-top: 0;
+	}
+
+	.card--destacada .capsula {
+		--capsula-ancho: 12rem;
+	}
+}
+
+/*
+ * Cápsula (una píldora): mitad amarilla, mitad blanca, con brillo y sombra.
+ * Colores con --capsula-a y --capsula-b; tamaño con --capsula-ancho.
+ */
+.capsula {
+	--capsula-a: var(--mmpadel-color-acento);
+	--capsula-b: var(--mmpadel-color-fondo);
+	--capsula-ancho: 7.5rem;
+	position: relative;
+	display: block;
+	width: var(--capsula-ancho);
+	height: calc(var(--capsula-ancho) * 0.4);
+	border-radius: var(--mmpadel-radius-pill);
+	background: linear-gradient(90deg, var(--capsula-a) 50%, var(--capsula-b) 50%);
+	box-shadow:
+		inset 0 calc(var(--capsula-ancho) * -0.06) 0 rgb(0 0 0 / 0.12),
+		0 1rem 1.6rem -0.6rem rgb(0 0 0 / 0.45);
+	transform: rotate(-28deg);
+	transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.capsula::after {
+	content: "";
+	position: absolute;
+	top: 18%;
+	right: 14%;
+	left: 14%;
+	height: 14%;
+	border-radius: var(--mmpadel-radius-pill);
+	background: rgb(255 255 255 / 0.55);
+}
+
+.card:hover .card__arte .capsula {
+	transform: rotate(-12deg) scale(1.06);
 }
 
 .pagination,
@@ -2361,8 +2582,378 @@ a {
 .post-navigation .nav-links {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: center;
 	gap: 0.5rem;
+}
+
+.pagination .page-numbers {
+	display: inline-grid;
+	place-items: center;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	padding-inline: 0.9rem;
+	border: 1px solid var(--mmpadel-color-borde);
+	border-radius: var(--mmpadel-radius-pill);
+	color: var(--mmpadel-color-texto);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.pagination .page-numbers.current {
+	border-color: var(--mmpadel-color-primario);
+	background: var(--mmpadel-color-primario);
+	color: var(--mmpadel-color-acento);
+}
+
+.pagination a.page-numbers:hover {
+	border-color: var(--mmpadel-color-primario);
+}
+
+/* ------------------------------------------------------------------ *
+ * 7b. Píldoras (listado, temas y cada píldora)
+ * ------------------------------------------------------------------ */
+
+/* Cabecera: franja azul con el texto y los temas, y tres cápsulas que flotan. */
+.pildoras-hero {
+	--mmpadel-focus: 3px solid var(--mmpadel-color-acento);
+	position: relative;
+	overflow: hidden;
+	margin-bottom: var(--mmpadel-space-lg);
+	padding-block: var(--mmpadel-space-lg) var(--mmpadel-space-xl);
+	background:
+		radial-gradient(ellipse 60% 80% at 85% 30%, color-mix(in srgb, var(--mmpadel-color-primario) 65%, #6c68d8), transparent 70%),
+		linear-gradient(160deg, var(--mmpadel-color-primario), var(--mmpadel-color-primario-oscuro) 75%);
+	color: var(--mmpadel-color-fondo);
+}
+
+.pildoras-hero__inner {
+	position: relative;
+	display: grid;
+	align-items: center;
+}
+
+.pildoras-hero__texto {
+	position: relative;
+	z-index: 1;
+	max-width: 40rem;
+}
+
+.pildoras-hero__antetitulo {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin: 0 0 1rem;
+	color: var(--mmpadel-color-acento);
+	font-size: var(--mmpadel-font-size-sm);
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.pildoras-hero__antetitulo::before {
+	content: "";
+	width: 2rem;
+	height: 2px;
+	background: currentcolor;
+}
+
+.pildoras-hero .page-title {
+	color: inherit;
+	font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+	letter-spacing: -0.02em;
+	line-height: 1.02;
+	text-wrap: balance;
+}
+
+.pildoras-hero .page-intro {
+	margin: 1.25rem 0 0;
+	color: rgb(255 255 255 / 0.85);
+}
+
+/* Temas: píldoras con el número de entradas; la actual, en amarillo. */
+.pildoras-temas ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin: var(--mmpadel-space-md) 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.pildoras-temas a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-height: 2.75rem;
+	padding: 0.45rem 1.1rem;
+	border: 1px solid rgb(255 255 255 / 0.3);
+	border-radius: var(--mmpadel-radius-pill);
+	color: var(--mmpadel-color-fondo);
+	font-weight: 600;
+	text-decoration: none;
+	transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.pildoras-temas a:hover {
+	border-color: var(--mmpadel-color-fondo);
+}
+
+.pildoras-temas a[aria-current="page"] {
+	border-color: var(--mmpadel-color-acento);
+	background: var(--mmpadel-color-acento);
+	color: var(--mmpadel-color-primario-oscuro);
+}
+
+.pildoras-temas__cuenta {
+	font-size: 0.8125rem;
+	opacity: 0.7;
+}
+
+.pildoras-hero__arte {
+	display: none;
+}
+
+@keyframes mmpadel-flotar {
+	0%,
+	100% {
+		translate: 0 0;
+	}
+
+	50% {
+		translate: 0 -0.9rem;
+	}
+}
+
+@media (min-width: 56em) {
+	.pildoras-hero {
+		padding-block: var(--mmpadel-space-xl) calc(var(--mmpadel-space-xl) + 1rem);
+		clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2.5rem), 0 100%);
+	}
+
+	.pildoras-hero__inner {
+		grid-template-columns: minmax(0, 1fr) 22rem;
+	}
+
+	.pildoras-hero__arte {
+		position: relative;
+		display: block;
+		height: 16rem;
+	}
+
+	.pildoras-hero__arte .capsula {
+		position: absolute;
+		animation: mmpadel-flotar 6s ease-in-out infinite;
+	}
+
+	.capsula--1 {
+		--capsula-ancho: 11rem;
+		top: 3.5rem;
+		left: 3rem;
+	}
+
+	.capsula--2 {
+		--capsula-ancho: 6.5rem;
+		--capsula-a: var(--mmpadel-color-fondo);
+		--capsula-b: #a9a6ff;
+		top: 0;
+		right: 0;
+		rotate: 50deg;
+		animation-delay: -2s !important;
+	}
+
+	.capsula--3 {
+		--capsula-ancho: 5rem;
+		--capsula-b: var(--mmpadel-color-acento);
+		--capsula-a: #a9a6ff;
+		bottom: 0;
+		left: 0;
+		rotate: -40deg;
+		animation-delay: -4s !important;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pildoras-hero__arte .capsula {
+		animation: none;
+	}
+
+	.card:hover,
+	.card:hover .card__media img,
+	.card:hover .card__arte .capsula {
+		transform: none;
+	}
+}
+
+.pildoras-listado {
+	margin-bottom: var(--mmpadel-space-xl);
+}
+
+.pildoras-cierre {
+	margin-top: 0;
+}
+
+.pildoras-cierre .button .icon {
+	width: 1.2em;
+	height: 1.2em;
+}
+
+/* Una píldora: cabecera con tema y lectura, contenido con más aire y pie. */
+.pildora__cabecera {
+	margin-bottom: var(--mmpadel-space-md);
+}
+
+.pildora__cabecera > * {
+	margin: 0;
+}
+
+.pildora__volver a {
+	color: var(--mmpadel-color-texto-suave);
+	font-size: var(--mmpadel-font-size-sm);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.pildora__volver a:hover {
+	color: var(--mmpadel-color-primario);
+}
+
+.pildora__etiquetas {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: var(--mmpadel-space-md) !important;
+}
+
+.pildora__video {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.2rem 0.75rem 0.2rem 0.6rem;
+	border-radius: var(--mmpadel-radius-pill);
+	background: var(--mmpadel-color-primario);
+	color: var(--mmpadel-color-fondo);
+	font-size: 0.75rem;
+	font-weight: 700;
+}
+
+.pildora__video::before {
+	content: "";
+	border-block: 0.3rem solid transparent;
+	border-left: 0.5rem solid var(--mmpadel-color-acento);
+}
+
+.pildora .entry-title {
+	margin-top: 1rem;
+	font-size: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+	letter-spacing: -0.02em;
+	line-height: 1.08;
+	text-wrap: balance;
+}
+
+.pildora .entry-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	margin-top: 1rem;
+}
+
+.pildora .entry-thumbnail img {
+	border-radius: 1.5rem;
+}
+
+.pildora .entry-content {
+	font-size: 1.125rem;
+	line-height: 1.7;
+}
+
+.pildora .entry-content > h2 {
+	position: relative;
+	padding-top: 1rem;
+}
+
+.pildora .entry-content > h2::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 2.25rem;
+	height: 4px;
+	border-radius: var(--mmpadel-radius-pill);
+	background: var(--mmpadel-color-acento);
+}
+
+.pildora .entry-content blockquote {
+	margin-inline: 0;
+	padding: 1.25rem 1.5rem;
+	border-left: 4px solid var(--mmpadel-color-acento);
+	border-radius: 0 1rem 1rem 0;
+	background: var(--mmpadel-color-fondo-suave);
+	font-size: var(--mmpadel-font-size-lg);
+}
+
+.pildora .entry-content ul:not([class]) li::marker,
+.pildora .entry-content ul.wp-block-list li::marker {
+	color: var(--mmpadel-color-primario);
+}
+
+.pildora__pie {
+	max-width: calc(var(--mmpadel-content) + 2 * var(--mmpadel-gutter));
+	margin-top: var(--mmpadel-space-lg);
+}
+
+/* «Llévalo a la pista»: tarjeta azul con una cápsula al lado. */
+.pildora__pista {
+	--mmpadel-focus: 3px solid var(--mmpadel-color-acento);
+	position: relative;
+	overflow: hidden;
+	padding: var(--mmpadel-space-md) var(--mmpadel-space-md) var(--mmpadel-space-md);
+	border-radius: 1.5rem;
+	background:
+		radial-gradient(circle at 100% 0%, rgb(255 255 255 / 0.12), transparent 55%),
+		var(--mmpadel-color-primario);
+	color: var(--mmpadel-color-fondo);
+}
+
+.pildora__pista > * {
+	position: relative;
+	margin: 0 0 1rem;
+}
+
+.pildora__pista h2 {
+	color: inherit;
+	font-size: var(--mmpadel-font-size-xl);
+}
+
+.pildora__pista p {
+	max-width: 36ch;
+	opacity: 0.85;
+}
+
+.pildora__pista .button {
+	margin: 0;
+}
+
+.pildora__pista::after {
+	content: "";
+	position: absolute;
+	right: -1.5rem;
+	bottom: 1.5rem;
+	width: 9rem;
+	height: 3.6rem;
+	border-radius: var(--mmpadel-radius-pill);
+	background: linear-gradient(90deg, var(--mmpadel-color-acento) 50%, var(--mmpadel-color-fondo) 50%);
+	box-shadow: inset 0 -0.5rem 0 rgb(0 0 0 / 0.12);
+	opacity: 0.9;
+	transform: rotate(-28deg);
+}
+
+.pildora__mas {
+	margin-top: var(--mmpadel-space-xl);
+}
+
+.pildora__mas > h2 {
+	margin: 0 0 var(--mmpadel-space-md);
+	font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
 }
 
 .nav-label {

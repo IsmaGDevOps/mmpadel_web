@@ -122,7 +122,8 @@ add_action( 'wp_head', 'mmpadel_theme_js_class', 1 );
  * @return string[]
  */
 function mmpadel_theme_body_class( $classes ) {
-	if ( is_page() && ! is_front_page() && mmpadel_theme_cover( get_queried_object_id() ) ) {
+	// Las píldoras (listado y temas) abren con su propia franja azul, como una portada.
+	if ( ( is_page() && ! is_front_page() && mmpadel_theme_cover( get_queried_object_id() ) ) || is_home() || is_category() ) {
 		$classes[] = 'tiene-portada';
 	}
 	return $classes;

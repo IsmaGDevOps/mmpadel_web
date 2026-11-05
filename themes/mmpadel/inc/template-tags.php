@@ -299,6 +299,101 @@ function mmpadel_theme_legal_menu_fallback() {
 }
 
 /**
+ * Minutos de lectura de una entrada (200 palabras por minuto, mínimo 1).
+ *
+ * @param int|WP_Post|null $post Entrada; la actual si se omite.
+ * @return string «3 min de lectura».
+ */
+function mmpadel_theme_reading_time( $post = null ) {
+	$text    = wp_strip_all_tags( strip_shortcodes( (string) get_post_field( 'post_content', $post ) ) );
+	$words   = count( preg_split( '/\s+/u', trim( $text ), -1, PREG_SPLIT_NO_EMPTY ) );
+	$minutes = max( 1, (int) ceil( $words / 200 ) );
+
+	/* translators: %s: minutos. */
+	return sprintf( __( '%s min de lectura', 'mmpadel' ), number_format_i18n( $minutes ) );
+}
+
+/**
+ * Tema principal de una píldora: su primera categoría que no sea la de por
+ * defecto («Sin categoría»), o esa si no tiene otra.
+ *
+ * @param int|WP_Post|null $post Entrada; la actual si se omite.
+ * @return WP_Term|null
+ */
+function mmpadel_theme_post_category( $post = null ) {
+	$post = get_post( $post );
+	if ( ! $post ) {
+		return null;
+	}
+	$categories = get_the_category( $post->ID );
+	foreach ( $categories as $category ) {
+		if ( (int) get_option( 'default_category' ) !== $category->term_id ) {
+			return $category;
+		}
+	}
+	return $categories ? $categories[0] : null;
+}
+
+/**
+ * Si una entrada lleva vídeo: bloque de vídeo o de inserción, o un enlace de
+ * Instagram, YouTube, Vimeo o TikTok en el contenido.
+ *
+ * @param int|WP_Post|null $post Entrada; la actual si se omite.
+ * @return bool
+ */
+function mmpadel_theme_post_has_video( $post = null ) {
+	$content = (string) get_post_field( 'post_content', $post );
+	return (bool) preg_match( '#<!-- wp:(video|embed)|https?://(www\.)?(instagram\.com|youtube\.com|youtu\.be|vimeo\.com|tiktok\.com)/#i', $content );
+}
+
+/**
+ * URL del listado de píldoras (la página de entradas, o la portada si no hay).
+ *
+ * @return string
+ */
+function mmpadel_theme_blog_url() {
+	$page = (int) get_option( 'page_for_posts' );
+	return $page ? (string) get_permalink( $page ) : home_url( '/' );
+}
+
+/**
+ * Accesos a los temas de las píldoras: «Todas» y una píldora por categoría
+ * con entradas, con el número de cada una. Solo si hay al menos dos temas.
+ */
+function mmpadel_theme_category_nav() {
+	$categories = get_categories(
+		array(
+			'hide_empty' => true,
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+		)
+	);
+	if ( count( $categories ) < 2 ) {
+		return;
+	}
+
+	$current = is_category() ? get_queried_object_id() : 0;
+
+	echo '<nav class="pildoras-temas" aria-label="' . esc_attr__( 'Temas de las píldoras', 'mmpadel' ) . '"><ul role="list">';
+	printf(
+		'<li><a href="%1$s"%2$s>%3$s</a></li>',
+		esc_url( mmpadel_theme_blog_url() ),
+		$current ? '' : ' aria-current="page"',
+		esc_html__( 'Todas', 'mmpadel' )
+	);
+	foreach ( $categories as $category ) {
+		printf(
+			'<li><a href="%1$s"%2$s>%3$s <span class="pildoras-temas__cuenta">%4$s</span></a></li>',
+			esc_url( get_category_link( $category ) ),
+			$current === $category->term_id ? ' aria-current="page"' : '',
+			esc_html( $category->name ),
+			esc_html( number_format_i18n( $category->count ) )
+		);
+	}
+	echo '</ul></nav>';
+}
+
+/**
  * Fecha de publicación de una entrada.
  */
 function mmpadel_theme_posted_on() {
