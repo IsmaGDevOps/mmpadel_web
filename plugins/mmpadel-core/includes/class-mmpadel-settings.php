@@ -35,10 +35,15 @@ final class MMPadel_Settings {
 	 */
 	public static function defaults() {
 		return array(
-			'telefono'      => '608 45 96 91',
-			'whatsapp'      => '608 45 96 91',
-			'instagram_url' => 'https://www.instagram.com/mmpadel/',
-			'facebook_url'  => 'https://www.facebook.com/escuelammpadel/',
+			'telefono'           => '608 45 96 91',
+			'whatsapp'           => '608 45 96 91',
+			'direccion'          => 'C. de Alfredo Corrochano, 9, Cruz de Humilladero, 29006 Málaga',
+			'mapa_url'           => 'https://share.google/LphW9ihwINbjtW4Za',
+			'instagram_url'      => 'https://www.instagram.com/mmpadel/',
+			'facebook_url'       => 'https://www.facebook.com/escuelammpadel/',
+			// Datos de la ficha de Google a 29/10/2026.
+			'google_nota'        => '4,9',
+			'google_num_resenas' => '276',
 		);
 	}
 
@@ -110,6 +115,15 @@ final class MMPadel_Settings {
 						'label'       => __( 'Ficha de Google (reseñas)', 'mmpadel-core' ),
 						'type'        => 'url',
 						'description' => __( 'Enlace a las reseñas del Perfil de Empresa de Google.', 'mmpadel-core' ),
+					),
+					'google_nota'        => array(
+						'label'       => __( 'Nota media en Google', 'mmpadel-core' ),
+						'placeholder' => '4,9',
+						'description' => __( 'Se muestra en el marcador de reseñas ([mmpadel_valoracion]). Vacío = no se muestra.', 'mmpadel-core' ),
+					),
+					'google_num_resenas' => array(
+						'label'       => __( 'Número de reseñas en Google', 'mmpadel-core' ),
+						'placeholder' => '276',
 					),
 				),
 			),

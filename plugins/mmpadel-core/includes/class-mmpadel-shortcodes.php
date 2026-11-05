@@ -9,6 +9,7 @@
  *   [mmpadel_contacto]
  *   [mmpadel_boton destino="grupo|whatsapp|plazas|software|telefono|resenas|instagram|facebook" texto="…" estilo="primario|cta|borde"]
  *   [mmpadel_dato clave="titular"]
+ *   [mmpadel_valoracion formato="marcador|linea"]
  *
  * El HTML sale de plugins/mmpadel-core/templates/; el tema puede sustituir
  * cualquier plantilla copiándola a {tema}/mmpadel/.
@@ -43,6 +44,7 @@ final class MMPadel_Shortcodes {
 		add_shortcode( 'mmpadel_contacto', array( __CLASS__, 'contacto' ) );
 		add_shortcode( 'mmpadel_boton', array( __CLASS__, 'boton' ) );
 		add_shortcode( 'mmpadel_dato', array( __CLASS__, 'dato' ) );
+		add_shortcode( 'mmpadel_valoracion', array( __CLASS__, 'valoracion' ) );
 	}
 
 	/**
@@ -495,5 +497,33 @@ final class MMPadel_Shortcodes {
 		}
 
 		return nl2br( esc_html( $value ) );
+	}
+
+	/**
+	 * Nota y número de reseñas de Google (Ajustes MMPadel): como marcador o,
+	 * con formato="linea", en una línea discreta (p. ej. en la portada).
+	 * Sin nota no se muestra; a quien puede editar le aparece un aviso.
+	 *
+	 * @param array|string $atts Atributos.
+	 * @return string
+	 */
+	public static function valoracion( $atts ) {
+		$atts = shortcode_atts( array( 'formato' => 'marcador' ), $atts, 'mmpadel_valoracion' );
+		$nota = mmpadel_get_option( 'google_nota' );
+		if ( '' === $nota ) {
+			if ( current_user_can( 'edit_posts' ) ) {
+				return '<p class="mmpadel-aviso-editor">' . esc_html__( 'Marcador oculto: falta «Nota media en Google» en Ajustes → MMPadel. Este aviso solo lo ven los editores.', 'mmpadel-core' ) . '</p>';
+			}
+			return '';
+		}
+
+		return mmpadel_render_template(
+			'valoracion',
+			array(
+				'nota'    => $nota,
+				'resenas' => mmpadel_get_option( 'google_num_resenas' ),
+				'formato' => $atts['formato'],
+			)
+		);
 	}
 }

@@ -6,6 +6,16 @@ La web explica la escuela y lleva al usuario a tres sitios: el formulario «Encu
 
 > Estado: **base del proyecto** con el logo y los colores de marca. Los textos, las tarifas y las fotos son provisionales.
 
+## Demo online
+
+**[▶ Abrir la demo en WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/IsmaGDevOps/mmpadel_web/main/blueprint.json)**
+
+WordPress se ejecuta entero en tu navegador, sin instalar nada. La primera carga tarda unos segundos: instala el tema y el plugin desde este repositorio (rama `main`), pone el sitio en español, crea las páginas y los menús y añade el contenido de ejemplo. Lo hace [`blueprint.json`](blueprint.json).
+
+- Ya entras con sesión iniciada. El panel está en `/wp-admin` (usuario `admin`, contraseña `password`).
+- Puedes enviar el formulario y ver la solicitud en *Solicitudes*, pero los emails no se envían.
+- Es una copia temporal: al recargar la página se vuelve a montar desde cero y se pierden los cambios.
+
 ## Requisitos
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) arrancado (en Windows, con WSL2).
@@ -77,6 +87,7 @@ Las fichas se muestran en las páginas mediante shortcodes. Se ven en el editor 
 | `[mmpadel_faq]` | Preguntas frecuentes desplegables (`categoria="slug"` para filtrar) |
 | `[mmpadel_formulario]` | Formulario «Encuentra tu grupo» |
 | `[mmpadel_contacto]` | Dirección, horario, teléfono, email y botones |
+| `[mmpadel_valoracion]` | Marcador con la nota y el número de reseñas de Google (*Ajustes → MMPadel → Enlaces*) |
 | `[mmpadel_boton destino="plazas"]` | Botón a un enlace de Ajustes: `grupo`, `whatsapp`, `plazas`, `software`, `telefono`, `resenas`, `instagram`, `facebook`. Admite `texto="…"` y `estilo="cta"` o `estilo="borde"`. Si falta el enlace no se muestra (los editores ven un aviso). |
 | `[mmpadel_dato clave="titular"]` | Un dato de Ajustes (para los textos legales). Si falta, sale marcado como pendiente. |
 

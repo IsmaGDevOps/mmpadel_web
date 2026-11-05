@@ -58,6 +58,23 @@
 	font-size: var(--wp--preset--font-size--large);
 }
 
+:is(h1, h2, h3) mark {
+	background: linear-gradient(transparent 58%, var(--wp--preset--color--acento) 58%, var(--wp--preset--color--acento) 92%, transparent 92%) !important;
+	color: inherit;
+}
+
+.mmpadel-hero mark {
+	background: none !important;
+	color: var(--wp--preset--color--acento) !important;
+}
+
+.mmpadel-ventajas .wp-block-column {
+	padding: 1.5rem;
+	border: 1px solid var(--wp--preset--color--borde);
+	border-radius: 18px;
+	background: var(--wp--preset--color--fondo);
+}
+
 .mmpadel-aviso-legal {
 	padding: 1rem;
 	border-left: 4px solid #b45309;

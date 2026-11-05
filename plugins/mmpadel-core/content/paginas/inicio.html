@@ -1,10 +1,10 @@
-<!-- wp:group {"align":"full","className":"mmpadel-hero","layout":{"type":"constrained"}} -->
+<!-- wp:group {"align":"full","className":"mmpadel-hero","layout":{"type":"default"}} -->
 <div class="wp-block-group alignfull mmpadel-hero"><!-- wp:paragraph {"className":"mmpadel-antetitulo"} -->
 <p class="mmpadel-antetitulo">Escuela de pádel en Málaga</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1} -->
-<h1 class="wp-block-heading">Aprende pádel con método, en grupos de tu nivel</h1>
+<h1 class="wp-block-heading">Aprende pádel con método, en grupos de <mark>tu nivel</mark></h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -18,21 +18,22 @@
 
 <!-- wp:button {"className":"is-style-outline"} -->
 <div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/metodologia/">Cómo trabajamos</a></div>
-<!-- /wp:button -->
-
-<!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/plazas-libres/">Ver plazas libres</a></div>
 <!-- /wp:button --></div>
-<!-- /wp:buttons --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:shortcode -->
+[mmpadel_valoracion formato="linea"]
+<!-- /wp:shortcode --></div>
 <!-- /wp:group -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Por qué MMPadel</h2>
+<!-- wp:group {"align":"wide","className":"mmpadel-ventajas","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide mmpadel-ventajas"><!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Por qué <mark>MMPadel</mark></h2>
 <!-- /wp:heading -->
 
 <!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
+<div class="wp-block-columns"><!-- wp:column {"className":"mmpadel-icono-ciclos"} -->
+<div class="wp-block-column mmpadel-icono-ciclos"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Ciclos de cuatro semanas</h3>
 <!-- /wp:heading -->
 
@@ -41,8 +42,8 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
+<!-- wp:column {"className":"mmpadel-icono-nivel"} -->
+<div class="wp-block-column mmpadel-icono-nivel"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Grupos por nivel</h3>
 <!-- /wp:heading -->
 
@@ -51,8 +52,8 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
+<!-- wp:column {"className":"mmpadel-icono-precio"} -->
+<div class="wp-block-column mmpadel-icono-precio"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Precio final, sin sorpresas</h3>
 <!-- /wp:heading -->
 
@@ -60,11 +61,12 @@
 <p>El precio incluye la pista y no hay matrícula. Lo que ves en tarifas es lo que pagas.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
-<!-- /wp:columns -->
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
 
-<!-- wp:group {"align":"full","className":"mmpadel-seccion-suave","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull mmpadel-seccion-suave"><!-- wp:heading -->
-<h2 class="wp-block-heading">Empezar es fácil</h2>
+<!-- wp:group {"align":"full","className":"mmpadel-seccion-suave mmpadel-empezar","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull mmpadel-seccion-suave mmpadel-empezar"><!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Empezar es <mark>fácil</mark></h2>
 <!-- /wp:heading -->
 
 <!-- wp:list {"ordered":true,"className":"mmpadel-pasos"} -->
@@ -86,20 +88,32 @@
 <!-- /wp:shortcode --></div>
 <!-- /wp:group -->
 
+<!-- wp:columns {"align":"wide","className":"mmpadel-paneles"} -->
+<div class="wp-block-columns alignwide mmpadel-paneles"><!-- wp:column {"className":"mmpadel-panel mmpadel-panel--opiniones"} -->
+<div class="wp-block-column mmpadel-panel mmpadel-panel--opiniones"><!-- wp:paragraph {"className":"mmpadel-antetitulo"} -->
+<p class="mmpadel-antetitulo">Opiniones</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:heading -->
-<h2 class="wp-block-heading">Lo que dicen nuestros alumnos</h2>
+<h2 class="wp-block-heading">Lo que dicen nuestros <mark>alumnos</mark></h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph -->
-<p>Cientos de alumnos nos han valorado en Google. Léelos tú mismo.</p>
-<!-- /wp:paragraph -->
+<!-- wp:shortcode -->
+[mmpadel_valoracion]
+<!-- /wp:shortcode -->
 
 <!-- wp:shortcode -->
 [mmpadel_boton destino="resenas" estilo="borde"]
-<!-- /wp:shortcode -->
+<!-- /wp:shortcode --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"mmpadel-panel mmpadel-panel--plazas"} -->
+<div class="wp-block-column mmpadel-panel mmpadel-panel--plazas"><!-- wp:paragraph {"className":"mmpadel-antetitulo"} -->
+<p class="mmpadel-antetitulo">Canal de WhatsApp</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2 class="wp-block-heading">¿Buscas hueco ya?</h2>
+<h2 class="wp-block-heading">¿Buscas hueco <mark>ya</mark>?</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -107,5 +121,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:shortcode -->
-[mmpadel_boton destino="plazas"]
-<!-- /wp:shortcode -->
+[mmpadel_boton destino="plazas" estilo="cta"]
+<!-- /wp:shortcode --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->

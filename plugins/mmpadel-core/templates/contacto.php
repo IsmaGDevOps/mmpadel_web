@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 $whatsapp_url = mmpadel_get_whatsapp_url( $args['whatsapp'] );
 $tel_url      = mmpadel_get_tel_url( $args['telefono'] );
+$mismo_numero = $tel_url && $whatsapp_url && preg_replace( '/\D/', '', $tel_url ) === preg_replace( '/\D/', '', $whatsapp_url );
 ?>
 <div class="mmpadel-contacto">
 	<dl class="mmpadel-ficha">
@@ -33,7 +34,7 @@ $tel_url      = mmpadel_get_tel_url( $args['telefono'] );
 		<?php endif; ?>
 		<?php if ( $args['telefono'] ) : ?>
 			<div>
-				<dt><?php esc_html_e( 'Teléfono', 'mmpadel-core' ); ?></dt>
+				<dt><?php echo esc_html( $mismo_numero ? __( 'Teléfono y WhatsApp', 'mmpadel-core' ) : __( 'Teléfono', 'mmpadel-core' ) ); ?></dt>
 				<dd><a href="<?php echo esc_url( $tel_url, array( 'tel' ) ); ?>"><?php echo esc_html( $args['telefono'] ); ?></a></dd>
 			</div>
 		<?php endif; ?>

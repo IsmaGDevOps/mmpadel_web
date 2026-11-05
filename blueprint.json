@@ -1,0 +1,82 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "MMPadel – demo de la web",
+		"description": "Tema mmpadel y plugin mmpadel-core con las páginas, los menús y el contenido de ejemplo.",
+		"author": "IsmaGDevOps"
+	},
+	"landingPage": "/",
+	"preferredVersions": {
+		"php": "8.2",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"steps": [
+		{
+			"step": "login",
+			"username": "admin",
+			"password": "password"
+		},
+		{
+			"step": "setSiteLanguage",
+			"language": "es_ES"
+		},
+		{
+			"step": "setSiteOptions",
+			"options": {
+				"blogname": "MMPadel",
+				"timezone_string": "Europe/Madrid"
+			}
+		},
+		{
+			"step": "installTheme",
+			"themeData": {
+				"resource": "git:directory",
+				"url": "https://github.com/IsmaGDevOps/mmpadel_web",
+				"ref": "main",
+				"refType": "branch",
+				"path": "themes/mmpadel"
+			},
+			"options": {
+				"activate": true,
+				"targetFolderName": "mmpadel"
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "git:directory",
+				"url": "https://github.com/IsmaGDevOps/mmpadel_web",
+				"ref": "main",
+				"refType": "branch",
+				"path": "plugins/mmpadel-core"
+			},
+			"options": {
+				"activate": true,
+				"targetFolderName": "mmpadel-core"
+			}
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require_once '/wordpress/wp-load.php'; foreach ( array( array( 'hello-world', 'post' ), array( 'sample-page', 'page' ), array( 'privacy-policy', 'page' ) ) as $p ) { $post = get_page_by_path( $p[0], OBJECT, $p[1] ); if ( $post ) { wp_delete_post( $post->ID, true ); } }"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp rewrite structure /%postname%/"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp mmpadel paginas"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp mmpadel demo --yes"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp rewrite flush"
+		}
+	]
+}

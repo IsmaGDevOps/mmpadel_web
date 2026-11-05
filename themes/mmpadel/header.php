@@ -41,11 +41,23 @@ defined( 'ABSPATH' ) || exit;
 						'fallback_cb'    => false,
 					)
 				);
+
+				$mmpadel_whatsapp_url = mmpadel_theme_whatsapp_url( mmpadel_theme_option( 'whatsapp' ) );
 				?>
+				<?php if ( $mmpadel_whatsapp_url ) : ?>
+					<p class="main-navigation__extra">
+						<?php esc_html_e( '¿Dudas antes de apuntarte?', 'mmpadel' ); ?>
+						<a href="<?php echo esc_url( $mmpadel_whatsapp_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Escríbenos por WhatsApp', 'mmpadel' ); ?></a>
+					</p>
+				<?php endif; ?>
 			</nav>
 		<?php endif; ?>
 
 		<a class="button button--cta site-header__cta" href="<?php echo esc_url( mmpadel_theme_page_url( 'encuentra-tu-grupo' ) ); ?>">
+			<svg class="button__ball" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+				<circle cx="12" cy="12" r="10" />
+				<path d="M5.6 4.4c3.1 3 3.1 12.2 0 15.2M18.4 4.4c-3.1 3-3.1 12.2 0 15.2" />
+			</svg>
 			<?php esc_html_e( 'Encuentra tu grupo', 'mmpadel' ); ?>
 		</a>
 	</div>
