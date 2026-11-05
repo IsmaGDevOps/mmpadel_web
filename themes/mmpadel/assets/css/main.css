@@ -467,8 +467,8 @@ a {
 	color: var(--mmpadel-color-acento);
 }
 
-/* Bola que rueda bajo el menú (la crea navigation.js): solo en escritorio. */
-.main-menu__bola {
+/* Indicador que se desliza por el menú (lo crea navigation.js): solo en escritorio. */
+.main-menu__indicador {
 	display: none;
 }
 
@@ -584,10 +584,27 @@ a {
 	}
 }
 
-/* Menú horizontal solo cuando caben todos los elementos. */
+/*
+ * Menú horizontal solo cuando caben todos los elementos: logo a la
+ * izquierda, el menú centrado en una pista y el botón a la derecha.
+ */
 @media (min-width: 75em) {
+	:root {
+		--mmpadel-header-height: 4.75rem;
+	}
+
 	.site-header__inner {
-		flex-wrap: nowrap;
+		display: grid;
+		grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+		gap: 1.25rem;
+	}
+
+	.site-branding {
+		margin-right: 0;
+	}
+
+	.site-header__cta {
+		justify-self: end;
 	}
 
 	.menu-toggle,
@@ -606,60 +623,83 @@ a {
 		display: none;
 	}
 
+	/* La pista: una píldora translúcida con todas las opciones. */
 	.main-menu {
 		display: flex;
 		gap: 0.125rem;
+		padding: 0.3125rem;
+		border: 1px solid rgb(255 255 255 / 0.1);
+		border-radius: var(--mmpadel-radius-pill);
+		background: rgb(255 255 255 / 0.05);
 	}
 
 	.main-menu > li {
 		position: relative;
+		z-index: 1;
 	}
 
 	.main-menu a {
-		padding: 0.5rem 0.75rem;
+		padding: 0.5rem 0.625rem;
 		border-bottom: 0;
-		color: rgb(255 255 255 / 0.75);
-		font-size: 0.9375rem;
+		border-radius: var(--mmpadel-radius-pill);
+		color: rgb(255 255 255 / 0.72);
+		font-size: 0.875rem;
 		white-space: nowrap;
 		transition: color 0.2s ease;
 	}
 
 	.main-menu a:hover,
-	.main-menu a:focus-visible,
+	.main-menu a:focus-visible {
+		color: var(--mmpadel-color-fondo);
+	}
+
+	/* Página actual: en amarillo, con o sin el indicador detrás. */
 	.main-menu .current-menu-item > a,
 	.main-menu .current_page_item > a,
 	.main-menu .current_page_parent > a,
 	.main-menu .current-menu-ancestor > a {
-		color: var(--mmpadel-color-fondo);
+		color: var(--mmpadel-color-acento);
 	}
 
-	/* La bola: descansa bajo la página actual y rueda hasta la que señalas. */
-	.main-menu__bola {
+	/* Sin JS (o antes de que cargue): la página actual lleva su propio fondo. */
+	.main-menu > .current-menu-item > a,
+	.main-menu > .current_page_parent > a,
+	.main-menu > .current-menu-ancestor > a {
+		background: rgb(255 255 255 / 0.1);
+	}
+
+	.js .main-navigation:has(.main-menu__indicador.is-visible) .main-menu > li > a {
+		background: none;
+	}
+
+	/* El indicador: se desliza tras la opción señalada con un pequeño rebote. */
+	.main-menu__indicador {
 		position: absolute;
-		top: calc(100% + 0.125rem);
+		top: 0;
 		left: 0;
 		display: block;
-		width: 0.75rem;
-		height: 0.75rem;
-		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23d7f25c'/%3E%3Cpath d='M5.2 4c3.4 3.3 3.4 12.7 0 16M18.8 4c-3.4 3.3-3.4 12.7 0 16' fill='none' stroke='%232a2763' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+		border-radius: var(--mmpadel-radius-pill);
+		background: rgb(255 255 255 / 0.12);
+		box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 6px 16px -8px rgb(0 0 0 / 0.5);
 		opacity: 0;
 		pointer-events: none;
 		transition:
-			transform 0.6s cubic-bezier(0.34, 1.45, 0.64, 1),
-			opacity 0.25s ease;
+			transform 0.45s cubic-bezier(0.34, 1.3, 0.64, 1),
+			width 0.45s cubic-bezier(0.34, 1.3, 0.64, 1),
+			opacity 0.2s ease;
 	}
 
-	.main-menu__bola.is-visible {
+	.main-menu__indicador.is-visible {
 		opacity: 1;
 	}
 
-	.main-menu__bola.sin-transicion {
-		transition: none;
+	.main-menu__indicador.sin-transicion {
+		transition: opacity 0.2s ease;
 	}
 
 	.main-menu .sub-menu {
 		position: absolute;
-		top: 100%;
+		top: calc(100% + 0.5rem);
 		left: 0;
 		min-width: 14rem;
 		padding: 0.5rem;

@@ -3,8 +3,9 @@
  * - La cabecera pasa a «cristal» al bajar (.is-scrolled).
  * - Menú móvil accesible: botón con aria-expanded, cierre con Escape y al
  *   pasar a escritorio.
- * - En escritorio, una bola de pádel descansa bajo la página actual y rueda
- *   (girando lo que le toca por la distancia) hasta la opción señalada.
+ * - En escritorio, un indicador en forma de píldora descansa tras la página
+ *   actual y se desliza hasta la opción que se señala con el ratón o el
+ *   teclado; al salir del menú vuelve a la página actual.
  */
 ( function () {
 	'use strict';
@@ -57,40 +58,34 @@
 		}
 	} );
 
-	/* Bola que rueda (escritorio) ----------------------------------- */
+	/* Indicador que se desliza (escritorio) -------------------------- */
 
 	const menu = nav.querySelector( '.main-menu' );
-	const bola = document.createElement( 'span' );
-	bola.className = 'main-menu__bola';
-	bola.setAttribute( 'aria-hidden', 'true' );
-	nav.appendChild( bola );
+	const indicador = document.createElement( 'span' );
+	indicador.className = 'main-menu__indicador';
+	indicador.setAttribute( 'aria-hidden', 'true' );
+	nav.appendChild( indicador );
 
 	const actual = menu
 		? menu.querySelector( ':scope > .current-menu-item > a, :scope > .current_page_parent > a, :scope > .current-menu-ancestor > a' )
 		: null;
 
-	let x = null;
-	let giro = 0;
-
 	const moverA = ( link, conTransicion = true ) => {
 		if ( ! desktop.matches || ! link ) {
-			bola.classList.remove( 'is-visible' );
+			indicador.classList.remove( 'is-visible' );
 			return;
 		}
 
 		const navBox = nav.getBoundingClientRect();
 		const linkBox = link.getBoundingClientRect();
-		const destino = linkBox.left - navBox.left + linkBox.width / 2;
 
-		// Rodar sin resbalar: el giro es la distancia entre el perímetro.
-		if ( x !== null && conTransicion ) {
-			giro += ( ( destino - x ) / ( Math.PI * bola.offsetWidth ) ) * 360;
-		}
-		x = destino;
-
-		bola.classList.toggle( 'sin-transicion', ! conTransicion );
-		bola.style.transform = `translateX(calc(${ destino }px - 50%)) rotate(${ giro }deg)`;
-		bola.classList.add( 'is-visible' );
+		// Desde donde no se veía, aparece en su sitio sin deslizarse.
+		const aparece = ! indicador.classList.contains( 'is-visible' );
+		indicador.classList.toggle( 'sin-transicion', ! conTransicion || aparece );
+		indicador.style.width = `${ linkBox.width }px`;
+		indicador.style.height = `${ linkBox.height }px`;
+		indicador.style.transform = `translate(${ linkBox.left - navBox.left }px, ${ linkBox.top - navBox.top }px)`;
+		indicador.classList.add( 'is-visible' );
 	};
 
 	const recolocar = () => moverA( actual, false );
