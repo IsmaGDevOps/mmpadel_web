@@ -3,7 +3,7 @@
  * Desinstalación de MMPadel Core.
  *
  * Borra los ajustes y los permisos propios. NO borra tarifas, entrenadores,
- * eventos, FAQ ni solicitudes: son contenido y datos de la escuela, y
+ * eventos, FAQ, opiniones ni solicitudes: son contenido y datos de la escuela, y
  * perderlos por desinstalar el plugin sería irreversible. Si hay que
  * eliminarlos, se hace a mano desde el panel o con WP-CLI.
  *

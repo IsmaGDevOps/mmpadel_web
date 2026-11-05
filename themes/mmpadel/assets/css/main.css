@@ -1990,7 +1990,7 @@ a {
 }
 
 /* El título de la página, alineado con la apertura ancha en vez de con el texto estrecho. */
-.entry-header:has(~ .entry-content > .mmpadel-plazas:first-child) {
+.entry-header:has(~ .entry-content > :is(.mmpadel-plazas, .mmpadel-opiniones-intro):first-child) {
 	max-width: calc(var(--mmpadel-wide) + 2 * var(--mmpadel-gutter));
 }
 
@@ -2302,6 +2302,110 @@ a {
 	.mmpadel-pilares__lista li:last-child {
 		padding-right: 0;
 	}
+}
+
+/* ------------------------------------------------------------------ *
+ * 6g. Opiniones (clases CSS adicionales en los bloques de la página)
+ * ------------------------------------------------------------------ */
+
+/*
+ * Apertura: texto a la izquierda y, a la derecha, el marcador de Google en
+ * grande sobre un panel azul con las líneas de una pista.
+ */
+.mmpadel-opiniones-intro {
+	display: grid;
+	gap: var(--mmpadel-space-lg);
+	align-items: center;
+	margin-top: var(--mmpadel-space-sm);
+}
+
+.mmpadel-opiniones-intro__texto > * {
+	margin-block: 0;
+}
+
+.mmpadel-opiniones-intro__texto > * + * {
+	margin-top: 1.25rem;
+}
+
+.mmpadel-opiniones-intro__texto .mmpadel-antetitulo {
+	color: var(--mmpadel-color-primario);
+}
+
+.mmpadel-opiniones-intro__texto h2 {
+	margin-top: 0.75rem;
+	font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem);
+	letter-spacing: -0.02em;
+	line-height: 1.08;
+	text-wrap: balance;
+}
+
+.mmpadel-opiniones-intro__texto .mmpadel-boton {
+	margin-top: var(--mmpadel-space-md);
+}
+
+.mmpadel-opiniones-nota {
+	display: grid;
+	place-items: center;
+	min-height: 16rem;
+	padding: var(--mmpadel-space-lg) var(--mmpadel-space-md);
+	border-radius: 2rem;
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.14' stroke-width='2'%3E%3Crect x='1' y='1' width='398' height='198'/%3E%3Cpath d='M61 1v198M339 1v198M61 100h278'/%3E%3C/g%3E%3Cpath d='M200-10v220' stroke='%23d7f25c' stroke-opacity='.45' stroke-width='3'/%3E%3C/svg%3E") center / 120% auto no-repeat,
+		radial-gradient(circle at 80% 10%, rgb(255 255 255 / 0.14), transparent 55%),
+		linear-gradient(160deg, var(--mmpadel-color-primario), var(--mmpadel-color-primario-oscuro));
+}
+
+/* El marcador, más grande que en el inicio. */
+.mmpadel-opiniones-nota .mmpadel-marcador {
+	margin: 0;
+	border: 1px solid rgb(255 255 255 / 0.16);
+	border-radius: 1.5rem;
+	box-shadow: 0 30px 60px -20px rgb(10 9 30 / 0.7);
+}
+
+.mmpadel-opiniones-nota .mmpadel-marcador__casilla {
+	gap: 0.75rem;
+	padding: 1.5rem 1.75rem;
+}
+
+.mmpadel-opiniones-nota .mmpadel-marcador__valor {
+	font-size: clamp(3rem, 2rem + 4vw, 5rem);
+}
+
+.mmpadel-opiniones-nota .mmpadel-marcador__estrellas {
+	width: 8.5rem;
+	height: 1.5rem;
+}
+
+@media (min-width: 56em) {
+	.mmpadel-opiniones-intro {
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+		gap: var(--mmpadel-space-xl);
+	}
+
+	.mmpadel-opiniones-nota {
+		min-height: 22rem;
+	}
+}
+
+/* Muro: si no hay opiniones en el panel, la sección no sale. */
+.mmpadel-opiniones-muro:not(:has(.mmpadel-opiniones)) {
+	display: none;
+}
+
+.entry-content > .mmpadel-opiniones-muro {
+	margin-block-start: var(--mmpadel-space-xl);
+}
+
+.mmpadel-opiniones-muro > * {
+	margin-block: 0;
+}
+
+.mmpadel-opiniones-muro__nota {
+	margin-bottom: var(--mmpadel-space-md) !important;
+	color: var(--mmpadel-color-texto-suave);
+	font-size: var(--mmpadel-font-size-sm);
+	text-align: center;
 }
 
 /* ------------------------------------------------------------------ *

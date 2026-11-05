@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registro de tarifas, entrenadores, eventos, FAQ y solicitudes.
+ * Registro de tarifas, entrenadores, eventos, FAQ, opiniones y solicitudes.
  */
 final class MMPadel_Post_Types {
 
@@ -16,6 +16,7 @@ final class MMPadel_Post_Types {
 	const ENTRENADOR = 'mmpadel_entrenador';
 	const EVENTO     = 'mmpadel_evento';
 	const FAQ        = 'mmpadel_faq';
+	const OPINION    = 'mmpadel_opinion';
 	const SOLICITUD  = 'mmpadel_solicitud';
 
 	const TAX_TIPO_CLASE = 'mmpadel_tipo_clase';
@@ -54,6 +55,7 @@ final class MMPadel_Post_Types {
 		self::register_entrenadores();
 		self::register_eventos();
 		self::register_faq();
+		self::register_opiniones();
 		self::register_solicitudes();
 	}
 
@@ -285,6 +287,63 @@ final class MMPadel_Post_Types {
 	}
 
 	/**
+	 * Opiniones: reseñas reales de Google copiadas a mano para mostrarlas en la
+	 * web. Autor (título), nota, texto, detalle y cuándo.
+	 */
+	private static function register_opiniones() {
+		register_post_type(
+			self::OPINION,
+			array(
+				'labels'        => self::labels( __( 'Opiniones', 'mmpadel-core' ), __( 'Opinión', 'mmpadel-core' ), true ),
+				'description'   => __( 'Reseñas reales de Google que se muestran en la página Opiniones.', 'mmpadel-core' ),
+				'public'        => false,
+				'show_ui'       => true,
+				'show_in_rest'  => true,
+				'menu_position' => 25,
+				'menu_icon'     => 'dashicons-format-quote',
+				'supports'      => array( 'title', 'page-attributes' ),
+				'rewrite'       => false,
+			)
+		);
+
+		MMPadel_Fields::register(
+			self::OPINION,
+			__( 'Reseña', 'mmpadel-core' ),
+			array(
+				'nota'    => array(
+					'label'   => __( 'Estrellas', 'mmpadel-core' ),
+					'type'    => 'select',
+					'options' => array(
+						'5' => '★★★★★',
+						'4' => '★★★★',
+						'3' => '★★★',
+						'2' => '★★',
+						'1' => '★',
+					),
+					'default' => '5',
+					'column'  => true,
+				),
+				'texto'   => array(
+					'label'       => __( 'Texto de la reseña', 'mmpadel-core' ),
+					'type'        => 'textarea',
+					'description' => __( 'Cópialo tal cual de Google. Si es muy largo, quédate con un fragmento que se entienda solo y marca el corte con «…».', 'mmpadel-core' ),
+				),
+				'detalle' => array(
+					'label'       => __( 'Detalle', 'mmpadel-core' ),
+					'placeholder' => __( 'Ej.: alumna de intermedio', 'mmpadel-core' ),
+					'description' => __( 'Opcional. Aparece bajo el nombre.', 'mmpadel-core' ),
+				),
+				'cuando'  => array(
+					'label'       => __( 'Cuándo', 'mmpadel-core' ),
+					'placeholder' => __( 'Ej.: marzo de 2026', 'mmpadel-core' ),
+					'description' => __( 'Opcional. Cuándo se publicó la reseña.', 'mmpadel-core' ),
+					'column'      => true,
+				),
+			)
+		);
+	}
+
+	/**
 	 * Solicitudes del formulario. Privadas: no tienen URL pública, no salen en
 	 * la API REST y solo las ve quien tenga los permisos propios (por defecto,
 	 * el administrador). No se pueden crear desde el panel.
@@ -381,6 +440,7 @@ final class MMPadel_Post_Types {
 			self::ENTRENADOR => __( 'Nombre del entrenador', 'mmpadel-core' ),
 			self::EVENTO     => __( 'Nombre del pool o evento', 'mmpadel-core' ),
 			self::FAQ        => __( 'Escribe la pregunta', 'mmpadel-core' ),
+			self::OPINION    => __( 'Nombre del autor, como aparece en Google (p. ej. «Lucía M.»)', 'mmpadel-core' ),
 		);
 		return $placeholders[ $post->post_type ] ?? $text;
 	}

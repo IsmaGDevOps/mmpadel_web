@@ -10,6 +10,7 @@
  *   [mmpadel_boton destino="grupo|whatsapp|plazas|software|telefono|resenas|instagram|facebook" texto="…" estilo="primario|cta|borde"]
  *   [mmpadel_dato clave="titular"]
  *   [mmpadel_valoracion formato="marcador|linea"]
+ *   [mmpadel_opiniones limite="12"]
  *
  * El HTML sale de plugins/mmpadel-core/templates/; el tema puede sustituir
  * cualquier plantilla copiándola a {tema}/mmpadel/.
@@ -45,6 +46,54 @@ final class MMPadel_Shortcodes {
 		add_shortcode( 'mmpadel_boton', array( __CLASS__, 'boton' ) );
 		add_shortcode( 'mmpadel_dato', array( __CLASS__, 'dato' ) );
 		add_shortcode( 'mmpadel_valoracion', array( __CLASS__, 'valoracion' ) );
+		add_shortcode( 'mmpadel_opiniones', array( __CLASS__, 'opiniones' ) );
+	}
+
+	/**
+	 * Opiniones (reseñas de Google copiadas en el panel), en el orden de su
+	 * campo «Orden» y, a igualdad, las más recientes primero.
+	 *
+	 * @param array|string $atts Atributos.
+	 * @return string Vacío si no hay opiniones.
+	 */
+	public static function opiniones( $atts ) {
+		$atts = shortcode_atts( array( 'limite' => 12 ), $atts, 'mmpadel_opiniones' );
+
+		$opiniones = array();
+		foreach (
+			get_posts(
+				array(
+					'post_type'      => MMPadel_Post_Types::OPINION,
+					'post_status'    => 'publish',
+					'posts_per_page' => max( 1, min( 50, (int) $atts['limite'] ) ),
+					'orderby'        => array(
+						'menu_order' => 'ASC',
+						'date'       => 'DESC',
+					),
+					'no_found_rows'  => true,
+				)
+			) as $post
+		) {
+			$texto = mmpadel_get_field( 'texto', $post->ID );
+			if ( '' === trim( $texto ) ) {
+				continue;
+			}
+			$nota        = (int) mmpadel_get_field( 'nota', $post->ID );
+			$opiniones[] = array(
+				'autor'     => get_the_title( $post ),
+				'iniciales' => self::initials( get_the_title( $post ) ),
+				'nota'      => $nota >= 1 && $nota <= 5 ? $nota : 5,
+				'texto'     => $texto,
+				'detalle'   => mmpadel_get_field( 'detalle', $post->ID ),
+				'cuando'    => mmpadel_get_field( 'cuando', $post->ID ),
+			);
+		}
+
+		if ( ! $opiniones ) {
+			return '';
+		}
+
+		return mmpadel_render_template( 'opiniones', array( 'opiniones' => $opiniones ) );
 	}
 
 	/**

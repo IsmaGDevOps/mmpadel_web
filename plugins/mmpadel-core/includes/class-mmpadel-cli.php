@@ -130,7 +130,7 @@ final class MMPadel_CLI {
 	}
 
 	/**
-	 * Crea contenido de ejemplo: ajustes, tarifas, entrenadores, eventos,
+	 * Crea contenido de ejemplo: ajustes, tarifas, entrenadores, eventos, opiniones,
 	 * preguntas frecuentes y píldoras. Solo para desarrollo.
 	 *
 	 * Todo lo que crea queda marcado y se puede borrar con --borrar. Los
@@ -258,6 +258,29 @@ final class MMPadel_CLI {
 		);
 		foreach ( $faqs as $i => $f ) {
 			self::post( MMPadel_Post_Types::FAQ, $f[1], $f[2], array(), array( MMPadel_Post_Types::TAX_FAQ => array( $faq_cats[ $f[0] ] ) ), $i );
+		}
+
+		// Opiniones: no son reseñas inventadas, solo muestran cómo queda el muro.
+		$opiniones = array(
+			array( 'Alumna de ejemplo', 'Aquí irá una reseña real copiada de Google: lo que cuenta el alumno de sus clases, de su grupo y de su entrenador.', 'Nivel intermedio' ),
+			array( 'Alumno de ejemplo', 'Las reseñas cortas también quedan bien en el muro.', 'Nivel iniciación' ),
+			array( 'Alumna de ejemplo', 'Si la reseña es muy larga, copia un fragmento que se entienda solo y marca el corte con puntos suspensivos. Así el muro se lee de un vistazo, y quien quiera leer más tiene el botón para ir a Google…', '' ),
+			array( 'Alumno de ejemplo', 'Cada tarjeta muestra las estrellas que puso el alumno, su nombre tal como aparece en Google y, si quieres, un detalle como su nivel.', 'Nivel avanzado' ),
+			array( 'Familia de ejemplo', 'Sustituye estas opiniones de ejemplo por reseñas reales en el panel, en «Opiniones».', 'Grupo de menores' ),
+		);
+		foreach ( $opiniones as $i => $o ) {
+			self::post(
+				MMPadel_Post_Types::OPINION,
+				$o[0] . ' ' . ( $i + 1 ),
+				'',
+				array(
+					'nota'    => '5',
+					'texto'   => $o[1],
+					'detalle' => $o[2],
+				),
+				array(),
+				$i
+			);
 		}
 
 		$tecnica   = self::term( 'category', 'Técnica' );
@@ -493,6 +516,7 @@ final class MMPadel_CLI {
 					MMPadel_Post_Types::ENTRENADOR,
 					MMPadel_Post_Types::EVENTO,
 					MMPadel_Post_Types::FAQ,
+					MMPadel_Post_Types::OPINION,
 				),
 				'post_status'    => 'any',
 				'posts_per_page' => -1,

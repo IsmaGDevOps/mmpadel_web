@@ -27,7 +27,7 @@ WordPress se ejecuta entero en tu navegador, sin instalar nada. La primera carga
 npm install        # instala @wordpress/env
 npm start          # levanta WordPress en Docker (la primera vez tarda unos minutos)
 npm run setup      # español, enlaces permanentes, tema, zona horaria, páginas y menús
-npm run demo       # opcional: tarifas, entrenadores, eventos, FAQ y píldoras de ejemplo
+npm run demo       # opcional: tarifas, entrenadores, eventos, FAQ, opiniones y píldoras de ejemplo
 ```
 
 - Web: http://localhost:8888
@@ -71,6 +71,7 @@ npm run demo       # opcional: tarifas, entrenadores, eventos, FAQ y píldoras d
 | Entrenadores | *Entrenadores* (la imagen destacada es la foto) |
 | Pools y eventos | *Pools y eventos* (cada uno tiene ficha en `/eventos/nombre/`) |
 | Preguntas frecuentes | *Preguntas frecuentes* (con categorías) |
+| Opiniones (reseñas de Google que se muestran en la web) | *Opiniones*: nombre como aparece en Google, estrellas, texto y, si se quiere, un detalle |
 | Teléfono, WhatsApp, dirección, horario, redes sociales, enlaces, email de avisos, datos legales | *Ajustes → MMPadel* |
 | Fotos (entrenadores, clases, eventos, píldoras) | *Medios* (Biblioteca de medios) |
 | Foto de portada de una página | *Imagen destacada* de la página (sustituye a la foto del tema, ver `themes/mmpadel/assets/images/README.md`) |
@@ -88,6 +89,7 @@ Las fichas se muestran en las páginas mediante shortcodes. Se ven en el editor 
 | `[mmpadel_formulario]` | Formulario «Encuentra tu grupo» |
 | `[mmpadel_contacto]` | Dirección, horario, teléfono, email y botones |
 | `[mmpadel_valoracion]` | Marcador con la nota y el número de reseñas de Google (*Ajustes → MMPadel → Enlaces*) |
+| `[mmpadel_opiniones]` | Muro de opiniones (`limite="12"`). Si no hay ninguna, no muestra nada |
 | `[mmpadel_boton destino="plazas"]` | Botón a un enlace de Ajustes: `grupo`, `whatsapp`, `plazas`, `software`, `telefono`, `resenas`, `instagram`, `facebook`. Admite `texto="…"` y `estilo="cta"` o `estilo="borde"`. Si falta el enlace no se muestra (los editores ven un aviso). |
 | `[mmpadel_dato clave="titular"]` | Un dato de Ajustes (para los textos legales). Si falta, sale marcado como pendiente. |
 
