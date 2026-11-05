@@ -303,14 +303,35 @@
 /* ------------------------------------------------------------------ *
  * Equipo
  * ------------------------------------------------------------------ */
+/*
+ * Cromo del entrenador: foto con el nombre encima sobre un degradado azul;
+ * sin foto, las iniciales sobre las líneas de una pista. Debajo, la
+ * experiencia con vistos amarillos y el enfoque como cita.
+ */
+.mmpadel-equipo {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+}
+
 .mmpadel-entrenador {
+	display: flex;
 	overflow: hidden;
+	flex-direction: column;
 	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
-	border-radius: var(--mmpadel-radius, 12px);
+	border-radius: 1.5rem;
+	background: var(--mmpadel-color-fondo, #fff);
+	box-shadow: var(--mmpadel-shadow, 0 4px 16px rgb(0 0 0 / 0.06));
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mmpadel-entrenador:hover {
+	box-shadow: 0 2px 4px rgb(0 0 0 / 0.06), 0 18px 36px -14px rgb(42 39 99 / 0.35);
+	transform: translateY(-4px);
 }
 
 .mmpadel-entrenador__foto {
+	position: relative;
 	display: grid;
+	overflow: hidden;
 	place-items: center;
 	aspect-ratio: 4 / 5;
 	background: var(--mmpadel-color-primario, #2a2763);
@@ -320,37 +341,151 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	transition: transform 0.6s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+.mmpadel-entrenador:hover .mmpadel-entrenador__foto img {
+	transform: scale(1.05);
+}
+
+/* Degradado bajo el nombre para que se lea sobre cualquier foto. */
+.mmpadel-entrenador__foto::after {
+	content: "";
+	position: absolute;
+	inset: 40% 0 0;
+	background: linear-gradient(transparent, color-mix(in srgb, var(--mmpadel-color-primario-oscuro, #1b1944) 92%, transparent));
+	pointer-events: none;
+}
+
+.mmpadel-entrenador__foto--sin-foto {
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 400'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.14' stroke-width='2'%3E%3Crect x='1' y='1' width='198' height='398'/%3E%3Cpath d='M1 61h198M1 339h198M100 61v278'/%3E%3C/g%3E%3Cpath d='M-10 200h220' stroke='%23d7f25c' stroke-opacity='.45' stroke-width='3'/%3E%3C/svg%3E") center / auto 110% no-repeat,
+		radial-gradient(circle at 70% 20%, rgb(255 255 255 / 0.14), transparent 60%),
+		linear-gradient(160deg, var(--mmpadel-color-primario, #2a2763), var(--mmpadel-color-primario-oscuro, #1b1944));
 }
 
 .mmpadel-entrenador__iniciales {
+	margin-bottom: 3rem;
 	color: var(--mmpadel-color-acento, #d7f25c);
-	font-size: 3rem;
+	font-size: 5.5rem;
 	font-weight: 800;
+	letter-spacing: -0.04em;
+	line-height: 1;
 }
 
-.mmpadel-entrenador__texto {
-	padding: var(--mmpadel-space-sm, 1rem) var(--mmpadel-space-md, 1.5rem) var(--mmpadel-space-md, 1.5rem);
+.mmpadel-entrenador__cabecera {
+	position: absolute;
+	z-index: 1;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1.25rem 1.5rem 1.4rem;
+	color: var(--mmpadel-color-fondo, #fff);
 }
 
 .mmpadel-entrenador__nombre {
 	margin: 0;
+	color: inherit;
+	font-size: var(--mmpadel-font-size-xl, 2rem);
+	letter-spacing: -0.02em;
+	line-height: 1.1;
 }
 
 .mmpadel-entrenador__especialidad {
-	margin: 0.25rem 0 0;
-	color: var(--mmpadel-color-primario, #2a2763);
-	font-weight: 600;
+	display: inline-block;
+	margin: 0.6rem 0 0;
+	padding: 0.25rem 0.75rem;
+	border-radius: 999px;
+	background: var(--mmpadel-color-acento, #d7f25c);
+	color: var(--mmpadel-color-primario-oscuro, #1b1944);
+	font-size: 0.8125rem;
+	font-weight: 700;
 }
 
-.mmpadel-entrenador h4 {
-	margin: 1rem 0 0.25rem;
-	font-size: var(--mmpadel-font-size-sm, 0.875rem);
-	letter-spacing: 0.04em;
+.mmpadel-entrenador__texto {
+	display: grid;
+	gap: 0.6rem;
+	padding: 1.5rem;
+}
+
+.mmpadel-entrenador__etiqueta {
+	margin: 0;
+	color: var(--mmpadel-color-primario, #2a2763);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
 	text-transform: uppercase;
 }
 
-.mmpadel-entrenador p {
+.mmpadel-entrenador__experiencia {
+	display: grid;
+	gap: 0.4rem;
 	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.mmpadel-entrenador__experiencia li {
+	position: relative;
+	padding-left: 1.6rem;
+	color: var(--mmpadel-color-texto, #1e1d3a);
+	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+}
+
+.mmpadel-entrenador__experiencia li::before {
+	content: "";
+	position: absolute;
+	top: 0.1rem;
+	left: 0;
+	width: 1.1rem;
+	height: 1.1rem;
+	border-radius: 50%;
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12.5l3.2 3.2L17 8.8' fill='none' stroke='%232a2763' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 0.8rem no-repeat,
+		var(--mmpadel-color-acento, #d7f25c);
+}
+
+/* Enfoque: cita con comillas amarillas grandes. */
+.mmpadel-entrenador__enfoque {
+	position: relative;
+	display: grid;
+	gap: 0.4rem;
+	margin: 0.6rem 0 0;
+	padding: 1rem 1.1rem 1.1rem 3rem;
+	border-radius: 1rem;
+	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
+}
+
+.mmpadel-entrenador__enfoque::before {
+	content: "“";
+	position: absolute;
+	top: 0.35rem;
+	left: 0.75rem;
+	color: var(--mmpadel-color-acento, #d7f25c);
+	font-family: Georgia, serif;
+	font-size: 3.5rem;
+	font-weight: 700;
+	line-height: 1;
+	-webkit-text-stroke: 1px var(--mmpadel-color-primario, #2a2763);
+}
+
+.mmpadel-entrenador__enfoque blockquote {
+	margin: 0;
+}
+
+.mmpadel-entrenador__enfoque p {
+	margin: 0;
+	color: var(--mmpadel-color-texto-suave, #55546e);
+	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+	font-style: italic;
+	line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mmpadel-entrenador:hover,
+	.mmpadel-entrenador:hover .mmpadel-entrenador__foto img {
+		transform: none;
+	}
 }
 
 /* ------------------------------------------------------------------ *

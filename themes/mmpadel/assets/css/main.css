@@ -2197,6 +2197,114 @@ a {
 }
 
 /* ------------------------------------------------------------------ *
+ * 6f. Equipo (clases CSS adicionales en los bloques de la página)
+ * ------------------------------------------------------------------ */
+.entry-content > .mmpadel-equipo-seccion {
+	margin-block-start: var(--mmpadel-space-lg);
+}
+
+/*
+ * Pilares: franja azul a todo el ancho con tres verbos grandes (lista
+ * numerada; la negrita de cada punto es el verbo). Bordes en diagonal desde
+ * 48em, como la franja de niveles de Metodología.
+ */
+.mmpadel-pilares {
+	--mmpadel-focus: 3px solid var(--mmpadel-color-acento);
+	display: grid;
+	grid-template-columns:
+		[full-start] minmax(var(--mmpadel-gutter), 1fr)
+		[texto-start] minmax(0, var(--mmpadel-wide))
+		[texto-end] minmax(var(--mmpadel-gutter), 1fr)
+		[full-end];
+	padding-block: var(--mmpadel-space-xl);
+	background:
+		radial-gradient(ellipse 60% 70% at 15% 30%, color-mix(in srgb, var(--mmpadel-color-primario) 70%, #6c68d8), transparent 70%),
+		linear-gradient(160deg, var(--mmpadel-color-primario), var(--mmpadel-color-primario-oscuro) 70%);
+	color: var(--mmpadel-color-fondo);
+}
+
+.entry-content > .mmpadel-pilares {
+	margin-block-start: var(--mmpadel-space-xl);
+}
+
+.mmpadel-pilares > * {
+	grid-column: texto;
+	margin-block: 0;
+}
+
+.mmpadel-pilares__lista {
+	display: grid;
+	gap: var(--mmpadel-space-md);
+	margin-top: var(--mmpadel-space-md) !important;
+	padding: 0;
+	list-style: none;
+	counter-reset: pilar;
+}
+
+.mmpadel-pilares__lista li {
+	color: rgb(255 255 255 / 0.82);
+	font-size: var(--mmpadel-font-size-md);
+	counter-increment: pilar;
+}
+
+.mmpadel-pilares__lista li::before {
+	content: counter(pilar, decimal-leading-zero);
+	display: block;
+	margin-bottom: 0.5rem;
+	color: var(--mmpadel-color-acento);
+	font-size: var(--mmpadel-font-size-sm);
+	font-weight: 700;
+	letter-spacing: 0.08em;
+}
+
+.mmpadel-pilares__lista strong {
+	display: block;
+	margin-bottom: 0.5rem;
+	color: var(--mmpadel-color-fondo);
+	font-size: clamp(2.5rem, 1.8rem + 2.5vw, 4rem);
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 1;
+}
+
+/* Punto final en amarillo, como una bola. */
+.mmpadel-pilares__lista strong::after {
+	content: "";
+	display: inline-block;
+	width: 0.2em;
+	height: 0.2em;
+	margin-left: 0.06em;
+	border-radius: 50%;
+	background: var(--mmpadel-color-acento);
+}
+
+@media (min-width: 48em) {
+	.mmpadel-pilares {
+		padding-block: calc(var(--mmpadel-space-xl) + 2rem);
+		clip-path: polygon(0 2.5rem, 100% 0, 100% calc(100% - 2.5rem), 0 100%);
+	}
+
+	.mmpadel-pilares__lista {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0;
+	}
+
+	.mmpadel-pilares__lista li {
+		padding-inline: var(--mmpadel-space-md);
+		border-left: 1px solid rgb(255 255 255 / 0.18);
+	}
+
+	.mmpadel-pilares__lista li:first-child {
+		padding-left: 0;
+		border-left: 0;
+	}
+
+	.mmpadel-pilares__lista li:last-child {
+		padding-right: 0;
+	}
+}
+
+/* ------------------------------------------------------------------ *
  * 7. Tarjetas y listados
  * ------------------------------------------------------------------ */
 .card-grid {
