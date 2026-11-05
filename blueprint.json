@@ -59,24 +59,16 @@
 			}
 		},
 		{
+			"step": "writeFile",
+			"path": "/tmp/mmpadel-playground.php",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/IsmaGDevOps/mmpadel_web/main/dev/playground.php"
+			}
+		},
+		{
 			"step": "runPHP",
-			"code": "<?php require_once '/wordpress/wp-load.php'; foreach ( array( array( 'hello-world', 'post' ), array( 'sample-page', 'page' ), array( 'privacy-policy', 'page' ) ) as $p ) { $post = get_page_by_path( $p[0], OBJECT, $p[1] ); if ( $post ) { wp_delete_post( $post->ID, true ); } }"
-		},
-		{
-			"step": "wp-cli",
-			"command": "wp rewrite structure /%postname%/"
-		},
-		{
-			"step": "wp-cli",
-			"command": "wp mmpadel paginas"
-		},
-		{
-			"step": "wp-cli",
-			"command": "wp mmpadel demo --yes"
-		},
-		{
-			"step": "wp-cli",
-			"command": "wp rewrite flush"
+			"code": "<?php require '/tmp/mmpadel-playground.php';"
 		}
 	]
 }
