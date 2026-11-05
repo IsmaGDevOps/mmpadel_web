@@ -757,47 +757,146 @@ a {
 
 /* Secciones (clases CSS adicionales en bloques Grupo) */
 /*
- * Franja de título de las páginas con foto. La foto llega como
- * --mmpadel-portada / --mmpadel-portada-movil (ver mmpadel_theme_cover()) y
- * va bajo un velo del azul de marca para que el texto blanco se lea siempre.
- * Sin foto, queda el azul liso.
+ * Hero de las páginas con foto: migas de pan, título y entradilla sobre la
+ * foto, alineados con el logo de la cabecera. La foto llega como
+ * --mmpadel-portada / --mmpadel-portada-movil (ver mmpadel_theme_cover()),
+ * entra con un zoom lento (::before) y va bajo un velo del azul de marca
+ * (::after). En móvil el velo cubre todo; desde 64em es denso bajo el texto y
+ * se abre hacia la derecha para que se vea la foto. Borde inferior en
+ * diagonal, como el hero de la portada.
  */
 .page-hero {
-	/* 72 % de opacidad: incluso sobre una zona blanca de la foto, el texto blanco
-	   queda a 5,6:1 de contraste (AA pide 4,5:1). No bajar de ahí. */
+	/* 72 % de opacidad como mínimo bajo el texto: incluso sobre una zona blanca
+	   de la foto, el texto blanco queda a 5,6:1 de contraste (AA pide 4,5:1). */
 	--mmpadel-velo: linear-gradient(
-		color-mix(in srgb, var(--mmpadel-color-primario) 72%, transparent),
-		color-mix(in srgb, var(--mmpadel-color-primario-oscuro) 88%, transparent)
+		color-mix(in srgb, var(--mmpadel-color-primario) 76%, transparent),
+		color-mix(in srgb, var(--mmpadel-color-primario-oscuro) 92%, transparent)
 	);
+	position: relative;
+	z-index: 0;
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+	min-height: 19rem;
+	margin-bottom: var(--mmpadel-space-lg);
+	padding-block: var(--mmpadel-space-lg) calc(var(--mmpadel-space-lg) + 0.5rem);
 	background-color: var(--mmpadel-color-primario);
-	background-image: var(--mmpadel-velo), var(--mmpadel-portada-movil, none);
-	background-position: center;
-	background-size: cover;
 	color: var(--mmpadel-color-fondo);
 }
 
-@media (min-width: 48em) {
-	.page-hero {
-		background-image: var(--mmpadel-velo), var(--mmpadel-portada, none);
-	}
+.page-hero::before,
+.page-hero::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
 }
 
-.page-hero {
-	margin-bottom: var(--mmpadel-space-lg);
-	padding-block: var(--mmpadel-space-xl) var(--mmpadel-space-lg);
+.page-hero::before {
+	z-index: -2;
+	background: var(--mmpadel-portada-movil, none) center / cover no-repeat;
+	animation: mmpadel-hero-zoom 14s cubic-bezier(0.2, 0.6, 0.3, 1) both;
 }
 
+.page-hero::after {
+	z-index: -1;
+	background: var(--mmpadel-velo);
+}
+
+/* Mismo ancho y borde izquierdo que la cabecera. */
 .page-hero .entry-header {
+	max-width: calc(var(--mmpadel-wide) + 2 * var(--mmpadel-gutter));
 	margin-bottom: 0;
+}
+
+.page-hero .entry-header > * {
+	max-width: 40rem;
+}
+
+.page-hero__migas {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+	color: rgb(255 255 255 / 0.72);
+	font-size: var(--mmpadel-font-size-sm);
+	font-weight: 600;
+}
+
+.page-hero__migas a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.page-hero__migas a:hover {
+	color: var(--mmpadel-color-fondo);
+	text-decoration: underline;
+}
+
+.page-hero__migas [aria-current] {
+	color: var(--mmpadel-color-acento);
 }
 
 .page-hero .entry-title {
 	color: inherit;
+	font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.5rem);
+	letter-spacing: -0.02em;
+	line-height: 1.02;
 	text-wrap: balance;
+}
+
+.page-hero__entradilla {
+	margin-top: 1.25rem;
+}
+
+.page-hero__entradilla p {
+	max-width: 42ch;
+	margin: 0;
+	color: rgb(255 255 255 / 0.9);
+	font-size: var(--mmpadel-font-size-lg);
+	line-height: 1.45;
+	text-wrap: pretty;
+}
+
+.page-hero__entradilla strong {
+	color: var(--mmpadel-color-acento);
 }
 
 .tiene-portada .site-main {
 	padding-top: 0;
+}
+
+@media (min-width: 48em) {
+	.page-hero {
+		min-height: 24rem;
+		padding-block: var(--mmpadel-space-xl) calc(var(--mmpadel-space-xl) + 1rem);
+		clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3rem), 0 100%);
+	}
+
+	.page-hero::before {
+		background-image: var(--mmpadel-portada, none);
+	}
+}
+
+@media (min-width: 64em) {
+	.page-hero {
+		min-height: 27rem;
+	}
+
+	.page-hero::after {
+		/* Aquí 100 % es el ancho del hero; --hero-fin, donde acaba el texto. */
+		--hero-fin: calc(max(var(--mmpadel-gutter), (100% - var(--mmpadel-wide)) / 2) + 40rem);
+		background:
+			linear-gradient(
+				90deg,
+				color-mix(in srgb, var(--mmpadel-color-primario-oscuro) 94%, transparent) 0,
+				color-mix(in srgb, var(--mmpadel-color-primario) 80%, transparent) var(--hero-fin),
+				color-mix(in srgb, var(--mmpadel-color-primario) 30%, transparent) calc(var(--hero-fin) + 22%),
+				color-mix(in srgb, var(--mmpadel-color-primario) 12%, transparent) 100%
+			),
+			linear-gradient(0deg, color-mix(in srgb, var(--mmpadel-color-primario-oscuro) 45%, transparent), transparent 40%);
+	}
 }
 
 /*

@@ -20,7 +20,7 @@ En las plantillas PHP las imágenes de esta carpeta se usan con `mmpadel_theme_i
 
 ## Fotos de portada (`portadas/`)
 
-Fotos de fondo de la portada de inicio y de la franja de título de algunas páginas, bajo un velo azul de marca. Cada página usa `portadas/{slug}.webp` (escritorio, 1920×1080) y `portadas/{slug}-movil.webp` (móvil, 1000×1000). Ahora hay fotos genéricas provisionales para `inicio`, `metodologia`, `clases-y-tarifas`, `pools-y-eventos` y `equipo` (origen y licencia en [portadas/CREDITOS.md](portadas/CREDITOS.md)).
+Fotos de fondo de la portada de inicio y del hero de algunas páginas, bajo un velo azul de marca. En escritorio el velo es denso bajo el texto (a la izquierda) y se abre hacia la derecha, así que conviene que la parte interesante de la foto quede en la mitad derecha. Si el primer párrafo de la página lleva la clase `mmpadel-entradilla`, se muestra dentro del hero, bajo el título. Cada página usa `portadas/{slug}.webp` (escritorio, 1920×1080) y `portadas/{slug}-movil.webp` (móvil, 1000×1000). Ahora hay fotos genéricas provisionales para `inicio`, `metodologia`, `clases-y-tarifas`, `pools-y-eventos` y `equipo` (origen y licencia en [portadas/CREDITOS.md](portadas/CREDITOS.md)).
 
 Para cambiar una portada hay dos formas:
 

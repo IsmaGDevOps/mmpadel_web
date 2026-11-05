@@ -131,6 +131,55 @@ function mmpadel_theme_cover( $post = null ) {
 }
 
 /**
+ * Separa la entradilla del resto del contenido de una página.
+ *
+ * Si el primer bloque es un párrafo con la clase «mmpadel-entradilla», se
+ * devuelve aparte para pintarlo en la franja de título (page.php) y el
+ * contenido sigue sin él. En el editor la entradilla sigue siendo el primer
+ * párrafo de la página, así que se cambia desde allí como siempre.
+ *
+ * @param WP_Post|null $post Página; por defecto la actual.
+ * @return array{entradilla: string, contenido: string|null} HTML de la
+ *     entradilla ('' si no hay) y contenido ya filtrado (null si no hay
+ *     entradilla, para usar the_content() sin más).
+ */
+function mmpadel_theme_split_intro( $post = null ) {
+	$post   = get_post( $post );
+	$vacio  = array(
+		'entradilla' => '',
+		'contenido'  => null,
+	);
+	$blocks = $post && has_blocks( $post ) ? parse_blocks( $post->post_content ) : array();
+
+	// Los bloques «null» son solo los saltos de línea entre bloques.
+	$blocks = array_values(
+		array_filter(
+			$blocks,
+			static function ( $block ) {
+				return null !== $block['blockName'] || '' !== trim( $block['innerHTML'] );
+			}
+		)
+	);
+
+	if ( ! $blocks || 'core/paragraph' !== $blocks[0]['blockName'] ) {
+		return $vacio;
+	}
+	$clases = explode( ' ', (string) ( $blocks[0]['attrs']['className'] ?? '' ) );
+	if ( ! in_array( 'mmpadel-entradilla', $clases, true ) ) {
+		return $vacio;
+	}
+
+	$entradilla = trim( wp_strip_all_tags( $blocks[0]['innerHTML'] ) ) ? render_block( $blocks[0] ) : '';
+	$resto      = serialize_blocks( array_slice( $blocks, 1 ) );
+
+	return array(
+		'entradilla' => $entradilla,
+		/** This filter is documented in wp-includes/post-template.php */
+		'contenido'  => str_replace( ']]>', ']]&gt;', apply_filters( 'the_content', $resto ) ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- filtro del núcleo.
+	);
+}
+
+/**
  * Atributo style con las variables CSS de la portada (--mmpadel-portada y
  * --mmpadel-portada-movil). Vacío si no hay portada.
  *
