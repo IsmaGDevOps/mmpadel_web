@@ -306,6 +306,15 @@ final class MMPadel_Shortcodes {
 		$fecha = mmpadel_get_field( 'fecha', $post->ID );
 		$date  = $fecha ? date_create_immutable( $fecha, wp_timezone() ) : false;
 
+		// Días que faltan (negativo si ya pasó), para «Hoy», «Mañana» o «Dentro de N días».
+		$dias = null;
+		if ( $date ) {
+			$diff = date_create_immutable( $today, wp_timezone() )->diff( $date );
+			$dias = $diff->invert ? -$diff->days : $diff->days;
+		}
+
+		$resultados = mmpadel_get_field( 'resultados', $post->ID );
+
 		return array(
 			'titulo'      => get_the_title( $post ),
 			'url'         => get_permalink( $post ),
@@ -314,10 +323,14 @@ final class MMPadel_Shortcodes {
 			'fecha_texto' => $date ? wp_date( get_option( 'date_format' ), $date->getTimestamp() ) : '',
 			'dia'         => $date ? wp_date( 'j', $date->getTimestamp() ) : '',
 			'mes'         => $date ? wp_date( 'M', $date->getTimestamp() ) : '',
+			'semana'      => $date ? wp_date( 'l', $date->getTimestamp() ) : '',
+			'dias'        => $dias,
 			'hora'        => mmpadel_get_field( 'hora', $post->ID ),
 			'nivel'       => mmpadel_get_field( 'nivel', $post->ID ),
 			'reglas'      => mmpadel_get_field( 'reglas', $post->ID ),
-			'resultados'  => mmpadel_get_field( 'resultados', $post->ID ),
+			'resultados'  => $resultados,
+			// Primera línea de los resultados («Campeones: …»), para el listado.
+			'destacado'   => trim( explode( "\n", $resultados )[0] ),
 			'inscripcion' => mmpadel_get_field( 'inscripcion_url', $post->ID ),
 			'terminado'   => $fecha && $fecha < $today,
 		);
