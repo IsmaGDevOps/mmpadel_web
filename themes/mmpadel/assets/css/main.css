@@ -2567,7 +2567,7 @@ a {
 	}
 }
 
-/* Muro: si no hay opiniones en el panel, la sección no sale. */
+/* Carrusel de opiniones: si no hay ninguna en el panel, la sección no sale. */
 .mmpadel-opiniones-muro:not(:has(.mmpadel-opiniones)) {
 	display: none;
 }

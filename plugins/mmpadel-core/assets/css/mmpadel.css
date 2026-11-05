@@ -1639,57 +1639,114 @@
 
 /* ------------------------------------------------------------------ *
  * Opiniones ([mmpadel_opiniones])
- * Muro de bocadillos en columnas de distinto alto. Cada bocadillo lleva
- * sus estrellas (tantas como la nota, con --nota) y una comilla grande;
- * uno de cada cinco va en azul para dar ritmo. Debajo, el autor con sus
- * iniciales. Estrellas en los colores de marca, escritos a mano en el SVG.
+ * Carrusel de tarjetas iguales: 1 y un trozo de la siguiente en móvil,
+ * 2 desde 40em y 3 desde 64em. La fila se desliza con CSS (scroll-snap);
+ * con mmpadel-carrusel.js (.is-mejorado) se oculta la barra de scroll y
+ * aparecen las flechas y la barra de progreso. Estrellas en los colores
+ * de marca, escritos a mano en el SVG.
  * ------------------------------------------------------------------ */
+.mmpadel-carrusel {
+	--mmpadel-carrusel-hueco: var(--mmpadel-space-md, 1.5rem);
+	--mmpadel-carrusel-fundido: 1.25rem;
+	position: relative;
+}
+
 .mmpadel-opiniones {
-	margin: 0;
-	padding: 0;
+	display: flex;
+	gap: var(--mmpadel-carrusel-hueco);
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	margin: -0.75rem 0 0;
+	padding: 0.75rem 0 1.25rem;
 	list-style: none;
-	columns: 18rem 3;
-	column-gap: var(--mmpadel-space-md, 1.5rem);
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	transition: -webkit-mask-image 0.3s ease, mask-image 0.3s ease;
+}
+
+.mmpadel-opiniones:focus-visible {
+	outline: var(--mmpadel-focus, 3px solid #2a2763);
+	outline-offset: 4px;
+	border-radius: 1.5rem;
+}
+
+/* Con el script: sin barra de scroll y con el borde difuminado por donde quedan tarjetas. */
+.is-mejorado .mmpadel-opiniones {
+	padding-bottom: 0.75rem;
+	scrollbar-width: none;
+}
+
+.is-mejorado .mmpadel-opiniones::-webkit-scrollbar {
+	display: none;
+}
+
+.puede-adelante .mmpadel-opiniones {
+	-webkit-mask-image: linear-gradient(90deg, #000 calc(100% - var(--mmpadel-carrusel-fundido)), transparent);
+	mask-image: linear-gradient(90deg, #000 calc(100% - var(--mmpadel-carrusel-fundido)), transparent);
+}
+
+.puede-atras .mmpadel-opiniones {
+	-webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--mmpadel-carrusel-fundido));
+	mask-image: linear-gradient(90deg, transparent, #000 var(--mmpadel-carrusel-fundido));
+}
+
+.puede-atras.puede-adelante .mmpadel-opiniones {
+	-webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--mmpadel-carrusel-fundido), #000 calc(100% - var(--mmpadel-carrusel-fundido)), transparent);
+	mask-image: linear-gradient(90deg, transparent, #000 var(--mmpadel-carrusel-fundido), #000 calc(100% - var(--mmpadel-carrusel-fundido)), transparent);
 }
 
 .mmpadel-opinion {
-	margin: 0 0 var(--mmpadel-space-md, 1.5rem);
-	break-inside: avoid;
+	display: flex;
+	flex: 0 0 82%;
+	margin: 0;
+	scroll-snap-align: start;
 }
 
 .mmpadel-opinion figure {
+	position: relative;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
 	margin: 0;
+	padding: 1.75rem 1.5rem 1.5rem;
+	border: 1px solid transparent;
+	border-radius: 1.5rem;
+	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
+	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
 
-.mmpadel-opinion__bocadillo {
-	position: relative;
-	padding: 1.5rem 1.5rem 1.6rem;
-	border-radius: 1.5rem 1.5rem 1.5rem 0.35rem;
-	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
+.mmpadel-opinion figure:hover {
+	border-color: var(--mmpadel-color-borde, #dcdce8);
+	background: var(--mmpadel-color-fondo, #fff);
+	box-shadow: 0 2px 4px rgb(0 0 0 / 0.04), 0 18px 36px -18px rgb(42 39 99 / 0.35);
+	transform: translateY(-4px);
 }
 
 /* Comilla grande en la esquina. */
-.mmpadel-opinion__bocadillo::before {
+.mmpadel-opinion figure::before {
 	content: "”";
 	position: absolute;
-	top: 0.5rem;
-	right: 1.1rem;
+	top: 0.75rem;
+	right: 1.25rem;
 	color: var(--mmpadel-color-acento, #d7f25c);
 	font-family: Georgia, serif;
 	font-size: 4.5rem;
 	font-weight: 700;
 	line-height: 1;
 	-webkit-text-stroke: 1px var(--mmpadel-color-primario, #2a2763);
+	pointer-events: none;
 }
 
 .mmpadel-opinion__estrellas {
 	width: calc(var(--nota, 5) * 1.2rem);
 	height: 1.1rem;
-	margin: 0 0 1rem;
+	margin: 0 0 1.25rem;
 	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 23'%3E%3Cpath d='M11 1.1l2.6 6.9 7.4.4-5.8 4.6 2 7.1-6.2-4.1-6.2 4.1 2-7.1L1 8.4l7.4-.4z' fill='%232a2763'/%3E%3C/svg%3E") left center / 1.2rem 1.1rem repeat-x;
 }
 
+/* El texto ocupa lo que haga falta y empuja al autor al pie de la tarjeta. */
 .mmpadel-opinion__texto {
+	flex: 1;
 	margin: 0;
 }
 
@@ -1698,31 +1755,16 @@
 	color: var(--mmpadel-color-texto, #1e1d3a);
 	font-size: var(--mmpadel-font-size-md, 1.0625rem);
 	line-height: 1.6;
-}
-
-.mmpadel-opinion:nth-child(5n + 2) .mmpadel-opinion__bocadillo {
-	background:
-		radial-gradient(circle at 100% 0%, rgb(255 255 255 / 0.12), transparent 55%),
-		var(--mmpadel-color-primario, #2a2763);
-}
-
-.mmpadel-opinion:nth-child(5n + 2) .mmpadel-opinion__texto p {
-	color: var(--mmpadel-color-fondo, #fff);
-}
-
-.mmpadel-opinion:nth-child(5n + 2) .mmpadel-opinion__bocadillo::before {
-	-webkit-text-stroke: 0;
-}
-
-.mmpadel-opinion:nth-child(5n + 2) .mmpadel-opinion__estrellas {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 23'%3E%3Cpath d='M11 1.1l2.6 6.9 7.4.4-5.8 4.6 2 7.1-6.2-4.1-6.2 4.1 2-7.1L1 8.4l7.4-.4z' fill='%23d7f25c'/%3E%3C/svg%3E");
+	text-wrap: pretty;
 }
 
 .mmpadel-opinion__autor {
 	display: flex;
 	align-items: center;
 	gap: 0.75rem;
-	padding: 0.85rem 0 0 0.25rem;
+	margin-top: 1.5rem;
+	padding-top: 1.25rem;
+	border-top: 1px dashed var(--mmpadel-color-borde, #dcdce8);
 }
 
 .mmpadel-opinion__avatar {
@@ -1746,6 +1788,103 @@
 .mmpadel-opinion__detalle {
 	color: var(--mmpadel-color-texto-suave, #55546e);
 	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+}
+
+/* Controles: barra de progreso y flechas, debajo de la fila. */
+.mmpadel-carrusel__controles {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin-top: 1rem;
+}
+
+.mmpadel-carrusel__controles[hidden] {
+	display: none;
+}
+
+.mmpadel-carrusel__progreso {
+	position: relative;
+	flex: 1;
+	height: 4px;
+	margin-right: 1rem;
+	overflow: hidden;
+	border-radius: 4px;
+	background: var(--mmpadel-color-borde, #dcdce8);
+}
+
+.mmpadel-carrusel__progreso > span {
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 30%;
+	border-radius: inherit;
+	background: var(--mmpadel-color-primario, #2a2763);
+	transition: width 0.2s ease;
+}
+
+.mmpadel-carrusel__flecha {
+	display: grid;
+	flex-shrink: 0;
+	place-items: center;
+	width: 3rem;
+	height: 3rem;
+	padding: 0;
+	border: 1.5px solid var(--mmpadel-color-primario, #2a2763);
+	border-radius: 50%;
+	background: var(--mmpadel-color-fondo, #fff);
+	color: var(--mmpadel-color-primario, #2a2763);
+	cursor: pointer;
+	transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mmpadel-carrusel__flecha svg {
+	width: 1.25rem;
+	height: 1.25rem;
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 2.25;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.mmpadel-carrusel__flecha:hover:not(:disabled) {
+	background: var(--mmpadel-color-primario, #2a2763);
+	color: var(--mmpadel-color-acento, #d7f25c);
+}
+
+.mmpadel-carrusel__flecha:active:not(:disabled) {
+	transform: scale(0.94);
+}
+
+.mmpadel-carrusel__flecha:disabled {
+	cursor: default;
+	opacity: 0.3;
+}
+
+@media (min-width: 40em) {
+	.mmpadel-opinion {
+		flex-basis: calc((100% - var(--mmpadel-carrusel-hueco)) / 2);
+	}
+}
+
+@media (min-width: 64em) {
+	.mmpadel-opinion {
+		flex-basis: calc((100% - 2 * var(--mmpadel-carrusel-hueco)) / 3);
+	}
+
+	.mmpadel-opinion figure {
+		padding: 2rem 1.75rem 1.75rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mmpadel-opiniones {
+		scroll-behavior: auto;
+	}
+
+	.mmpadel-opinion figure:hover,
+	.mmpadel-carrusel__flecha:active:not(:disabled) {
+		transform: none;
+	}
 }
 
 /* ------------------------------------------------------------------ *

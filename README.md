@@ -89,7 +89,7 @@ Las fichas se muestran en las páginas mediante shortcodes. Se ven en el editor 
 | `[mmpadel_formulario]` | Formulario «Encuentra tu grupo» |
 | `[mmpadel_contacto]` | Dirección, horario, teléfono, email y botones |
 | `[mmpadel_valoracion]` | Marcador con la nota y el número de reseñas de Google (*Ajustes → MMPadel → Enlaces*) |
-| `[mmpadel_opiniones]` | Muro de opiniones (`limite="12"`). Si no hay ninguna, no muestra nada |
+| `[mmpadel_opiniones]` | Carrusel de opiniones (`limite="12"`). Si no hay ninguna, no muestra nada |
 | `[mmpadel_boton destino="plazas"]` | Botón a un enlace de Ajustes: `grupo`, `whatsapp`, `plazas`, `software`, `telefono`, `resenas`, `instagram`, `facebook`. Admite `texto="…"` y `estilo="cta"` o `estilo="borde"`. Si falta el enlace no se muestra (los editores ven un aviso). |
 | `[mmpadel_dato clave="titular"]` | Un dato de Ajustes (para los textos legales). Si falta, sale marcado como pendiente. |
 

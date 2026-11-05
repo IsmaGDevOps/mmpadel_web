@@ -93,6 +93,18 @@ final class MMPadel_Shortcodes {
 			return '';
 		}
 
+		// Flechas y barra de progreso del carrusel: solo donde hay opiniones.
+		wp_enqueue_script(
+			'mmpadel-carrusel',
+			MMPADEL_CORE_URL . 'assets/js/mmpadel-carrusel.js',
+			array(),
+			self::asset_version( 'assets/js/mmpadel-carrusel.js' ),
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+
 		return mmpadel_render_template( 'opiniones', array( 'opiniones' => $opiniones ) );
 	}
 
