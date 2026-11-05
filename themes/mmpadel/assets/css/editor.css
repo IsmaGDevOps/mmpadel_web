@@ -132,6 +132,27 @@
 	display: block;
 }
 
+/* Plazas libres: el móvil de ejemplo, como una tarjeta sencilla. */
+.mmpadel-plazas__texto .mmpadel-antetitulo {
+	color: var(--wp--preset--color--primario);
+}
+
+.mmpadel-movil {
+	max-width: 20rem;
+	padding: 1rem;
+	border: 8px solid #15132f;
+	border-radius: 2rem;
+	background: var(--wp--preset--color--fondo-suave);
+}
+
+.mmpadel-movil__avisos li {
+	margin-bottom: 0.5rem;
+	padding: 0.5rem 0.75rem;
+	border-radius: 12px;
+	background: var(--wp--preset--color--fondo);
+	list-style: none;
+}
+
 .mmpadel-aviso-legal {
 	padding: 1rem;
 	border-left: 4px solid #b45309;
