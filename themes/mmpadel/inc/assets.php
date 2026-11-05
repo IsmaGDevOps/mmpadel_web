@@ -49,3 +49,24 @@ function mmpadel_theme_enqueue_assets() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'mmpadel_theme_enqueue_assets' );
+
+/**
+ * Pista 3D (three.js) de la sección «Qué trabajamos en cada nivel».
+ *
+ * Solo se carga en las páginas con un bloque de clase «mmpadel-pista». Este
+ * módulo pesa poco; three.js (assets/vendor/three) lo descarga él mismo
+ * cuando la sección se acerca a la pantalla.
+ */
+function mmpadel_theme_enqueue_pista() {
+	if ( ! is_singular() || ! str_contains( (string) get_post_field( 'post_content', get_queried_object_id() ), 'mmpadel-pista' ) ) {
+		return;
+	}
+
+	wp_enqueue_script_module(
+		'mmpadel-pista',
+		get_template_directory_uri() . '/assets/js/pista.js',
+		array(),
+		mmpadel_theme_asset_version( 'assets/js/pista.js' )
+	);
+}
+add_action( 'wp_enqueue_scripts', 'mmpadel_theme_enqueue_pista' );

@@ -75,6 +75,50 @@
 	background: var(--wp--preset--color--fondo);
 }
 
+/* Metodología. La pista 3D solo se ve en la web; aquí, la franja azul con las tarjetas. */
+.mmpadel-ciclo .mmpadel-antetitulo {
+	color: var(--wp--preset--color--primario);
+}
+
+.mmpadel-semanas li {
+	margin-bottom: 0.5rem;
+	padding: 0.75rem 1rem;
+	border-left: 5px solid var(--wp--preset--color--primario);
+	background: var(--wp--preset--color--fondo-suave);
+	list-style: none;
+}
+
+.mmpadel-semanas strong {
+	display: block;
+}
+
+.mmpadel-pista,
+.mmpadel-cierre {
+	padding: 2rem;
+	background: var(--wp--preset--color--primario);
+	color: var(--wp--preset--color--fondo);
+}
+
+.mmpadel-cierre {
+	border-radius: 24px;
+	text-align: center;
+}
+
+:is(.mmpadel-pista, .mmpadel-cierre) :is(h2, h3) {
+	color: inherit;
+}
+
+:is(.mmpadel-pista, .mmpadel-cierre) mark {
+	background: none !important;
+	color: var(--wp--preset--color--acento) !important;
+}
+
+.mmpadel-nivel {
+	padding: 1rem 1.25rem;
+	border: 1px solid rgb(255 255 255 / 0.2);
+	border-radius: 14px;
+}
+
 .mmpadel-aviso-legal {
 	padding: 1rem;
 	border-left: 4px solid #b45309;

@@ -3,7 +3,7 @@
 
 # Dependencias
 node_modules/
-vendor/
+/vendor/
 
 # WordPress: contenido subido y configuración con credenciales
 uploads/
