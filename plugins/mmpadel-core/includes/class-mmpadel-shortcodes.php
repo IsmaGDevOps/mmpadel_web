@@ -127,7 +127,7 @@ final class MMPadel_Shortcodes {
 	 * @param string $file Ruta relativa al plugin.
 	 * @return string
 	 */
-	private static function asset_version( $file ) {
+	public static function asset_version( $file ) {
 		return 'local' === wp_get_environment_type() ? (string) filemtime( MMPADEL_CORE_DIR . $file ) : MMPADEL_CORE_VERSION;
 	}
 

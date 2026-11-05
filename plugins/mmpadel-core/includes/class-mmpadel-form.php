@@ -323,6 +323,18 @@ final class MMPadel_Form {
 			$values['tipo_clase'] = $tipo;
 		}
 
+		// Barra de progreso: solo donde está el formulario.
+		wp_enqueue_script(
+			'mmpadel-form',
+			MMPADEL_CORE_URL . 'assets/js/mmpadel-form.js',
+			array(),
+			MMPadel_Shortcodes::asset_version( 'assets/js/mmpadel-form.js' ),
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+
 		return mmpadel_render_template(
 			'form',
 			array(

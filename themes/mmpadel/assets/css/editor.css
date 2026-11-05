@@ -159,3 +159,25 @@
 	background: #fef3c7;
 	color: #7c2d12;
 }
+
+/* Encuentra tu grupo: el panel lateral en azul, con los pasos. */
+.mmpadel-grupo__lado {
+	padding: 1.5rem;
+	border-radius: 1.5rem;
+	background: var(--wp--preset--color--primario);
+	color: #fff;
+}
+
+.mmpadel-grupo__lado .mmpadel-antetitulo {
+	color: var(--wp--preset--color--acento);
+}
+
+.mmpadel-grupo__pasos strong {
+	display: block;
+}
+
+.mmpadel-grupo__ayuda {
+	padding: 1rem;
+	border-radius: 1rem;
+	background: rgb(255 255 255 / 0.08);
+}

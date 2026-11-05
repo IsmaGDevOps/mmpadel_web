@@ -2,6 +2,11 @@
 /**
  * Plantilla: formulario «Encuentra tu grupo».
  *
+ * Arriba, una barra de progreso con las secciones (enlaces a cada una).
+ * Sin JavaScript sirve de índice; con mmpadel-form.js marca las secciones
+ * completas y la que se está rellenando. Cada sección lleva su número, y el
+ * envío va en un bloque final en azul.
+ *
  * @package MMPadel_Core
  *
  * @var array $args {
@@ -51,9 +56,27 @@ $required_mark = ' <span class="mmpadel-req" aria-hidden="true">*</span>';
 		</div>
 	<?php endif; ?>
 
-	<?php foreach ( $args['sections'] as $section_key => $section_title ) : ?>
-		<div class="mmpadel-form__seccion">
-			<h2 class="mmpadel-form__titulo"><?php echo esc_html( $section_title ); ?></h2>
+	<nav class="mmpadel-form__progreso" aria-label="<?php esc_attr_e( 'Secciones del formulario', 'mmpadel-core' ); ?>" data-texto-completa="<?php esc_attr_e( '(completada)', 'mmpadel-core' ); ?>">
+		<ol>
+			<?php foreach ( array_keys( $args['sections'] ) as $i => $section_key ) : ?>
+				<li data-mmpadel-paso="<?php echo esc_attr( $section_key ); ?>">
+					<a href="#mmpadel-seccion-<?php echo esc_attr( $section_key ); ?>">
+						<span class="mmpadel-form__num" aria-hidden="true"><?php echo esc_html( $i + 1 ); ?></span>
+						<span class="mmpadel-form__paso-nombre"><?php echo esc_html( $args['sections'][ $section_key ] ); ?></span>
+						<span class="screen-reader-text mmpadel-form__paso-estado"></span>
+					</a>
+				</li>
+			<?php endforeach; ?>
+		</ol>
+		<span class="mmpadel-form__barra" aria-hidden="true"></span>
+	</nav>
+
+	<?php foreach ( array_keys( $args['sections'] ) as $i => $section_key ) : ?>
+		<div id="mmpadel-seccion-<?php echo esc_attr( $section_key ); ?>" class="mmpadel-form__seccion" data-mmpadel-seccion="<?php echo esc_attr( $section_key ); ?>">
+			<h2 class="mmpadel-form__titulo">
+				<span class="mmpadel-form__num" aria-hidden="true"><?php echo esc_html( $i + 1 ); ?></span>
+				<?php echo esc_html( $args['sections'][ $section_key ] ); ?>
+			</h2>
 
 			<?php
 			foreach ( $schema as $key => $field ) :
@@ -62,11 +85,12 @@ $required_mark = ' <span class="mmpadel-req" aria-hidden="true">*</span>';
 				}
 				$help_id = $field['help'] ? 'mmpadel-ayuda-' . $key : '';
 				$value   = $form_values[ $key ] ?? ( 'checkbox' === $field['type'] ? array() : '' );
-				$classes = 'mmpadel-campo mmpadel-campo--' . $field['type'] . ( isset( $form_errors[ $key ] ) ? ' mmpadel-campo--error' : '' );
+				$classes = 'mmpadel-campo mmpadel-campo--' . $field['type'] . ' mmpadel-campo--' . $key . ( isset( $form_errors[ $key ] ) ? ' mmpadel-campo--error' : '' );
+				$oblig   = $field['required'] ? ' data-mmpadel-obligatorio' : '';
 				?>
 
 				<?php if ( in_array( $field['type'], array( 'radio', 'checkbox' ), true ) ) : ?>
-					<fieldset id="mmpadel-campo-<?php echo esc_attr( $key ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $error_attrs( $key, $help_id, false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en $error_attrs. ?>>
+					<fieldset id="mmpadel-campo-<?php echo esc_attr( $key ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $oblig . $error_attrs( $key, $help_id, false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- atributo fijo y escapado en $error_attrs. ?>>
 						<legend><?php echo esc_html( $field['label'] ); ?><?php echo $field['required'] ? $required_mark : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML fijo. ?></legend>
 						<?php if ( $field['help'] ) : ?>
 							<p class="mmpadel-ayuda" id="<?php echo esc_attr( $help_id ); ?>"><?php echo esc_html( $field['help'] ); ?></p>
@@ -79,6 +103,8 @@ $required_mark = ' <span class="mmpadel-req" aria-hidden="true">*</span>';
 								<?php
 								$input_id = 'mmpadel-' . $key . '-' . $option_value;
 								$checked  = 'checkbox' === $field['type'] ? in_array( (string) $option_value, (array) $value, true ) : (string) $option_value === (string) $value;
+								// «Mañana (9–14 h)»: lo de entre paréntesis va en una segunda línea más pequeña.
+								$detalle = preg_match( '/^(.+?)\s*\((.+)\)$/u', $option_label, $m ) ? $m : null;
 								?>
 								<label class="mmpadel-opcion" for="<?php echo esc_attr( $input_id ); ?>">
 									<input
@@ -89,14 +115,18 @@ $required_mark = ' <span class="mmpadel-req" aria-hidden="true">*</span>';
 										<?php checked( $checked ); ?>
 										<?php echo 'radio' === $field['type'] && $field['required'] ? 'required' : ''; ?>
 									>
-									<span><?php echo esc_html( $option_label ); ?></span>
+									<?php if ( $detalle ) : ?>
+										<span class="mmpadel-opcion__texto"><?php echo esc_html( $detalle[1] ); ?> <small><?php echo esc_html( $detalle[2] ); ?></small></span>
+									<?php else : ?>
+										<span class="mmpadel-opcion__texto"><?php echo esc_html( $option_label ); ?></span>
+									<?php endif; ?>
 								</label>
 							<?php endforeach; ?>
 						</div>
 					</fieldset>
 
 				<?php else : ?>
-					<div id="mmpadel-campo-<?php echo esc_attr( $key ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+					<div id="mmpadel-campo-<?php echo esc_attr( $key ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $oblig; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- atributo fijo. ?>>
 						<label for="mmpadel-<?php echo esc_attr( $key ); ?>">
 							<?php echo esc_html( $field['label'] ); ?><?php echo $field['required'] ? $required_mark : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML fijo. ?>
 						</label>
@@ -127,35 +157,6 @@ $required_mark = ' <span class="mmpadel-req" aria-hidden="true">*</span>';
 		</div>
 	<?php endforeach; ?>
 
-	<div id="mmpadel-campo-privacidad" class="mmpadel-campo mmpadel-campo--consentimiento<?php echo isset( $form_errors['privacidad'] ) ? ' mmpadel-campo--error' : ''; ?>">
-		<?php if ( isset( $form_errors['privacidad'] ) ) : ?>
-			<p class="mmpadel-error" id="mmpadel-error-privacidad"><?php echo esc_html( $form_errors['privacidad'] ); ?></p>
-		<?php endif; ?>
-		<label class="mmpadel-opcion mmpadel-opcion--consentimiento" for="mmpadel-privacidad">
-			<input type="checkbox" id="mmpadel-privacidad" name="mmpadel[privacidad]" value="1" required <?php checked( ! empty( $form_values['privacidad'] ) ); ?><?php echo $error_attrs( 'privacidad', 'mmpadel-info-privacidad' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en $error_attrs. ?>>
-			<span>
-				<?php
-				printf(
-					/* translators: %s: enlace a la política de privacidad. */
-					esc_html__( 'He leído y acepto la %s.', 'mmpadel-core' ),
-					'<a href="' . esc_url( $args['privacidad'] ) . '" target="_blank" rel="noopener">' . esc_html__( 'política de privacidad', 'mmpadel-core' ) . '</a>'
-				);
-				?>
-				<span class="mmpadel-req" aria-hidden="true">*</span>
-			</span>
-		</label>
-		<p class="mmpadel-ayuda mmpadel-info-privacidad" id="mmpadel-info-privacidad">
-			<?php
-			$titular = mmpadel_get_option( 'titular' );
-			printf(
-				/* translators: %s: titular de la web. */
-				esc_html__( 'Responsable: %s. Finalidad: estudiar tu solicitud y proponerte un grupo. Puedes acceder, rectificar y suprimir tus datos, entre otros derechos, como se explica en la política de privacidad.', 'mmpadel-core' ),
-				esc_html( $titular ? $titular : get_bloginfo( 'name' ) )
-			);
-			?>
-		</p>
-	</div>
-
 	<?php // Antispam: campo trampa que las personas no ven y los bots rellenan. ?>
 	<div class="mmpadel-hp" aria-hidden="true">
 		<label for="mmpadel-web"><?php esc_html_e( 'No rellenes este campo', 'mmpadel-core' ); ?></label>
@@ -171,8 +172,41 @@ $required_mark = ' <span class="mmpadel-req" aria-hidden="true">*</span>';
 	<input type="hidden" name="mmpadel_t" value="<?php echo esc_attr( $args['timestamp'] ); ?>">
 	<?php wp_nonce_field( MMPadel_Form::NONCE, '_mmpadel_nonce', false ); ?>
 
-	<p class="mmpadel-form__enviar">
-		<button type="submit" class="button button--cta"><?php esc_html_e( 'Enviar solicitud', 'mmpadel-core' ); ?></button>
-	</p>
-	<p class="mmpadel-ayuda"><?php esc_html_e( 'Los campos con * son obligatorios.', 'mmpadel-core' ); ?></p>
+	<div class="mmpadel-form__final">
+		<p class="mmpadel-form__final-titulo"><?php esc_html_e( 'Último paso', 'mmpadel-core' ); ?></p>
+
+		<div id="mmpadel-campo-privacidad" class="mmpadel-campo mmpadel-campo--consentimiento<?php echo isset( $form_errors['privacidad'] ) ? ' mmpadel-campo--error' : ''; ?>">
+			<?php if ( isset( $form_errors['privacidad'] ) ) : ?>
+				<p class="mmpadel-error" id="mmpadel-error-privacidad"><?php echo esc_html( $form_errors['privacidad'] ); ?></p>
+			<?php endif; ?>
+			<label class="mmpadel-opcion mmpadel-opcion--consentimiento" for="mmpadel-privacidad">
+				<input type="checkbox" id="mmpadel-privacidad" name="mmpadel[privacidad]" value="1" required <?php checked( ! empty( $form_values['privacidad'] ) ); ?><?php echo $error_attrs( 'privacidad', 'mmpadel-info-privacidad' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado en $error_attrs. ?>>
+				<span>
+					<?php
+					printf(
+						/* translators: %s: enlace a la política de privacidad. */
+						esc_html__( 'He leído y acepto la %s.', 'mmpadel-core' ),
+						'<a href="' . esc_url( $args['privacidad'] ) . '" target="_blank" rel="noopener">' . esc_html__( 'política de privacidad', 'mmpadel-core' ) . '</a>'
+					);
+					?>
+					<span class="mmpadel-req" aria-hidden="true">*</span>
+				</span>
+			</label>
+			<p class="mmpadel-ayuda mmpadel-info-privacidad" id="mmpadel-info-privacidad">
+				<?php
+				$titular = mmpadel_get_option( 'titular' );
+				printf(
+					/* translators: %s: titular de la web. */
+					esc_html__( 'Responsable: %s. Finalidad: estudiar tu solicitud y proponerte un grupo. Puedes acceder, rectificar y suprimir tus datos, entre otros derechos, como se explica en la política de privacidad.', 'mmpadel-core' ),
+					esc_html( $titular ? $titular : get_bloginfo( 'name' ) )
+				);
+				?>
+			</p>
+		</div>
+
+		<p class="mmpadel-form__enviar">
+			<button type="submit" class="button button--cta"><?php esc_html_e( 'Enviar solicitud', 'mmpadel-core' ); ?></button>
+		</p>
+		<p class="mmpadel-ayuda"><?php esc_html_e( 'Los campos con * son obligatorios.', 'mmpadel-core' ); ?></p>
+	</div>
 </form>
