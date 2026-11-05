@@ -316,6 +316,13 @@ final class MMPadel_Form {
 			}
 		}
 
+		// Desde una tarifa (?tipo=slug): ese tipo de clase llega ya marcado.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- solo preselecciona una opción.
+		$tipo = isset( $_GET['tipo'] ) ? sanitize_title( wp_unslash( $_GET['tipo'] ) ) : '';
+		if ( ! $values && $tipo && isset( self::options()['tipo_clase'][ $tipo ] ) ) {
+			$values['tipo_clase'] = $tipo;
+		}
+
 		return mmpadel_render_template(
 			'form',
 			array(

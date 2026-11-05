@@ -125,6 +125,12 @@ final class MMPadel_Post_Types {
 					'type'        => 'textarea',
 					'description' => __( 'Aclaraciones: matrícula gratuita, pista incluida, horario, etc.', 'mmpadel-core' ),
 				),
+				'destacada'    => array(
+					'label'       => __( 'Destacar', 'mmpadel-core' ),
+					'type'        => 'select',
+					'options'     => array( 'si' => __( 'Sí, marcarla como «Recomendada»', 'mmpadel-core' ) ),
+					'description' => __( 'La tarjeta sale resaltada en la web. Mejor una sola por tipo de clase.', 'mmpadel-core' ),
+				),
 			)
 		);
 	}

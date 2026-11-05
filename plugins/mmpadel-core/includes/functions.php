@@ -60,6 +60,27 @@ function mmpadel_format_price( $price ) {
 }
 
 /**
+ * Precio separado en partes para maquetarlo: «22,50 €» → «22», «,50» y «€».
+ *
+ * @param string $price Precio guardado (número con punto decimal).
+ * @return array{entero: string, decimales: string, moneda: string}|null Null si no hay precio.
+ */
+function mmpadel_price_parts( $price ) {
+	if ( '' === $price || ! is_numeric( $price ) ) {
+		return null;
+	}
+	$price  = (float) $price;
+	$entero = number_format_i18n( floor( $price ), 0 );
+	$total  = floor( $price ) === $price ? $entero : number_format_i18n( $price, 2 );
+
+	return array(
+		'entero'    => $entero,
+		'decimales' => (string) substr( $total, strlen( $entero ) ),
+		'moneda'    => '€',
+	);
+}
+
+/**
  * Enlace tel: a partir de un teléfono escrito a mano.
  *
  * @param string $phone Teléfono («952 00 00 00»).

@@ -1830,6 +1830,86 @@ a {
 }
 
 /* ------------------------------------------------------------------ *
+ * 6c. Clases y tarifas (clases CSS adicionales en los bloques de la página)
+ * ------------------------------------------------------------------ */
+
+/*
+ * Lo que incluyen todas las clases: lista convertida en una franja de
+ * cuatro sellos con un visto amarillo. En móvil, dos por fila.
+ */
+.mmpadel-incluye {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.75rem;
+	margin-block: var(--mmpadel-space-md) 0;
+	padding: 0;
+	list-style: none;
+}
+
+.mmpadel-incluye li {
+	position: relative;
+	padding: 3.25rem 1rem 1.1rem;
+	border-radius: 1rem;
+	background: var(--mmpadel-color-fondo-suave);
+	color: var(--mmpadel-color-texto-suave);
+	font-size: var(--mmpadel-font-size-sm);
+	line-height: 1.4;
+}
+
+.mmpadel-incluye li::before {
+	content: "";
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	width: 1.75rem;
+	height: 1.75rem;
+	border-radius: 50%;
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12.5l3.2 3.2L17 8.8' fill='none' stroke='%232a2763' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 1.1rem no-repeat,
+		var(--mmpadel-color-acento);
+}
+
+.mmpadel-incluye strong {
+	display: block;
+	margin-bottom: 0.15rem;
+	color: var(--mmpadel-color-texto);
+	font-size: var(--mmpadel-font-size-md);
+}
+
+@media (min-width: 48em) {
+	.mmpadel-incluye {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.mmpadel-incluye li {
+		padding: 1.25rem 1.25rem 1.25rem 4rem;
+	}
+
+	.mmpadel-incluye li::before {
+		top: 1.25rem;
+		left: 1.25rem;
+	}
+}
+
+.entry-content > .mmpadel-tarifas-seccion {
+	margin-block-start: var(--mmpadel-space-xl);
+}
+
+.mmpadel-tarifas-seccion > h2 {
+	margin-bottom: var(--mmpadel-space-md);
+}
+
+/* Dudas sobre pagos: si no hay preguntas de esa categoría, la sección no sale. */
+.mmpadel-dudas:not(:has(.mmpadel-faq)) {
+	display: none;
+}
+
+.entry-content > .mmpadel-dudas {
+	margin-block-start: var(--mmpadel-space-xl);
+}
+
+/* ------------------------------------------------------------------ *
  * 7. Tarjetas y listados
  * ------------------------------------------------------------------ */
 .card-grid {

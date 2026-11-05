@@ -119,6 +119,19 @@
 	border-radius: 14px;
 }
 
+/* Clases y tarifas. */
+.mmpadel-incluye li {
+	margin-bottom: 0.5rem;
+	padding: 0.75rem 1rem;
+	border-radius: 12px;
+	background: var(--wp--preset--color--fondo-suave);
+	list-style: none;
+}
+
+.mmpadel-incluye strong {
+	display: block;
+}
+
 .mmpadel-aviso-legal {
 	padding: 1rem;
 	border-left: 4px solid #b45309;

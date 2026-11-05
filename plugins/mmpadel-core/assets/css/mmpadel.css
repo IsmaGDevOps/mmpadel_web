@@ -37,63 +37,267 @@
 /* ------------------------------------------------------------------ *
  * Tarifas
  * ------------------------------------------------------------------ */
+/*
+ * Accesos a cada tipo de clase: píldoras con el número de tarifas. En móvil
+ * se deslizan en horizontal si no caben.
+ */
+.mmpadel-tarifas__nav ul {
+	display: flex;
+	gap: 0.5rem;
+	margin: 0 0 var(--mmpadel-space-lg, 3rem);
+	padding: 0.25rem 0;
+	overflow-x: auto;
+	list-style: none;
+	scrollbar-width: none;
+}
+
+.mmpadel-tarifas__nav a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-height: 2.75rem;
+	padding: 0.5rem 0.6rem 0.5rem 1.1rem;
+	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
+	border-radius: 999px;
+	background: var(--mmpadel-color-fondo, #fff);
+	color: var(--mmpadel-color-texto, #1e1d3a);
+	font-weight: 600;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.mmpadel-tarifas__nav a:hover {
+	border-color: var(--mmpadel-color-primario, #2a2763);
+}
+
+.mmpadel-tarifas__cuenta {
+	display: grid;
+	place-items: center;
+	min-width: 1.75rem;
+	height: 1.75rem;
+	padding-inline: 0.4rem;
+	border-radius: 999px;
+	background: var(--mmpadel-color-fondo-suave, #f4f4f9);
+	color: var(--mmpadel-color-primario, #2a2763);
+	font-size: 0.8125rem;
+	font-weight: 700;
+}
+
+@media (min-width: 40em) {
+	.mmpadel-tarifas__nav ul {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+}
+
+.mmpadel-tarifas__grupo {
+	scroll-margin-top: calc(var(--mmpadel-header-height, 4rem) + 1.5rem);
+}
+
 .mmpadel-tarifas__grupo + .mmpadel-tarifas__grupo {
-	margin-top: var(--mmpadel-space-lg, 3rem);
+	margin-top: var(--mmpadel-space-xl, 5rem);
+}
+
+/* Cabecera del grupo: título con raya amarilla y descripción al lado. */
+.mmpadel-tarifas__cabecera {
+	display: grid;
+	gap: 0.5rem;
+	margin-bottom: var(--mmpadel-space-md, 1.5rem);
 }
 
 .mmpadel-tarifas__tipo {
-	margin-bottom: 0.25rem;
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin: 0;
+	font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+	line-height: 1.15;
+}
+
+.mmpadel-tarifas__tipo::before {
+	content: "";
+	flex-shrink: 0;
+	width: 2rem;
+	height: 4px;
+	border-radius: 999px;
+	background: var(--mmpadel-color-acento, #d7f25c);
 }
 
 .mmpadel-tarifas__desc {
-	margin-top: 0;
+	max-width: 46ch;
+	margin: 0;
 	color: var(--mmpadel-color-texto-suave, #55546e);
 }
 
+@media (min-width: 48em) {
+	.mmpadel-tarifas__cabecera {
+		grid-template-columns: auto 1fr;
+		align-items: end;
+		gap: 2rem;
+	}
+
+	.mmpadel-tarifas__desc {
+		justify-self: end;
+		text-align: right;
+	}
+}
+
+/* Tres tarjetas por fila como mucho, para que el nombre quepa en una línea. */
+.mmpadel-tarifas__lista {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+	align-items: stretch;
+}
+
+/*
+ * Tarjeta: plazas (un punto por alumno), nombre, precio grande, notas y
+ * botón abajo del todo. La destacada va en azul de marca con su sello.
+ */
 .mmpadel-tarifa {
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 0.25rem;
-	padding: var(--mmpadel-space-md, 1.5rem);
+	gap: 0.5rem;
+	padding: 1.75rem 1.5rem 1.5rem;
 	border: 1px solid var(--mmpadel-color-borde, #dcdce8);
-	border-radius: var(--mmpadel-radius, 12px);
-	background: var(--mmpadel-color-fondo, #fff);
+	border-radius: 1.5rem;
+	background: linear-gradient(165deg, var(--mmpadel-color-fondo, #fff) 55%, var(--mmpadel-color-fondo-suave, #f4f4f9));
+	box-shadow: var(--mmpadel-shadow, 0 4px 16px rgb(0 0 0 / 0.06));
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mmpadel-tarifa:hover {
+	box-shadow: 0 2px 4px rgb(0 0 0 / 0.06), 0 16px 32px -12px rgb(42 39 99 / 0.28);
+	transform: translateY(-3px);
 }
 
 .mmpadel-tarifa > * {
 	margin: 0;
 }
 
-.mmpadel-tarifa__titulo {
-	font-size: var(--mmpadel-font-size-md, 1.0625rem);
-}
-
 .mmpadel-tarifa__tamano {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6rem;
 	color: var(--mmpadel-color-texto-suave, #55546e);
 	font-size: var(--mmpadel-font-size-sm, 0.875rem);
+	font-weight: 600;
+}
+
+.mmpadel-tarifa__plazas {
+	display: inline-flex;
+	gap: 0.25rem;
+}
+
+.mmpadel-tarifa__plazas span {
+	width: 0.7rem;
+	height: 0.7rem;
+	border-radius: 50%;
+	background: var(--mmpadel-color-primario, #2a2763);
+}
+
+.mmpadel-tarifa__titulo {
+	font-size: var(--mmpadel-font-size-lg, 1.375rem);
+	line-height: 1.25;
+	text-wrap: balance;
 }
 
 .mmpadel-tarifa__precio {
-	margin-top: 0.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 0.6rem;
+	margin-top: 0.75rem !important;
 }
 
-.mmpadel-tarifa__precio strong {
-	display: block;
+.mmpadel-tarifa__importe {
 	color: var(--mmpadel-color-primario, #2a2763);
-	font-size: var(--mmpadel-font-size-xl, 2rem);
-	line-height: 1.1;
+	font-size: clamp(2.75rem, 2.2rem + 1.5vw, 3.5rem);
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 1;
 }
 
-.mmpadel-tarifa__precio span,
+.mmpadel-tarifa__decimales {
+	font-size: 0.5em;
+	letter-spacing: 0;
+	vertical-align: 0.75em;
+}
+
+.mmpadel-tarifa__moneda {
+	font-size: 0.5em;
+	font-weight: 700;
+	letter-spacing: 0;
+}
+
+.mmpadel-tarifa__periodo,
 .mmpadel-tarifa__notas {
 	color: var(--mmpadel-color-texto-suave, #55546e);
 	font-size: var(--mmpadel-font-size-sm, 0.875rem);
 }
 
 .mmpadel-tarifa__notas {
-	margin-top: 0.75rem;
+	margin-top: 0.5rem !important;
 	padding-top: 0.75rem;
-	border-top: 1px solid var(--mmpadel-color-borde, #dcdce8);
+	border-top: 1px dashed var(--mmpadel-color-borde, #dcdce8);
+}
+
+.mmpadel-tarifa__accion {
+	margin-top: auto !important;
+	padding-top: 1rem;
+}
+
+.mmpadel-tarifa__accion .button {
+	width: 100%;
+}
+
+.mmpadel-tarifa--destacada {
+	border-color: transparent;
+	background:
+		radial-gradient(circle at 100% 0%, rgb(255 255 255 / 0.14), transparent 55%),
+		var(--mmpadel-color-primario, #2a2763);
+	color: var(--mmpadel-color-fondo, #fff);
+	--mmpadel-focus: 3px solid var(--mmpadel-color-acento, #d7f25c);
+}
+
+.mmpadel-tarifa--destacada .mmpadel-tarifa__titulo,
+.mmpadel-tarifa--destacada .mmpadel-tarifa__importe {
+	color: inherit;
+}
+
+.mmpadel-tarifa--destacada .mmpadel-tarifa__tamano,
+.mmpadel-tarifa--destacada .mmpadel-tarifa__periodo,
+.mmpadel-tarifa--destacada .mmpadel-tarifa__notas {
+	color: rgb(255 255 255 / 0.8);
+}
+
+.mmpadel-tarifa--destacada .mmpadel-tarifa__notas {
+	border-top-color: rgb(255 255 255 / 0.2);
+}
+
+.mmpadel-tarifa--destacada .mmpadel-tarifa__plazas span {
+	background: var(--mmpadel-color-acento, #d7f25c);
+}
+
+.mmpadel-tarifa__sello {
+	position: absolute;
+	top: 0;
+	right: 1.25rem;
+	padding: 0.35rem 0.8rem;
+	border-radius: 0 0 0.75rem 0.75rem;
+	background: var(--mmpadel-color-acento, #d7f25c);
+	color: var(--mmpadel-color-primario-oscuro, #1b1944);
+	font-size: 0.75rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mmpadel-tarifa:hover {
+		transform: none;
+	}
 }
 
 /* ------------------------------------------------------------------ *

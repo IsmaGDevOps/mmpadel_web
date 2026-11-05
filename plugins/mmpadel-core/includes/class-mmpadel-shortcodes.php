@@ -111,6 +111,8 @@ final class MMPadel_Shortcodes {
 			);
 		}
 
+		$formulario = mmpadel_get_page_url( 'encuentra-tu-grupo' );
+
 		$grupos = array();
 		foreach ( get_posts( $args ) as $post ) {
 			$terms = get_the_terms( $post, MMPadel_Post_Types::TAX_TIPO_CLASE );
@@ -121,16 +123,25 @@ final class MMPadel_Shortcodes {
 				$grupos[ $id ] = array(
 					'titulo'      => $term ? $term->name : __( 'Otras tarifas', 'mmpadel-core' ),
 					'descripcion' => $term ? $term->description : '',
+					'ancla'       => 'tarifas-' . ( $term ? $term->slug : 'otras' ),
+					// El formulario llega con este tipo de clase ya marcado (ver MMPadel_Form::shortcode()).
+					'url'         => $formulario ? add_query_arg( 'tipo', $term ? $term->slug : false, $formulario ) . '#mmpadel-formulario' : '',
 					'tarifas'     => array(),
 				);
 			}
 
+			$precio = mmpadel_get_field( 'precio', $post->ID );
+			$tamano = (int) mmpadel_get_field( 'tamano_grupo', $post->ID );
+
 			$grupos[ $id ]['tarifas'][] = array(
-				'titulo'  => get_the_title( $post ),
-				'tamano'  => self::group_size_label( mmpadel_get_field( 'tamano_grupo', $post->ID ) ),
-				'precio'  => mmpadel_format_price( mmpadel_get_field( 'precio', $post->ID ) ),
-				'periodo' => mmpadel_get_field( 'periodo', $post->ID ),
-				'notas'   => mmpadel_get_field( 'notas', $post->ID ),
+				'titulo'    => get_the_title( $post ),
+				'tamano'    => self::group_size_label( $tamano ),
+				'plazas'    => min( max( $tamano, 0 ), 8 ),
+				'precio'    => mmpadel_format_price( $precio ),
+				'partes'    => mmpadel_price_parts( $precio ),
+				'periodo'   => mmpadel_get_field( 'periodo', $post->ID ),
+				'notas'     => mmpadel_get_field( 'notas', $post->ID ),
+				'destacada' => 'si' === mmpadel_get_field( 'destacada', $post->ID ),
 			);
 		}
 

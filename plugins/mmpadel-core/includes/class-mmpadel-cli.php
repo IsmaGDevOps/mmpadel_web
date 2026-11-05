@@ -173,7 +173,7 @@ final class MMPadel_CLI {
 
 		$tarifas = array(
 			array( 'Grupo de 4 · 1 día por semana', 'grupo', 4, '55', 'por ciclo de 4 semanas', 'Precio de ejemplo. Sesiones de 1 hora.' ),
-			array( 'Grupo de 4 · 2 días por semana', 'grupo', 4, '99', 'por ciclo de 4 semanas', 'Precio de ejemplo. Sesiones de 1 hora.' ),
+			array( 'Grupo de 4 · 2 días por semana', 'grupo', 4, '99', 'por ciclo de 4 semanas', 'Precio de ejemplo. Sesiones de 1 hora.', 'si' ),
 			array( 'Grupo de 3 · 1 día por semana', 'grupo', 3, '69', 'por ciclo de 4 semanas', 'Precio de ejemplo.' ),
 			array( 'Clase individual', 'particular', 1, '35', 'por sesión de 1 hora', 'Precio de ejemplo.' ),
 			array( 'Clase en pareja', 'particular', 2, '22,50', 'por persona y sesión', 'Precio de ejemplo.' ),
@@ -189,6 +189,7 @@ final class MMPadel_CLI {
 					'precio'       => $t[3],
 					'periodo'      => $t[4],
 					'notas'        => $t[5],
+					'destacada'    => $t[6] ?? '',
 				),
 				array( MMPadel_Post_Types::TAX_TIPO_CLASE => array( $tipos[ $t[1] ] ) ),
 				$i
