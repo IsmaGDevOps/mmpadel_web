@@ -70,3 +70,23 @@ function mmpadel_theme_enqueue_pista() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'mmpadel_theme_enqueue_pista' );
+
+/**
+ * Rally de cinco estrellas (three.js) en el panel del marcador de Google.
+ *
+ * Solo se carga en las páginas con un bloque de clase «mmpadel-opiniones-nota»
+ * (la página Opiniones). Como la pista, descarga three.js cuando hace falta.
+ */
+function mmpadel_theme_enqueue_estrellas() {
+	if ( ! is_singular() || ! str_contains( (string) get_post_field( 'post_content', get_queried_object_id() ), 'mmpadel-opiniones-nota' ) ) {
+		return;
+	}
+
+	wp_enqueue_script_module(
+		'mmpadel-estrellas',
+		get_template_directory_uri() . '/assets/js/estrellas.js',
+		array(),
+		mmpadel_theme_asset_version( 'assets/js/estrellas.js' )
+	);
+}
+add_action( 'wp_enqueue_scripts', 'mmpadel_theme_enqueue_estrellas' );
